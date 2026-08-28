@@ -1275,60 +1275,89 @@
   }
 
 
-  /*
-  ============================================================
-  VLC
-  ============================================================
-  */
+function abrirVlc(url) {
 
-  function abrirVlc(url) {
+  const vlcUrl = "vlc://" + url;
 
-    /*
-    O protocolo vlc:// pode funcionar
-    quando o sistema tem associação
-    com o VLC.
-    */
+  modalVlc.style.display = "flex";
 
-    const vlcUrl =
-      "vlc://" + url;
+  linkVlc.href = vlcUrl;
 
+  linkVlc.onclick = function() {
 
-    linkVlc.href =
-      vlcUrl;
+    window.location.href = vlcUrl;
 
+    setTimeout(function() {
 
-    copiarVlc.onclick =
-      function() {
+      const aviso =
+        document.getElementById("avisoVlc");
 
-        copiarTexto(
-          url
-        );
+      if (aviso) {
+        aviso.style.display = "block";
+      }
 
-      };
+    }, 2000);
 
+  };
 
-    modalVlc.style.display =
-      "flex";
+  copiarVlc.onclick = function() {
 
+    copiarTexto(url);
 
-    /*
-    Tentativa automática.
-    */
+  };
 
-    try {
+  let aviso =
+    document.getElementById("avisoVlc");
 
-      window.location.href =
-        vlcUrl;
+  if (!aviso) {
 
-    }
+    aviso =
+      document.createElement("div");
 
-    catch (e) {
+    aviso.id =
+      "avisoVlc";
 
-      console.error(e);
+    aviso.style.display =
+      "none";
 
-    }
+    aviso.style.marginTop =
+      "15px";
+
+    aviso.style.padding =
+      "12px";
+
+    aviso.style.background =
+      "#222";
+
+    aviso.style.borderRadius =
+      "8px";
+
+    aviso.style.color =
+      "#bbb";
+
+    aviso.innerHTML = `
+
+      ⚠️ <b>O VLC não abriu automaticamente.</b>
+
+      <br><br>
+
+      Alguns celulares e navegadores
+      bloqueiam links <b>vlc://</b>.
+
+      <br><br>
+
+      Use <b>🔗 Copiar endereço</b>
+      e cole o link diretamente no VLC.
+
+    `;
+
+    document
+      .querySelector(".modal-box")
+      .appendChild(aviso);
 
   }
+
+}
 
 
   /*
