@@ -8,7 +8,6 @@
 
   <title>TV Ao Vivo</title>
 
-  <!-- Player HLS -->
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
   <style>
@@ -45,7 +44,7 @@
       border: 1px solid #333333;
       border-radius: 10px;
       background: #222222;
-      color: white;
+      color: #ffffff;
       font-size: 15px;
       outline: none;
     }
@@ -75,7 +74,7 @@
       padding: 14px 10px;
       cursor: pointer;
       text-align: center;
-      transition: .15s ease;
+      transition: 0.15s ease;
     }
 
     .canal:hover {
@@ -111,12 +110,6 @@
       line-height: 1.35;
     }
 
-    /*
-    ========================================================
-    PLAYER
-    ========================================================
-    */
-
     #player-container {
       display: none;
       max-width: 1200px;
@@ -127,7 +120,7 @@
     #voltar {
       border: 1px solid #333333;
       background: #202020;
-      color: white;
+      color: #ffffff;
       padding: 10px 15px;
       border-radius: 8px;
       cursor: pointer;
@@ -145,18 +138,25 @@
       margin-bottom: 12px;
     }
 
+    #video-wrapper {
+      position: relative;
+      width: 100%;
+      background: #000000;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
     video {
       display: block;
       width: 100%;
-      max-height: 70vh;
+      max-height: 75vh;
       background: #000000;
-      border-radius: 10px;
     }
 
     /*
-    ========================================================
-    OPÇÕES
-    ========================================================
+    ==========================================================
+    BOTÕES
+    ==========================================================
     */
 
     #opcoes {
@@ -169,7 +169,7 @@
     .btn {
       border: 1px solid #3a3a3a;
       background: #1d1d1d;
-      color: white;
+      color: #ffffff;
       padding: 11px 15px;
       border-radius: 8px;
       cursor: pointer;
@@ -180,6 +180,12 @@
 
     .btn:hover {
       background: #292929;
+    }
+
+    #btnFullscreen {
+      margin-top: 10px;
+      width: 100%;
+      text-align: center;
     }
 
     #erro {
@@ -205,16 +211,16 @@
     }
 
     /*
-    ========================================================
-    MODAL
-    ========================================================
+    ==========================================================
+    MODAL VLC
+    ==========================================================
     */
 
     #modalVlc {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,.75);
+      background: rgba(0,0,0,0.78);
       z-index: 1000;
       align-items: center;
       justify-content: center;
@@ -249,8 +255,14 @@
       margin-top: 15px;
     }
 
-    .fechar {
-      cursor: pointer;
+    #avisoVlc {
+      display: none;
+      margin-top: 15px;
+      padding: 12px;
+      background: #222222;
+      border-radius: 8px;
+      color: #bbbbbb;
+      line-height: 1.5;
     }
 
     @media (max-width: 600px) {
@@ -310,9 +322,9 @@
 <div id="canais"></div>
 
 
-<!-- =====================================================
+<!-- ========================================================
      PLAYER
-     ===================================================== -->
+========================================================= -->
 
 <div id="player-container">
 
@@ -321,6 +333,7 @@
   </button>
 
   <div id="titulo"></div>
+
 
   <div id="opcoes">
 
@@ -347,11 +360,26 @@
 
   </div>
 
-  <video
-    id="video"
-    controls
-    playsinline
-  ></video>
+
+  <div id="video-wrapper">
+
+    <video
+      id="video"
+      controls
+      playsinline
+      webkit-playsinline
+    ></video>
+
+  </div>
+
+
+  <button
+    id="btnFullscreen"
+    class="btn"
+  >
+    ⛶ Tela cheia
+  </button>
+
 
   <div id="erro"></div>
 
@@ -360,9 +388,9 @@
 </div>
 
 
-<!-- =====================================================
+<!-- ========================================================
      MODAL VLC
-     ===================================================== -->
+========================================================= -->
 
 <div id="modalVlc">
 
@@ -372,8 +400,8 @@
 
     <p>
       O botão tentará abrir o VLC no seu dispositivo.
-      Em alguns aparelhos o Telegram ou o navegador
-      pode não permitir o protocolo VLC.
+      Dependendo do navegador ou sistema, o protocolo
+      <b>vlc://</b> pode ser bloqueado.
     </p>
 
     <div class="modal-actions">
@@ -395,10 +423,26 @@
 
       <button
         id="fecharModal"
-        class="btn fechar"
+        class="btn"
       >
         Fechar
       </button>
+
+    </div>
+
+    <div id="avisoVlc">
+
+      ⚠️ <b>O VLC não abriu automaticamente.</b>
+
+      <br><br>
+
+      Alguns navegadores e celulares bloqueiam
+      links <b>vlc://</b>.
+
+      <br><br>
+
+      Use <b>🔗 Copiar endereço</b> e cole
+      o link diretamente no VLC.
 
     </div>
 
@@ -411,12 +455,8 @@
 
   /*
   ============================================================
-  CONFIGURAÇÃO
+  ARQUIVO M3U
   ============================================================
-  */
-
-  /*
-  O arquivo precisa estar no mesmo local do index.html.
   */
 
   const M3U_URL = "./br.m3u";
@@ -475,6 +515,9 @@
   const btnCopiar =
     document.getElementById("btnCopiar");
 
+  const btnFullscreen =
+    document.getElementById("btnFullscreen");
+
   const modalVlc =
     document.getElementById("modalVlc");
 
@@ -486,6 +529,9 @@
 
   const fecharModal =
     document.getElementById("fecharModal");
+
+  const avisoVlc =
+    document.getElementById("avisoVlc");
 
 
   /*
@@ -501,6 +547,7 @@
       statusDiv.innerText =
         "Carregando lista de canais...";
 
+
       const resposta =
         await fetch(
           M3U_URL,
@@ -508,6 +555,7 @@
             cache: "no-store"
           }
         );
+
 
       if (!resposta.ok) {
 
@@ -517,23 +565,30 @@
 
       }
 
+
       const texto =
         await resposta.text();
 
+
       listaCanais =
-        interpretarM3U(texto);
+        interpretarM3U(
+          texto
+        );
 
 
       if (!listaCanais.length) {
 
         throw new Error(
-          "Nenhum canal encontrado na playlist."
+          "Nenhum canal encontrado."
         );
 
       }
 
 
-      mostrarCanais(listaCanais);
+      mostrarCanais(
+        listaCanais
+      );
+
 
       statusDiv.innerText =
         `${listaCanais.length} canais encontrados`;
@@ -547,8 +602,10 @@
         e
       );
 
+
       statusDiv.innerText =
         "❌ Erro ao carregar br.m3u";
+
 
       canaisDiv.innerHTML = `
 
@@ -609,9 +666,7 @@
 
 
       /*
-      --------------------------------------------------------
       EXTINF
-      --------------------------------------------------------
       */
 
       if (
@@ -623,10 +678,13 @@
         const virgula =
           linha.lastIndexOf(",");
 
+
         const nome =
           virgula >= 0
             ? linha
-                .substring(virgula + 1)
+                .substring(
+                  virgula + 1
+                )
                 .trim()
             : "Canal";
 
@@ -664,9 +722,7 @@
 
 
       /*
-      --------------------------------------------------------
-      URL
-      --------------------------------------------------------
+      URL DO CANAL
       */
 
       else if (
@@ -679,8 +735,7 @@
 
 
         /*
-        Corrigir URL relativa
-        quando necessário.
+        Corrige URLs relativas
         */
 
         if (
@@ -700,7 +755,14 @@
 
           }
 
-          catch (e) {}
+          catch (e) {
+
+            console.error(
+              "URL relativa inválida:",
+              url
+            );
+
+          }
 
         }
 
@@ -768,7 +830,7 @@
 
 
     lista.forEach(
-      (canal) => {
+      canal => {
 
         const div =
           document.createElement("div");
@@ -777,7 +839,7 @@
           "canal";
 
 
-        let logoHTML = "";
+        let logoHTML;
 
 
         if (canal.logo) {
@@ -833,13 +895,17 @@
           "click",
           function() {
 
-            abrirCanal(canal);
+            abrirCanal(
+              canal
+            );
 
           }
         );
 
 
-        canaisDiv.appendChild(div);
+        canaisDiv.appendChild(
+          div
+        );
 
       }
     );
@@ -908,7 +974,9 @@
 
     video.pause();
 
-    video.removeAttribute("src");
+    video.removeAttribute(
+      "src"
+    );
 
     video.load();
 
@@ -940,12 +1008,6 @@
     `;
 
 
-    /*
-    ----------------------------------------------------------
-    BOTÃO TELEGRAM
-    ----------------------------------------------------------
-    */
-
     btnTelegram.onclick =
       function() {
 
@@ -955,12 +1017,6 @@
 
       };
 
-
-    /*
-    ----------------------------------------------------------
-    BOTÃO VLC
-    ----------------------------------------------------------
-    */
 
     btnVlc.onclick =
       function() {
@@ -972,12 +1028,6 @@
       };
 
 
-    /*
-    ----------------------------------------------------------
-    COPIAR LINK
-    ----------------------------------------------------------
-    */
-
     btnCopiar.onclick =
       function() {
 
@@ -988,11 +1038,6 @@
       };
 
 
-    /*
-    Tenta iniciar automaticamente
-    no player do Mini App.
-    */
-
     reproduzirNoPlayer(
       canal
     );
@@ -1002,7 +1047,7 @@
 
   /*
   ============================================================
-  REPRODUZIR NO TELEGRAM / NAVEGADOR
+  REPRODUZIR NO MINI APP
   ============================================================
   */
 
@@ -1023,7 +1068,9 @@
 
     video.pause();
 
-    video.removeAttribute("src");
+    video.removeAttribute(
+      "src"
+    );
 
     video.load();
 
@@ -1053,9 +1100,8 @@
 
         <br><br>
 
-        Use o botão
-        <b>📺 Abrir no VLC</b>
-        para tentar reproduzir este endereço.
+        Tente
+        <b>📺 Abrir no VLC</b>.
 
       `;
 
@@ -1109,7 +1155,7 @@
           video
             .play()
             .catch(
-              function() {}
+              () => {}
             );
 
         }
@@ -1165,6 +1211,7 @@
 
             }
 
+
             else if (
               data.type ===
               Hls.ErrorTypes.MEDIA_ERROR
@@ -1174,9 +1221,8 @@
 
                 <br><br>
 
-                O formato da mídia
-                não pôde ser decodificado
-                pelo navegador.
+                O navegador não conseguiu
+                decodificar o vídeo.
 
               `;
 
@@ -1217,10 +1263,14 @@
         "loadedmetadata",
         function() {
 
+          erro.style.display =
+            "none";
+
+
           video
             .play()
             .catch(
-              function() {}
+              () => {}
             );
 
         },
@@ -1241,10 +1291,11 @@
 
             <br><br>
 
-            Tente o botão
+            Tente
             <b>📺 Abrir no VLC</b>.
 
           `;
+
 
           erro.style.display =
             "block";
@@ -1262,10 +1313,11 @@
 
       erro.innerHTML = `
 
-        ❌ Seu navegador
-        não suporta reprodução HLS.
+        ❌ O navegador não suporta
+        reprodução HLS.
 
       `;
+
 
       erro.style.display =
         "block";
@@ -1275,89 +1327,153 @@
   }
 
 
-function abrirVlc(url) {
+  /*
+  ============================================================
+  TELA CHEIA
+  ============================================================
+  */
 
-  const vlcUrl = "vlc://" + url;
+  btnFullscreen.addEventListener(
+    "click",
+    telaCheia
+  );
 
-  modalVlc.style.display = "flex";
 
-  linkVlc.href = vlcUrl;
+  function telaCheia() {
 
-  linkVlc.onclick = function() {
+    const alvo =
+      document.getElementById(
+        "video-wrapper"
+      );
 
-    window.location.href = vlcUrl;
 
-    setTimeout(function() {
+    /*
+    Navegadores modernos
+    */
 
-      const aviso =
-        document.getElementById("avisoVlc");
+    if (
+      alvo.requestFullscreen
+    ) {
 
-      if (aviso) {
-        aviso.style.display = "block";
-      }
+      alvo
+        .requestFullscreen()
+        .catch(
+          function(error) {
 
-    }, 2000);
+            console.error(
+              "Erro ao entrar em tela cheia:",
+              error
+            );
 
-  };
+          }
+        );
 
-  copiarVlc.onclick = function() {
+      return;
 
-    copiarTexto(url);
+    }
 
-  };
 
-  let aviso =
-    document.getElementById("avisoVlc");
+    /*
+    Safari
+    */
 
-  if (!aviso) {
+    if (
+      alvo.webkitRequestFullscreen
+    ) {
 
-    aviso =
-      document.createElement("div");
+      alvo.webkitRequestFullscreen();
 
-    aviso.id =
-      "avisoVlc";
+      return;
 
-    aviso.style.display =
-      "none";
+    }
 
-    aviso.style.marginTop =
-      "15px";
 
-    aviso.style.padding =
-      "12px";
+    /*
+    Fallback do vídeo
+    */
 
-    aviso.style.background =
-      "#222";
+    if (
+      video.webkitEnterFullscreen
+    ) {
 
-    aviso.style.borderRadius =
-      "8px";
+      video.webkitEnterFullscreen();
 
-    aviso.style.color =
-      "#bbb";
+      return;
 
-    aviso.innerHTML = `
+    }
 
-      ⚠️ <b>O VLC não abriu automaticamente.</b>
 
-      <br><br>
-
-      Alguns celulares e navegadores
-      bloqueiam links <b>vlc://</b>.
-
-      <br><br>
-
-      Use <b>🔗 Copiar endereço</b>
-      e cole o link diretamente no VLC.
-
-    `;
-
-    document
-      .querySelector(".modal-box")
-      .appendChild(aviso);
+    alert(
+      "O seu navegador não permite tela cheia."
+    );
 
   }
 
-}
+
+  /*
+  ============================================================
+  VLC
+  ============================================================
+  */
+
+  function abrirVlc(url) {
+
+    const vlcUrl =
+      "vlc://" + url;
+
+
+    avisoVlc.style.display =
+      "none";
+
+
+    linkVlc.href =
+      vlcUrl;
+
+
+    modalVlc.style.display =
+      "flex";
+
+
+    linkVlc.onclick =
+      function() {
+
+        try {
+
+          window.location.href =
+            vlcUrl;
+
+        }
+
+        catch (e) {
+
+          console.error(e);
+
+        }
+
+
+        setTimeout(
+          function() {
+
+            avisoVlc.style.display =
+              "block";
+
+          },
+          2000
+        );
+
+      };
+
+
+    copiarVlc.onclick =
+      function() {
+
+        copiarTexto(
+          url
+        );
+
+      };
+
+  }
 
 
   /*
@@ -1453,6 +1569,7 @@ function abrirVlc(url) {
         texto
       );
 
+
       alert(
         "✅ Link copiado!"
       );
@@ -1461,18 +1578,15 @@ function abrirVlc(url) {
 
     catch (e) {
 
-      /*
-      Fallback para navegadores
-      que não permitem Clipboard API.
-      */
-
       const area =
         document.createElement(
           "textarea"
         );
 
+
       area.value =
         texto;
+
 
       area.style.position =
         "fixed";
@@ -1480,17 +1594,21 @@ function abrirVlc(url) {
       area.style.opacity =
         "0";
 
+
       document.body.appendChild(
         area
       );
 
+
       area.select();
+
 
       try {
 
         document.execCommand(
           "copy"
         );
+
 
         alert(
           "✅ Link copiado!"
@@ -1505,6 +1623,7 @@ function abrirVlc(url) {
         );
 
       }
+
 
       document.body.removeChild(
         area
