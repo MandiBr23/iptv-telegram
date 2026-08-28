@@ -8,94 +8,47 @@
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     body {
       margin: 0;
-      background: #0b0b0b;
+      background: #111;
       color: white;
       font-family: Arial, sans-serif;
-    }
-
-    header {
-      background: #151515;
-      padding: 15px;
       text-align: center;
-      font-size: 22px;
-      font-weight: bold;
     }
 
-    #canais {
-      padding: 10px;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 10px;
+    h1 {
+      padding: 15px;
     }
 
     .canal {
-      background: #1c1c1c;
-      border: 1px solid #333;
-      border-radius: 10px;
-      padding: 15px;
+      margin: 20px auto;
+      max-width: 900px;
+    }
+
+    button {
+      background: #222;
+      color: white;
+      border: 1px solid #444;
+      padding: 14px 25px;
+      border-radius: 8px;
       cursor: pointer;
-      text-align: center;
-      transition: 0.2s;
+      font-size: 18px;
     }
 
-    .canal:hover {
-      background: #292929;
-      transform: scale(1.02);
-    }
-
-    .canal strong {
-      display: block;
-      font-size: 16px;
-      margin-bottom: 5px;
-    }
-
-    .grupo {
-      color: #aaa;
-      font-size: 12px;
-    }
-
-    #player-container {
-      display: none;
-      padding: 10px;
-      background: #000;
+    button:hover {
+      background: #333;
     }
 
     video {
       width: 100%;
-      max-height: 70vh;
+      max-width: 900px;
       background: black;
+      margin-top: 20px;
       border-radius: 8px;
-    }
-
-    #titulo {
-      padding: 10px;
-      font-size: 18px;
-      font-weight: bold;
-    }
-
-    #voltar {
-      background: #222;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 8px;
-      cursor: pointer;
-      margin-bottom: 10px;
-    }
-
-    #voltar:hover {
-      background: #333;
     }
 
     #status {
-      text-align: center;
-      padding: 20px;
+      margin: 15px;
       color: #aaa;
     }
   </style>
@@ -103,411 +56,107 @@
 
 <body>
 
-<header>
-  📺 TV AO VIVO
-</header>
+  <h1>📺 TV AO VIVO</h1>
 
-<div id="player-container">
+  <div class="canal">
+    <button onclick="assistir()">
+      ▶️ Araruna TV
+    </button>
+  </div>
 
-  <button id="voltar" onclick="voltarCanais()">
-    ← Voltar para os canais
-  </button>
+  <div id="status">
+    Clique no canal para iniciar
+  </div>
 
-  <div id="titulo"></div>
+  <video
+    id="video"
+    controls
+    playsinline
+  ></video>
 
-  <video id="video" controls autoplay playsinline></video>
+  <script>
 
-</div>
+    const STREAM =
+      "https://video05.logicahost.com.br/ararunatv/ararunatv/playlist.m3u8";
 
-<div id="status">
-  Carregando canais...
-</div>
+    function assistir() {
 
-<div id="canais"></div>
+      const video =
+        document.getElementById("video");
 
-<script>
+      const status =
+        document.getElementById("status");
 
-  /*
-  =====================================================
-  CONFIGURAÇÃO
-  =====================================================
-  */
+      status.innerText =
+        "Carregando Araruna TV...";
 
-  /*
-  COLOQUE AQUI A URL DA SUA LISTA M3U8
-  */
+      if (Hls.isSupported()) {
 
- const M3U_URL = "./br.m3u";
+        const hls = new Hls();
 
+        hls.loadSource(STREAM);
 
-  /*
-  =====================================================
-  VARIÁVEIS
-  =====================================================
-  */
+        hls.attachMedia(video);
 
-  const canaisDiv = document.getElementById("canais");
-  const statusDiv = document.getElementById("status");
-  const playerContainer = document.getElementById("player-container");
-  const video = document.getElementById("video");
-  const titulo = document.getElementById("titulo");
+        hls.on(
+          Hls.Events.MANIFEST_PARSED,
+          function () {
 
-  let hls = null;
+            status.innerText =
+              "✅ Stream carregado";
 
+            video.play().catch(function () {});
 
-  /*
-  =====================================================
-  CARREGAR LISTA M3U
-  =====================================================
-  */
+          }
+        );
 
-  async function carregarCanais() {
+        hls.on(
+          Hls.Events.ERROR,
+          function (event, data) {
 
-    try {
+            console.log(data);
 
-      statusDiv.innerText = "Carregando canais...";
+            status.innerText =
+              "❌ Não foi possível reproduzir este canal.";
 
-      const resposta = await fetch(M3U_URL);
-
-      if (!resposta.ok) {
-        throw new Error("Não foi possível carregar a lista M3U.");
-      }
-
-      const texto = await resposta.text();
-
-      const canais = interpretarM3U(texto);
-
-      if (canais.length === 0) {
-        throw new Error("Nenhum canal encontrado.");
-      }
-
-      mostrarCanais(canais);
-
-    } catch (erro) {
-
-      console.error(erro);
-
-      statusDiv.innerText =
-        "❌ Erro ao carregar a lista de canais.";
-
-    }
-
-  }
-
-
-  /*
-  =====================================================
-  INTERPRETAR M3U
-  =====================================================
-  */
-
-  function interpretarM3U(texto) {
-
-    const linhas = texto.split(/\r?\n/);
-
-    const canais = [];
-
-    let informacao = null;
-
-    for (let i = 0; i < linhas.length; i++) {
-
-      const linha = linhas[i].trim();
-
-      if (!linha) {
-        continue;
-      }
-
-      if (linha.startsWith("#EXTINF")) {
-
-        const nome = linha.substring(
-          linha.lastIndexOf(",") + 1
-        ).trim();
-
-        const grupoMatch =
-          linha.match(/group-title="([^"]*)"/i);
-
-        const logoMatch =
-          linha.match(/tvg-logo="([^"]*)"/i);
-
-        informacao = {
-
-          nome: nome || "Canal",
-
-          grupo:
-            grupoMatch
-              ? grupoMatch[1]
-              : "",
-
-          logo:
-            logoMatch
-              ? logoMatch[1]
-              : ""
-
-        };
+          }
+        );
 
       }
 
       else if (
-        informacao &&
-        !linha.startsWith("#")
+        video.canPlayType(
+          "application/vnd.apple.mpegurl"
+        )
       ) {
 
-        canais.push({
+        video.src = STREAM;
 
-          nome: informacao.nome,
+        video.addEventListener(
+          "loadedmetadata",
+          function () {
 
-          grupo: informacao.grupo,
+            status.innerText =
+              "✅ Stream carregado";
 
-          logo: informacao.logo,
+            video.play().catch(function () {});
 
-          url: linha
+          },
+          { once: true }
+        );
 
-        });
+      }
 
-        informacao = null;
+      else {
+
+        status.innerText =
+          "❌ Seu navegador não suporta HLS.";
 
       }
 
     }
 
-    return canais;
-
-  }
-
-
-  /*
-  =====================================================
-  MOSTRAR CANAIS
-  =====================================================
-  */
-
-  function mostrarCanais(canais) {
-
-    statusDiv.style.display = "none";
-
-    canaisDiv.innerHTML = "";
-
-    canais.forEach((canal) => {
-
-      const div = document.createElement("div");
-
-      div.className = "canal";
-
-      div.innerHTML = `
-
-        ${
-          canal.logo
-          ? `<img
-               src="${canal.logo}"
-               style="
-                 width:70px;
-                 height:70px;
-                 object-fit:contain;
-                 margin-bottom:8px;
-               "
-             >`
-          : ""
-        }
-
-        <strong>${escaparHTML(canal.nome)}</strong>
-
-        ${
-          canal.grupo
-          ? `<div class="grupo">
-               ${escaparHTML(canal.grupo)}
-             </div>`
-          : ""
-        }
-
-      `;
-
-      div.onclick = function () {
-
-        reproduzirCanal(canal);
-
-      };
-
-      canaisDiv.appendChild(div);
-
-    });
-
-  }
-
-
-  /*
-  =====================================================
-  REPRODUZIR CANAL
-  =====================================================
-  */
-
-  function reproduzirCanal(canal) {
-
-    canaisDiv.style.display = "none";
-
-    playerContainer.style.display = "block";
-
-    titulo.innerText = "📺 " + canal.nome;
-
-    if (hls) {
-
-      hls.destroy();
-
-      hls = null;
-
-    }
-
-    /*
-    HLS.JS
-    */
-
-    if (
-      window.Hls &&
-      Hls.isSupported()
-    ) {
-
-      hls = new Hls();
-
-      hls.loadSource(canal.url);
-
-      hls.attachMedia(video);
-
-      hls.on(
-        Hls.Events.MANIFEST_PARSED,
-        function () {
-
-          video.play().catch(() => {});
-
-        }
-      );
-
-      hls.on(
-        Hls.Events.ERROR,
-        function (
-          event,
-          data
-        ) {
-
-          console.error(
-            "Erro HLS:",
-            data
-          );
-
-        }
-      );
-
-    }
-
-    /*
-    Safari / navegadores com HLS nativo
-    */
-
-    else if (
-      video.canPlayType(
-        "application/vnd.apple.mpegurl"
-      )
-    ) {
-
-      video.src = canal.url;
-
-      video.addEventListener(
-        "loadedmetadata",
-        function () {
-
-          video.play().catch(() => {});
-
-        },
-        {
-          once: true
-        }
-      );
-
-    }
-
-    else {
-
-      alert(
-        "Seu navegador não suporta reprodução HLS."
-      );
-
-    }
-
-  }
-
-
-  /*
-  =====================================================
-  VOLTAR
-  =====================================================
-  */
-
-  function voltarCanais() {
-
-    video.pause();
-
-    video.removeAttribute("src");
-
-    if (hls) {
-
-      hls.destroy();
-
-      hls = null;
-
-    }
-
-    playerContainer.style.display = "none";
-
-    canaisDiv.style.display = "grid";
-
-  }
-
-
-  /*
-  =====================================================
-  SEGURANÇA
-  =====================================================
-  */
-
-  function escaparHTML(texto) {
-
-    return String(texto)
-
-      .replace(
-        /&/g,
-        "&amp;"
-      )
-
-      .replace(
-        /</g,
-        "&lt;"
-      )
-
-      .replace(
-        />/g,
-        "&gt;"
-      )
-
-      .replace(
-        /"/g,
-        "&quot;"
-      )
-
-      .replace(
-        /'/g,
-        "&#039;"
-      );
-
-  }
-
-
-  /*
-  =====================================================
-  INICIAR
-  =====================================================
-  */
-
-  carregarCanais();
-
-</script>
+  </script>
 
 </body>
 </html>
