@@ -33,23 +33,44 @@
 
     html,
     body {
+
       width: 100%;
       min-height: 100%;
+
       margin: 0;
       padding: 0;
+
       background: #0b0b0b;
       color: #ffffff;
-      font-family: Arial, Helvetica, sans-serif;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
     }
 
     body {
+
       overflow-x: hidden;
+
     }
 
 
-    /* ======================================================
+    /* =====================================================
+       LISTA
+       ===================================================== */
+
+    #lista-container {
+
+      width: 100%;
+
+    }
+
+
+    /* =====================================================
        CABEÇALHO
-       ====================================================== */
+       ===================================================== */
 
     header {
 
@@ -60,11 +81,10 @@
 
       background: #151515;
 
-      border-bottom: 1px solid #292929;
+      border-bottom:
+        1px solid #292929;
 
       padding:
-        max(12px, env(safe-area-inset-top))
-        15px
         12px
         15px;
 
@@ -72,18 +92,20 @@
 
     }
 
+
     header h1 {
 
-      margin: 0 0 12px;
+      margin:
+        0 0 12px;
 
       font-size: 22px;
 
     }
 
 
-    /* ======================================================
+    /* =====================================================
        PESQUISA
-       ====================================================== */
+       ===================================================== */
 
     #pesquisa {
 
@@ -91,76 +113,107 @@
 
       max-width: 700px;
 
-      padding: 12px 15px;
+      padding:
+        12px
+        15px;
 
-      border: 1px solid #333;
+      border:
+        1px solid #333333;
 
-      border-radius: 10px;
+      border-radius:
+        10px;
 
-      background: #222;
+      background:
+        #222222;
 
-      color: #fff;
+      color:
+        #ffffff;
 
-      font-size: 15px;
+      font-size:
+        15px;
 
-      outline: none;
+      outline:
+        none;
 
     }
+
 
     #pesquisa::placeholder {
 
-      color: #999;
+      color:
+        #999999;
 
     }
 
 
-    /* ======================================================
+    /* =====================================================
        STATUS
-       ====================================================== */
+       ===================================================== */
 
     #status {
 
-      padding: 14px;
+      padding:
+        14px;
 
-      text-align: center;
+      text-align:
+        center;
 
-      color: #aaa;
+      color:
+        #aaaaaa;
 
-      font-size: 14px;
+      font-size:
+        14px;
 
     }
 
 
-    /* ======================================================
-       GRADE DE CANAIS
-       ====================================================== */
+    /* =====================================================
+       CANAIS
+       ===================================================== */
 
     #canais {
 
-      display: grid;
+      display:
+        grid;
 
       grid-template-columns:
-        repeat(auto-fill, minmax(170px, 1fr));
+        repeat(
+          auto-fill,
+          minmax(
+            170px,
+            1fr
+          )
+        );
 
-      gap: 12px;
+      gap:
+        12px;
 
-      padding: 15px;
+      padding:
+        15px;
 
     }
 
+
     .canal {
 
-      background: #181818;
+      background:
+        #181818;
 
-      border: 1px solid #2d2d2d;
+      border:
+        1px solid #2d2d2d;
 
-      border-radius: 12px;
+      border-radius:
+        12px;
 
-      padding: 14px 10px;
+      padding:
+        14px
+        10px;
 
-      cursor: pointer;
+      cursor:
+        pointer;
 
-      text-align: center;
+      text-align:
+        center;
 
       transition:
         transform .15s ease,
@@ -168,504 +221,665 @@
 
     }
 
+
     .canal:hover {
 
-      background: #242424;
+      background:
+        #242424;
 
-      transform: translateY(-2px);
+      transform:
+        translateY(-2px);
 
     }
+
 
     .canal:active {
 
-      transform: scale(.98);
+      transform:
+        scale(.98);
 
     }
 
 
-    /* ======================================================
+    /* =====================================================
        LOGOS
-       ====================================================== */
+       ===================================================== */
 
     .logo,
     .sem-logo {
 
-      width: 75px;
+      width:
+        75px;
 
-      height: 75px;
+      height:
+        75px;
 
-      margin: 0 auto 12px;
+      margin:
+        0 auto 12px;
 
-      border-radius: 10px;
+      border-radius:
+        10px;
 
     }
+
 
     .logo {
 
-      display: block;
+      display:
+        block;
 
-      object-fit: contain;
+      object-fit:
+        contain;
 
-      background: #101010;
+      background:
+        #101010;
 
     }
+
 
     .sem-logo {
 
-      display: flex;
+      display:
+        flex;
 
-      align-items: center;
+      align-items:
+        center;
 
-      justify-content: center;
+      justify-content:
+        center;
 
-      background: #101010;
+      background:
+        #101010;
 
-      font-size: 30px;
+      font-size:
+        30px;
 
     }
+
 
     .nome {
 
-      font-size: 14px;
+      font-size:
+        14px;
 
-      font-weight: bold;
+      font-weight:
+        bold;
 
-      line-height: 1.35;
+      line-height:
+        1.35;
 
     }
 
 
-    /* ======================================================
+    /* =====================================================
        PLAYER
-       ====================================================== */
+       ===================================================== */
 
     #player-container {
 
-      display: none;
+      display:
+        none;
 
-      width: 100%;
+      width:
+        100%;
 
-      min-height: calc(100dvh - 20px);
+      min-height:
+        100dvh;
 
-      background: #050505;
+      background:
+        #050505;
 
-      padding: 10px;
+      padding:
+        8px;
 
     }
 
-
-    /*
-      Quando o player estiver aberto,
-      usamos quase toda a altura disponível.
-    */
 
     #player-container.ativo {
 
-      min-height: 100dvh;
+      min-height:
+        100dvh;
 
     }
 
 
-    /* ======================================================
-       TOPO DO PLAYER
-       ====================================================== */
+    /* =====================================================
+       TOPO
+       ===================================================== */
 
     #player-topo {
 
-      display: flex;
+      display:
+        flex;
 
-      align-items: center;
+      align-items:
+        center;
 
-      gap: 10px;
+      gap:
+        10px;
 
-      margin-bottom: 10px;
+      margin-bottom:
+        8px;
 
     }
 
 
     #voltar {
 
-      flex: 0 0 auto;
+      flex:
+        0 0 auto;
 
-      border: 1px solid #333;
+      border:
+        1px solid #333333;
 
-      background: #202020;
+      background:
+        #202020;
 
-      color: #fff;
+      color:
+        #ffffff;
 
-      padding: 10px 14px;
+      padding:
+        10px
+        14px;
 
-      border-radius: 8px;
+      border-radius:
+        8px;
 
-      cursor: pointer;
+      cursor:
+        pointer;
 
-      font-size: 14px;
+      font-size:
+        14px;
 
     }
 
+
     #voltar:hover {
 
-      background: #2b2b2b;
+      background:
+        #2b2b2b;
 
     }
 
 
     #titulo {
 
-      flex: 1;
+      flex:
+        1;
 
-      min-width: 0;
+      min-width:
+        0;
 
-      font-size: 19px;
+      font-size:
+        18px;
 
-      font-weight: bold;
+      font-weight:
+        bold;
 
-      white-space: nowrap;
+      white-space:
+        nowrap;
 
-      overflow: hidden;
+      overflow:
+        hidden;
 
-      text-overflow: ellipsis;
+      text-overflow:
+        ellipsis;
 
     }
 
 
-    /* ======================================================
+    /* =====================================================
        VÍDEO
-       ====================================================== */
+       ===================================================== */
 
     #video-wrapper {
 
-      position: relative;
+      position:
+        relative;
 
-      width: 100%;
+      width:
+        100%;
 
-      height: calc(100dvh - 145px);
+      height:
+        calc(
+          100dvh - 125px
+        );
 
-      min-height: 300px;
+      min-height:
+        300px;
 
-      background: #000;
+      background:
+        #000000;
 
-      border-radius: 10px;
+      border-radius:
+        8px;
 
-      overflow: hidden;
+      overflow:
+        hidden;
 
-      display: flex;
+      display:
+        flex;
 
-      align-items: center;
+      align-items:
+        center;
 
-      justify-content: center;
+      justify-content:
+        center;
 
     }
 
 
     video {
 
-      display: block;
+      display:
+        block;
 
-      width: 100%;
+      width:
+        100%;
 
-      height: 100%;
+      height:
+        100%;
 
-      object-fit: contain;
+      object-fit:
+        contain;
 
-      background: #000;
+      background:
+        #000000;
 
     }
 
 
-    /*
-      Estado de player maior no desktop
-    */
+    /* =====================================================
+       BOTÕES
+       ===================================================== */
+
+    #opcoes {
+
+      display:
+        flex;
+
+      flex-wrap:
+        wrap;
+
+      gap:
+        8px;
+
+      margin:
+        8px 0;
+
+    }
+
+
+    .btn {
+
+      border:
+        1px solid #3a3a3a;
+
+      background:
+        #1d1d1d;
+
+      color:
+        #ffffff;
+
+      padding:
+        10px
+        14px;
+
+      border-radius:
+        8px;
+
+      cursor:
+        pointer;
+
+      font-size:
+        14px;
+
+      text-decoration:
+        none;
+
+      display:
+        inline-block;
+
+    }
+
+
+    .btn:hover {
+
+      background:
+        #292929;
+
+    }
+
+
+    /* =====================================================
+       ERRO
+       ===================================================== */
+
+    #erro {
+
+      display:
+        none;
+
+      margin-top:
+        10px;
+
+      padding:
+        14px;
+
+      background:
+        #1b1b1b;
+
+      border-radius:
+        8px;
+
+      color:
+        #ffb1aa;
+
+      line-height:
+        1.5;
+
+    }
+
+
+    /* =====================================================
+       INFO
+       ===================================================== */
+
+    #informacao {
+
+      margin-top:
+        8px;
+
+      padding:
+        10px;
+
+      background:
+        #151515;
+
+      border:
+        1px solid #292929;
+
+      border-radius:
+        8px;
+
+      color:
+        #999999;
+
+      font-size:
+        12px;
+
+      line-height:
+        1.5;
+
+      word-break:
+        break-word;
+
+    }
+
+
+    /* =====================================================
+       MODAL VLC
+       ===================================================== */
+
+    #modalVlc {
+
+      display:
+        none;
+
+      position:
+        fixed;
+
+      inset:
+        0;
+
+      z-index:
+        1000;
+
+      background:
+        rgba(
+          0,
+          0,
+          0,
+          .8
+        );
+
+      align-items:
+        center;
+
+      justify-content:
+        center;
+
+      padding:
+        20px;
+
+    }
+
+
+    .modal-box {
+
+      width:
+        100%;
+
+      max-width:
+        500px;
+
+      background:
+        #181818;
+
+      border:
+        1px solid #333333;
+
+      border-radius:
+        12px;
+
+      padding:
+        20px;
+
+      text-align:
+        center;
+
+    }
+
+
+    .modal-box h2 {
+
+      margin-top:
+        0;
+
+    }
+
+
+    .modal-box p {
+
+      color:
+        #bbbbbb;
+
+      line-height:
+        1.5;
+
+    }
+
+
+    .modal-actions {
+
+      display:
+        flex;
+
+      flex-wrap:
+        wrap;
+
+      justify-content:
+        center;
+
+      gap:
+        10px;
+
+      margin-top:
+        15px;
+
+    }
+
+
+    #avisoVlc {
+
+      display:
+        none;
+
+      margin-top:
+        15px;
+
+      padding:
+        12px;
+
+      background:
+        #222222;
+
+      border-radius:
+        8px;
+
+      color:
+        #bbbbbb;
+
+      line-height:
+        1.5;
+
+    }
+
+
+    /* =====================================================
+       DESKTOP
+       ===================================================== */
 
     @media (min-width: 900px) {
 
       #player-container {
 
-        padding: 10px 15px;
+        padding:
+          8px
+          15px;
 
       }
+
 
       #video-wrapper {
 
-        height: calc(100vh - 120px);
+        height:
+          calc(
+            100vh - 120px
+          );
 
       }
 
     }
 
 
-    /* ======================================================
-       OPÇÕES
-       ====================================================== */
-
-    #opcoes {
-
-      display: flex;
-
-      flex-wrap: wrap;
-
-      gap: 8px;
-
-      margin: 10px 0;
-
-    }
-
-    .btn {
-
-      border: 1px solid #3a3a3a;
-
-      background: #1d1d1d;
-
-      color: #fff;
-
-      padding: 10px 14px;
-
-      border-radius: 8px;
-
-      cursor: pointer;
-
-      font-size: 14px;
-
-      text-decoration: none;
-
-    }
-
-    .btn:hover {
-
-      background: #292929;
-
-    }
-
-
-    /* ======================================================
-       ERRO
-       ====================================================== */
-
-    #erro {
-
-      display: none;
-
-      margin-top: 10px;
-
-      padding: 14px;
-
-      background: #1b1b1b;
-
-      border-radius: 8px;
-
-      color: #ffb1aa;
-
-      line-height: 1.5;
-
-    }
-
-
-    /* ======================================================
-       INFORMAÇÃO
-       ====================================================== */
-
-    #informacao {
-
-      margin-top: 10px;
-
-      padding: 10px;
-
-      background: #151515;
-
-      border: 1px solid #292929;
-
-      border-radius: 8px;
-
-      color: #999;
-
-      font-size: 12px;
-
-      line-height: 1.5;
-
-      word-break: break-word;
-
-    }
-
-
-    /* ======================================================
-       MODAL VLC
-       ====================================================== */
-
-    #modalVlc {
-
-      display: none;
-
-      position: fixed;
-
-      inset: 0;
-
-      z-index: 1000;
-
-      background: rgba(0,0,0,.8);
-
-      align-items: center;
-
-      justify-content: center;
-
-      padding: 20px;
-
-    }
-
-    .modal-box {
-
-      width: 100%;
-
-      max-width: 500px;
-
-      background: #181818;
-
-      border: 1px solid #333;
-
-      border-radius: 12px;
-
-      padding: 20px;
-
-      text-align: center;
-
-    }
-
-    .modal-box h2 {
-
-      margin-top: 0;
-
-    }
-
-    .modal-box p {
-
-      color: #bbb;
-
-      line-height: 1.5;
-
-    }
-
-    .modal-actions {
-
-      display: flex;
-
-      flex-wrap: wrap;
-
-      justify-content: center;
-
-      gap: 10px;
-
-      margin-top: 15px;
-
-    }
-
-    #avisoVlc {
-
-      display: none;
-
-      margin-top: 15px;
-
-      padding: 12px;
-
-      background: #222;
-
-      border-radius: 8px;
-
-      color: #bbb;
-
-      line-height: 1.5;
-
-    }
-
-
-    /* ======================================================
+    /* =====================================================
        CELULAR
-       ====================================================== */
+       ===================================================== */
 
     @media (max-width: 600px) {
 
       #canais {
 
         grid-template-columns:
-          repeat(2, 1fr);
+          repeat(
+            2,
+            1fr
+          );
 
-        gap: 8px;
+        gap:
+          8px;
 
-        padding: 10px;
+        padding:
+          10px;
 
       }
+
 
       .canal {
 
-        padding: 10px 6px;
+        padding:
+          10px 6px;
 
       }
+
 
       .logo,
       .sem-logo {
 
-        width: 60px;
+        width:
+          60px;
 
-        height: 60px;
+        height:
+          60px;
 
       }
+
 
       .nome {
 
-        font-size: 12px;
+        font-size:
+          12px;
 
       }
+
 
       #player-container {
 
-        padding: 6px;
+        padding:
+          5px;
 
       }
 
-      #player-topo {
-
-        margin-bottom: 6px;
-
-      }
-
-      #titulo {
-
-        font-size: 16px;
-
-      }
 
       #video-wrapper {
 
-        height: calc(100dvh - 125px);
+        height:
+          calc(
+            100dvh - 115px
+          );
 
-        border-radius: 6px;
+        min-height:
+          250px;
+
+        border-radius:
+          5px;
 
       }
+
 
       #opcoes {
 
-        gap: 6px;
+        gap:
+          6px;
 
       }
 
-      .btn {
 
-        flex: 1;
+      #opcoes .btn {
 
-        text-align: center;
+        flex:
+          1;
+
+        text-align:
+          center;
 
       }
+
 
       #informacao {
 
-        display: none;
+        display:
+          none;
 
       }
 
     }
 
 
-    /* ======================================================
-       ORIENTAÇÃO HORIZONTAL NO CELULAR
-       ====================================================== */
+    /* =====================================================
+       CELULAR HORIZONTAL
+       ===================================================== */
 
     @media (
       max-width: 900px
@@ -675,31 +889,61 @@
 
       #player-container {
 
-        padding: 4px;
+        padding:
+          0;
 
       }
+
 
       #player-topo {
 
-        display: none;
+        display:
+          none;
 
       }
+
 
       #opcoes {
 
-        display: none;
+        display:
+          none;
 
       }
 
+
+      #erro {
+
+        position:
+          absolute;
+
+        z-index:
+          20;
+
+        top:
+          10px;
+
+        left:
+          10px;
+
+        right:
+          10px;
+
+      }
+
+
       #video-wrapper {
 
-        width: 100%;
+        width:
+          100%;
 
-        height: 100dvh;
+        height:
+          100dvh;
 
-        min-height: 100dvh;
+        min-height:
+          100dvh;
 
-        border-radius: 0;
+        border-radius:
+          0;
 
       }
 
@@ -714,7 +958,7 @@
 
 
   <!-- =====================================================
-       LISTA
+       LISTA DE CANAIS
        ===================================================== -->
 
   <div id="lista-container">
@@ -756,6 +1000,7 @@
         ← Voltar
       </button>
 
+
       <div id="titulo">
         TV Ao Vivo
       </div>
@@ -785,12 +1030,14 @@
         ▶️ Reproduzir
       </button>
 
+
       <button
         id="btnVlc"
         class="btn"
       >
         📺 Abrir no VLC
       </button>
+
 
       <button
         id="btnCopiar"
@@ -803,6 +1050,7 @@
 
 
     <div id="erro"></div>
+
 
     <div id="informacao"></div>
 
@@ -821,9 +1069,11 @@
         📺 Abrir no VLC
       </h2>
 
+
       <p>
         Vamos tentar abrir o VLC no seu dispositivo.
       </p>
+
 
       <div class="modal-actions">
 
@@ -835,12 +1085,14 @@
           📺 Tentar abrir VLC
         </a>
 
+
         <button
           id="copiarVlc"
           class="btn"
         >
           🔗 Copiar endereço
         </button>
+
 
         <button
           id="fecharModal"
@@ -851,18 +1103,21 @@
 
       </div>
 
+
       <div id="avisoVlc">
 
         ⚠️ O VLC não abriu automaticamente.
 
         <br><br>
 
-        Alguns navegadores bloqueiam
-        links <b>vlc://</b>.
+        Alguns navegadores e celulares
+        podem bloquear links
+        <b>vlc://</b>.
 
         <br><br>
 
-        Use <b>🔗 Copiar endereço</b>
+        Use
+        <b>🔗 Copiar endereço</b>
         e cole no VLC.
 
       </div>
@@ -891,12 +1146,54 @@
 
         tg.ready();
 
+
         /*
-          Expande o Mini App para aproveitar
-          o máximo de espaço disponível.
+        Expande o Mini App.
         */
 
-        tg.expand();
+        if (
+          typeof tg.expand ===
+          "function"
+        ) {
+
+          tg.expand();
+
+        }
+
+
+        /*
+        Solicita fullscreen real
+        do Telegram.
+        */
+
+        if (
+          typeof tg.requestFullscreen ===
+          "function"
+        ) {
+
+          setTimeout(
+            function() {
+
+              try {
+
+                tg.requestFullscreen();
+
+              }
+
+              catch (e) {
+
+                console.log(
+                  "Fullscreen não disponível:",
+                  e
+                );
+
+              }
+
+            },
+            500
+          );
+
+        }
 
       }
 
@@ -958,11 +1255,6 @@
     const video =
       document.getElementById(
         "video"
-      );
-
-    const videoWrapper =
-      document.getElementById(
-        "video-wrapper"
       );
 
     const titulo =
@@ -1047,7 +1339,8 @@
           await fetch(
             M3U_URL,
             {
-              cache: "no-store"
+              cache:
+                "no-store"
             }
           );
 
@@ -1096,6 +1389,7 @@
       catch (e) {
 
         console.error(
+          "Erro ao carregar M3U:",
           e
         );
 
@@ -1115,6 +1409,12 @@
 
             Não foi possível carregar
             <b>br.m3u</b>.
+
+            <br><br>
+
+            Confirme se o arquivo está
+            no mesmo repositório do
+            <b>index.html</b>.
 
           </div>
 
@@ -1138,6 +1438,7 @@
           /\r?\n/
         );
 
+
       const canais = [];
 
       let info = null;
@@ -1154,7 +1455,9 @@
 
 
         if (!linha) {
+
           continue;
+
         }
 
 
@@ -1165,7 +1468,9 @@
         if (
           linha
             .toUpperCase()
-            .startsWith("#EXTINF")
+            .startsWith(
+              "#EXTINF"
+            )
         ) {
 
           const virgula =
@@ -1176,11 +1481,13 @@
 
           const nome =
             virgula >= 0
+
               ? linha
                   .substring(
                     virgula + 1
                   )
                   .trim()
+
               : "Canal";
 
 
@@ -1199,7 +1506,8 @@
           info = {
 
             nome:
-              nome || "Canal",
+              nome ||
+              "Canal",
 
             logo:
               logoMatch
@@ -1234,10 +1542,21 @@
           */
 
           if (
-            !url.startsWith("http://") &&
-            !url.startsWith("https://") &&
-            !url.startsWith("rtmp://") &&
-            !url.startsWith("rtsp://")
+            !url.startsWith(
+              "http://"
+            ) &&
+
+            !url.startsWith(
+              "https://"
+            ) &&
+
+            !url.startsWith(
+              "rtmp://"
+            ) &&
+
+            !url.startsWith(
+              "rtsp://"
+            )
           ) {
 
             try {
@@ -1253,7 +1572,7 @@
             catch (e) {
 
               console.error(
-                "URL inválida:",
+                "URL relativa inválida:",
                 url
               );
 
@@ -1304,7 +1623,7 @@
 
 
       if (
-        !lista.length
+        lista.length === 0
       ) {
 
         canaisDiv.innerHTML = `
@@ -1389,11 +1708,9 @@
             ${logoHTML}
 
             <div class="nome">
-
               ${escapar(
                 canal.nome
               )}
-
             </div>
 
           `;
@@ -1438,11 +1755,13 @@
         const filtrados =
           listaCanais.filter(
             canal =>
+
               canal.nome
                 .toLowerCase()
                 .includes(
                   termo
                 )
+
           );
 
 
@@ -1552,23 +1871,12 @@
 
 
       /*
-      Tenta reproduzir imediatamente.
+      Inicia o player.
       */
 
       reproduzir(
         canal
       );
-
-
-      /*
-      Faz o navegador posicionar
-      no início do player.
-      */
-
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
 
     }
 
@@ -1582,7 +1890,9 @@
     ) {
 
       if (!canal) {
+
         return;
+
       }
 
 
@@ -1614,6 +1924,7 @@
 
       if (
         location.protocol === "https:" &&
+
         canal.url.startsWith(
           "http://"
         )
@@ -1626,7 +1937,8 @@
           <br><br>
 
           O navegador pode bloquear
-          a reprodução.
+          a reprodução porque o Mini App
+          está em HTTPS.
 
           <br><br>
 
@@ -1657,11 +1969,14 @@
         hls =
           new Hls({
 
-            enableWorker: true,
+            enableWorker:
+              true,
 
-            lowLatencyMode: true,
+            lowLatencyMode:
+              true,
 
-            backBufferLength: 90
+            backBufferLength:
+              90
 
           });
 
@@ -1715,10 +2030,7 @@
               let mensagem = `
 
                 ❌ <b>Não foi possível
-                reproduzir este canal
-                no navegador.</b>
-
-                <br><br>
+                reproduzir este canal.</b>
 
               `;
 
@@ -1729,6 +2041,8 @@
               ) {
 
                 mensagem += `
+
+                  <br><br>
 
                   O servidor pode estar
                   bloqueando o acesso
@@ -1743,12 +2057,15 @@
 
               }
 
+
               else if (
                 data.type ===
                 Hls.ErrorTypes.MEDIA_ERROR
               ) {
 
                 mensagem += `
+
+                  <br><br>
 
                   O navegador não conseguiu
                   decodificar este vídeo.
@@ -1791,6 +2108,10 @@
           "loadedmetadata",
           function() {
 
+            erro.style.display =
+              "none";
+
+
             video
               .play()
               .catch(
@@ -1831,6 +2152,7 @@
         );
 
       }
+
 
       else {
 
@@ -1920,7 +2242,7 @@
 
 
     /* =====================================================
-       MODAL VLC
+       FECHAR MODAL
        ===================================================== */
 
     fecharModal.onclick =
