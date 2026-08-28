@@ -13,15 +13,23 @@
 
   <meta
     name="theme-color"
-    content="#0b0b0b"
+    content="#070707"
   >
 
   <title>TV Ao Vivo</title>
 
-  <!-- Telegram Mini App -->
+
+  <!-- =====================================================
+       TELEGRAM MINI APP
+       ===================================================== -->
+
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-  <!-- HLS.js -->
+
+  <!-- =====================================================
+       HLS
+       ===================================================== -->
+
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
 
@@ -35,7 +43,6 @@
       box-sizing: border-box;
     }
 
-
     html,
     body {
 
@@ -45,7 +52,7 @@
       margin: 0;
       padding: 0;
 
-      background: #0b0b0b;
+      background: #070707;
       color: #ffffff;
 
       font-family:
@@ -57,7 +64,43 @@
 
 
     body {
+
       overflow-x: hidden;
+
+    }
+
+
+    /* =====================================================
+       FUNDO GERAL
+       ===================================================== */
+
+    body::before {
+
+      content: "";
+
+      position: fixed;
+
+      inset: 0;
+
+      z-index: -2;
+
+      background:
+        radial-gradient(
+          circle at 10% 10%,
+          rgba(255,255,255,.035),
+          transparent 25%
+        ),
+        radial-gradient(
+          circle at 90% 30%,
+          rgba(255,255,255,.025),
+          transparent 28%
+        ),
+        linear-gradient(
+          180deg,
+          #090909 0%,
+          #050505 100%
+        );
+
     }
 
 
@@ -66,30 +109,134 @@
        ===================================================== */
 
     #lista-container {
+
       width: 100%;
+
     }
 
 
     /* =====================================================
-       CABEÇALHO
+       BANNER / HERO
        ===================================================== */
 
     header {
 
-      position: sticky;
-      top: 0;
+      position: relative;
 
-      z-index: 100;
+      overflow: hidden;
 
-      background: #151515;
-
-      border-bottom:
-        1px solid #292929;
+      min-height: 245px;
 
       padding:
-        12px 15px;
+        30px 18px 22px;
 
       text-align: center;
+
+      border-bottom:
+        1px solid rgba(255,255,255,.08);
+
+      background:
+
+        linear-gradient(
+          180deg,
+          rgba(0,0,0,.10),
+          rgba(0,0,0,.75)
+        ),
+
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='700' viewBox='0 0 1600 700'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%231d1d1d'/%3E%3Cstop offset='.55' stop-color='%230b0b0b'/%3E%3Cstop offset='1' stop-color='%23212121'/%3E%3C/linearGradient%3E%3ClinearGradient id='b' x1='0' y1='1' x2='1' y2='0'%3E%3Cstop offset='0' stop-color='%23000000' stop-opacity='.95'/%3E%3Cstop offset='1' stop-color='%23000000' stop-opacity='.1'/%3E%3C/linearGradient%3E%3Cfilter id='blur'%3E%3CfeGaussianBlur stdDeviation='28'/%3E%3C/filter%3E%3C/defs%3E%3Crect width='1600' height='700' fill='url(%23g)'/%3E%3Cg opacity='.18' filter='url(%23blur)'%3E%3Ccircle cx='250' cy='180' r='170' fill='%23ffffff'/%3E%3Ccircle cx='1170' cy='150' r='210' fill='%23ffffff'/%3E%3Ccircle cx='920' cy='520' r='170' fill='%23ffffff'/%3E%3C/g%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='.09'%3E%3Crect x='110' y='90' width='430' height='250' rx='26'/%3E%3Crect x='585' y='80' width='430' height='250' rx='26'/%3E%3Crect x='1060' y='90' width='430' height='250' rx='26'/%3E%3C/g%3E%3Cg fill='%23ffffff' opacity='.05'%3E%3Cpolygon points='110,380 510,380 700,540 300,540'/%3E%3Cpolygon points='700,390 1100,390 1300,560 900,560'/%3E%3C/g%3E%3Crect width='1600' height='700' fill='url(%23b)'/%3E%3C/svg%3E");
+
+      background-size:
+        cover;
+
+      background-position:
+        center;
+
+      box-shadow:
+        inset 0 -80px 100px rgba(0,0,0,.7);
+
+    }
+
+
+    /* brilho decorativo */
+
+    header::after {
+
+      content: "";
+
+      position: absolute;
+
+      width: 340px;
+      height: 340px;
+
+      border-radius: 50%;
+
+      right: -120px;
+      top: -130px;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(255,255,255,.12),
+          rgba(255,255,255,0) 68%
+        );
+
+      pointer-events: none;
+
+    }
+
+
+    /* =====================================================
+       HERO CONTEÚDO
+       ===================================================== */
+
+    .hero-conteudo {
+
+      position: relative;
+
+      z-index: 2;
+
+      max-width: 900px;
+
+      margin:
+        0 auto;
+
+    }
+
+
+    .hero-logo {
+
+      width: 76px;
+      height: 76px;
+
+      margin:
+        0 auto 12px;
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        center;
+
+      border:
+        1px solid rgba(255,255,255,.18);
+
+      border-radius:
+        20px;
+
+      background:
+        rgba(0,0,0,.45);
+
+      backdrop-filter:
+        blur(12px);
+
+      box-shadow:
+        0 12px 35px rgba(0,0,0,.35);
+
+      font-size:
+        38px;
 
     }
 
@@ -97,10 +244,89 @@
     header h1 {
 
       margin:
-        0 0 12px;
+        0;
 
       font-size:
-        22px;
+        clamp(
+          28px,
+          5vw,
+          40px
+        );
+
+      font-weight:
+        900;
+
+      letter-spacing:
+        .5px;
+
+      text-shadow:
+        0 5px 20px rgba(0,0,0,.65);
+
+    }
+
+
+    .hero-subtitulo {
+
+      margin:
+        8px 0 18px;
+
+      color:
+        rgba(255,255,255,.78);
+
+      font-size:
+        14px;
+
+      letter-spacing:
+        1.8px;
+
+      text-transform:
+        uppercase;
+
+    }
+
+
+    .hero-badges {
+
+      display:
+        flex;
+
+      justify-content:
+        center;
+
+      flex-wrap:
+        wrap;
+
+      gap:
+        8px;
+
+      margin-bottom:
+        18px;
+
+    }
+
+
+    .hero-badge {
+
+      padding:
+        7px 11px;
+
+      border:
+        1px solid rgba(255,255,255,.12);
+
+      border-radius:
+        999px;
+
+      background:
+        rgba(0,0,0,.35);
+
+      backdrop-filter:
+        blur(8px);
+
+      color:
+        rgba(255,255,255,.82);
+
+      font-size:
+        12px;
 
     }
 
@@ -111,20 +337,23 @@
 
     #pesquisa {
 
-      width: 100%;
-      max-width: 700px;
+      width:
+        100%;
+
+      max-width:
+        680px;
 
       padding:
-        12px 15px;
+        14px 18px;
 
       border:
-        1px solid #333333;
+        1px solid rgba(255,255,255,.14);
 
       border-radius:
-        10px;
+        14px;
 
       background:
-        #222222;
+        rgba(10,10,10,.62);
 
       color:
         #ffffff;
@@ -134,6 +363,16 @@
 
       outline:
         none;
+
+      backdrop-filter:
+        blur(12px);
+
+      box-shadow:
+        0 10px 30px rgba(0,0,0,.25);
+
+      transition:
+        border-color .2s ease,
+        box-shadow .2s ease;
 
     }
 
@@ -146,6 +385,18 @@
     }
 
 
+    #pesquisa:focus {
+
+      border-color:
+        rgba(255,255,255,.32);
+
+      box-shadow:
+        0 0 0 3px rgba(255,255,255,.05),
+        0 10px 30px rgba(0,0,0,.3);
+
+    }
+
+
     /* =====================================================
        STATUS
        ===================================================== */
@@ -153,22 +404,54 @@
     #status {
 
       padding:
-        14px;
+        14px 15px 4px;
 
       text-align:
         center;
 
       color:
-        #aaaaaa;
+        #999999;
 
       font-size:
-        14px;
+        13px;
 
     }
 
 
     /* =====================================================
-       GRADE DE CANAIS
+       TÍTULO DOS CANAIS
+       ===================================================== */
+
+    #titulo-canais {
+
+      padding:
+        18px 15px 4px;
+
+      font-size:
+        20px;
+
+      font-weight:
+        800;
+
+    }
+
+
+    #subtitulo-canais {
+
+      padding:
+        0 15px 12px;
+
+      color:
+        #888888;
+
+      font-size:
+        13px;
+
+    }
+
+
+    /* =====================================================
+       GRADE
        ===================================================== */
 
     #canais {
@@ -180,33 +463,47 @@
         repeat(
           auto-fill,
           minmax(
-            170px,
+            175px,
             1fr
           )
         );
 
       gap:
-        12px;
+        14px;
 
       padding:
-        15px;
+        0 15px 24px;
 
     }
 
 
+    /* =====================================================
+       CARD
+       ===================================================== */
+
     .canal {
 
+      position:
+        relative;
+
+      overflow:
+        hidden;
+
       background:
-        #181818;
+        linear-gradient(
+          145deg,
+          #1d1d1d,
+          #111111
+        );
 
       border:
-        1px solid #2d2d2d;
+        1px solid #292929;
 
       border-radius:
-        12px;
+        16px;
 
       padding:
-        14px 10px;
+        16px 12px;
 
       cursor:
         pointer;
@@ -215,19 +512,68 @@
         center;
 
       transition:
-        transform .15s ease,
-        background .15s ease;
+        transform .2s ease,
+        border-color .2s ease,
+        background .2s ease,
+        box-shadow .2s ease;
+
+      box-shadow:
+        0 8px 22px rgba(0,0,0,.16);
+
+    }
+
+
+    .canal::before {
+
+      content:
+        "";
+
+      position:
+        absolute;
+
+      left:
+        0;
+
+      right:
+        0;
+
+      top:
+        0;
+
+      height:
+        1px;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          rgba(255,255,255,.2),
+          transparent
+        );
+
+      opacity:
+        .65;
 
     }
 
 
     .canal:hover {
 
-      background:
-        #242424;
-
       transform:
-        translateY(-2px);
+        translateY(-4px);
+
+      border-color:
+        #444444;
+
+      background:
+        linear-gradient(
+          145deg,
+          #262626,
+          #151515
+        );
+
+      box-shadow:
+        0 15px 32px rgba(0,0,0,.3);
 
     }
 
@@ -248,16 +594,16 @@
     .sem-logo {
 
       width:
-        75px;
+        82px;
 
       height:
-        75px;
+        82px;
 
       margin:
-        0 auto 12px;
+        0 auto 14px;
 
       border-radius:
-        10px;
+        16px;
 
     }
 
@@ -270,8 +616,14 @@
       object-fit:
         contain;
 
+      padding:
+        6px;
+
       background:
-        #101010;
+        #0d0d0d;
+
+      border:
+        1px solid rgba(255,255,255,.06);
 
     }
 
@@ -288,10 +640,17 @@
         center;
 
       background:
-        #101010;
+        radial-gradient(
+          circle at center,
+          #222222,
+          #0c0c0c
+        );
+
+      border:
+        1px solid #292929;
 
       font-size:
-        30px;
+        34px;
 
     }
 
@@ -302,10 +661,65 @@
         14px;
 
       font-weight:
-        bold;
+        700;
 
       line-height:
-        1.35;
+        1.4;
+
+      color:
+        #f4f4f4;
+
+    }
+
+
+    .canal-indicador {
+
+      display:
+        inline-flex;
+
+      align-items:
+        center;
+
+      gap:
+        5px;
+
+      margin-top:
+        10px;
+
+      padding:
+        4px 8px;
+
+      border-radius:
+        999px;
+
+      border:
+        1px solid rgba(255,255,255,.08);
+
+      background:
+        rgba(0,0,0,.25);
+
+      color:
+        #8f8f8f;
+
+      font-size:
+        10px;
+
+    }
+
+
+    .canal-ponto {
+
+      width:
+        6px;
+
+      height:
+        6px;
+
+      border-radius:
+        50%;
+
+      background:
+        #6f6f6f;
 
     }
 
@@ -325,38 +739,45 @@
       min-height:
         100dvh;
 
+      padding:
+        8px;
+
       background:
         #050505;
 
-      padding:
+    }
+
+
+    #player-topo {
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      gap:
+        10px;
+
+      margin-bottom:
         8px;
 
     }
 
 
-    /* =====================================================
-       TÍTULO
-       ===================================================== */
-
     #titulo {
 
-      width:
-        100%;
+      flex:
+        1;
 
-      padding:
-        8px 5px;
-
-      margin-bottom:
-        8px;
+      min-width:
+        0;
 
       font-size:
         18px;
 
       font-weight:
-        bold;
-
-      text-align:
-        center;
+        800;
 
       white-space:
         nowrap;
@@ -367,11 +788,14 @@
       text-overflow:
         ellipsis;
 
+      text-align:
+        left;
+
     }
 
 
     /* =====================================================
-       VÍDEO
+       PLAYER VÍDEO
        ===================================================== */
 
     #video-wrapper {
@@ -384,17 +808,17 @@
 
       height:
         calc(
-          100dvh - 225px
+          100dvh - 205px
         );
 
       min-height:
-        280px;
+        300px;
 
       background:
         #000000;
 
       border-radius:
-        8px;
+        10px;
 
       overflow:
         hidden;
@@ -408,19 +832,22 @@
       justify-content:
         center;
 
+      box-shadow:
+        0 16px 45px rgba(0,0,0,.45);
+
     }
 
 
     video {
-
-      display:
-        block;
 
       width:
         100%;
 
       height:
         100%;
+
+      display:
+        block;
 
       object-fit:
         contain;
@@ -447,7 +874,7 @@
         8px;
 
       margin:
-        10px 0;
+        9px 0;
 
     }
 
@@ -455,10 +882,14 @@
     .btn {
 
       border:
-        1px solid #3a3a3a;
+        1px solid #363636;
 
       background:
-        #1d1d1d;
+        linear-gradient(
+          180deg,
+          #242424,
+          #181818
+        );
 
       color:
         #ffffff;
@@ -467,13 +898,13 @@
         10px 14px;
 
       border-radius:
-        8px;
+        9px;
 
       cursor:
         pointer;
 
       font-size:
-        14px;
+        13px;
 
       text-decoration:
         none;
@@ -481,20 +912,32 @@
       display:
         inline-block;
 
+      transition:
+        background .15s ease,
+        transform .15s ease,
+        border-color .15s ease;
+
     }
 
 
     .btn:hover {
 
       background:
-        #292929;
+        #2b2b2b;
+
+      border-color:
+        #494949;
 
     }
 
 
-    /* =====================================================
-       BOTÃO VOLTAR
-       ===================================================== */
+    .btn:active {
+
+      transform:
+        scale(.98);
+
+    }
+
 
     #btnVoltar {
 
@@ -502,28 +945,28 @@
         100%;
 
       margin:
-        8px 0 12px;
+        8px 0 10px;
 
       padding:
-        14px;
-
-      background:
-        #202020;
+        13px;
 
       border:
-        1px solid #3a3a3a;
-
-      color:
-        #ffffff;
+        1px solid #363636;
 
       border-radius:
         10px;
 
+      background:
+        #1c1c1c;
+
+      color:
+        #ffffff;
+
       font-size:
-        16px;
+        15px;
 
       font-weight:
-        bold;
+        800;
 
       cursor:
         pointer;
@@ -534,7 +977,7 @@
     #btnVoltar:hover {
 
       background:
-        #2c2c2c;
+        #272727;
 
     }
 
@@ -554,17 +997,23 @@
       padding:
         14px;
 
-      background:
-        #1b1b1b;
+      border:
+        1px solid #352c2b;
 
       border-radius:
-        8px;
+        9px;
+
+      background:
+        #1a1515;
 
       color:
-        #ffb1aa;
+        #ffb4ad;
 
       line-height:
         1.5;
+
+      font-size:
+        13px;
 
     }
 
@@ -581,20 +1030,20 @@
       padding:
         10px;
 
-      background:
-        #151515;
-
       border:
-        1px solid #292929;
+        1px solid #262626;
 
       border-radius:
-        8px;
+        9px;
+
+      background:
+        #121212;
 
       color:
-        #999999;
+        #777777;
 
       font-size:
-        12px;
+        11px;
 
       line-height:
         1.5;
@@ -628,7 +1077,7 @@
           0,
           0,
           0,
-          .8
+          .82
         );
 
       align-items:
@@ -638,7 +1087,7 @@
         center;
 
       padding:
-        20px;
+        18px;
 
     }
 
@@ -651,28 +1100,38 @@
       max-width:
         500px;
 
-      background:
-        #181818;
-
-      border:
-        1px solid #333333;
-
-      border-radius:
-        12px;
-
       padding:
         20px;
 
+      background:
+        linear-gradient(
+          145deg,
+          #1d1d1d,
+          #111111
+        );
+
+      border:
+        1px solid #353535;
+
+      border-radius:
+        15px;
+
       text-align:
         center;
+
+      box-shadow:
+        0 25px 70px rgba(0,0,0,.5);
 
     }
 
 
     .modal-box h2 {
 
-      margin-top:
-        0;
+      margin:
+        0 0 10px;
+
+      font-size:
+        20px;
 
     }
 
@@ -680,10 +1139,13 @@
     .modal-box p {
 
       color:
-        #bbbbbb;
+        #aaaaaa;
 
       line-height:
         1.5;
+
+      font-size:
+        13px;
 
     }
 
@@ -700,7 +1162,7 @@
         center;
 
       gap:
-        10px;
+        9px;
 
       margin-top:
         15px;
@@ -714,22 +1176,25 @@
         none;
 
       margin-top:
-        15px;
+        14px;
 
       padding:
         12px;
 
+      border-radius:
+        9px;
+
       background:
         #222222;
 
-      border-radius:
-        8px;
-
       color:
-        #bbbbbb;
+        #aaaaaa;
 
       line-height:
         1.5;
+
+      font-size:
+        12px;
 
     }
 
@@ -752,8 +1217,22 @@
 
         height:
           calc(
-            100vh - 225px
+            100vh - 205px
           );
+
+      }
+
+
+      #btnVoltar {
+
+        max-width:
+          520px;
+
+        display:
+          block;
+
+        margin:
+          10px auto;
 
       }
 
@@ -761,10 +1240,68 @@
 
 
     /* =====================================================
-       CELULAR VERTICAL
+       CELULAR
        ===================================================== */
 
     @media (max-width: 600px) {
+
+      header {
+
+        min-height:
+          225px;
+
+        padding:
+          25px 12px 18px;
+
+      }
+
+
+      .hero-logo {
+
+        width:
+          65px;
+
+        height:
+          65px;
+
+        font-size:
+          32px;
+
+      }
+
+
+      .hero-subtitulo {
+
+        font-size:
+          11px;
+
+        letter-spacing:
+          1.2px;
+
+      }
+
+
+      .hero-badges {
+
+        gap:
+          5px;
+
+        margin-bottom:
+          13px;
+
+      }
+
+
+      .hero-badge {
+
+        padding:
+          6px 8px;
+
+        font-size:
+          10px;
+
+      }
+
 
       #canais {
 
@@ -778,7 +1315,7 @@
           8px;
 
         padding:
-          10px;
+          0 10px 20px;
 
       }
 
@@ -786,7 +1323,10 @@
       .canal {
 
         padding:
-          10px 6px;
+          12px 7px;
+
+        border-radius:
+          14px;
 
       }
 
@@ -795,10 +1335,13 @@
       .sem-logo {
 
         width:
-          60px;
+          62px;
 
         height:
-          60px;
+          62px;
+
+        border-radius:
+          13px;
 
       }
 
@@ -807,6 +1350,47 @@
 
         font-size:
           12px;
+
+      }
+
+
+      .canal-indicador {
+
+        font-size:
+          9px;
+
+        margin-top:
+          8px;
+
+      }
+
+
+      #titulo-canais {
+
+        padding:
+          16px 10px 4px;
+
+        font-size:
+          18px;
+
+      }
+
+
+      #subtitulo-canais {
+
+        padding:
+          0 10px 10px;
+
+        font-size:
+          12px;
+
+      }
+
+
+      #status {
+
+        padding:
+          11px 10px 3px;
 
       }
 
@@ -822,10 +1406,10 @@
       #titulo {
 
         font-size:
-          16px;
+          15px;
 
-        padding:
-          7px 4px;
+        text-align:
+          center;
 
       }
 
@@ -834,11 +1418,11 @@
 
         height:
           calc(
-            100dvh - 230px
+            100dvh - 205px
           );
 
         min-height:
-          250px;
+          245px;
 
         border-radius:
           6px;
@@ -848,17 +1432,11 @@
 
       #opcoes {
 
-        display:
-          flex;
-
         flex-direction:
           column;
 
         gap:
           6px;
-
-        margin:
-          8px 0;
 
       }
 
@@ -877,13 +1455,10 @@
       #btnVoltar {
 
         font-size:
-          16px;
+          15px;
 
         padding:
           14px;
-
-        margin:
-          8px 0 10px;
 
       }
 
@@ -899,7 +1474,7 @@
 
 
     /* =====================================================
-       CELULAR DEITADO / PAISAGEM
+       CELULAR DEITADO
        ===================================================== */
 
     @media (
@@ -908,21 +1483,22 @@
       orientation: landscape
     ) {
 
-      /*
-      IMPORTANTE:
-      Os botões não ficam mais sobre o vídeo.
-      */
-
       #player-container {
-
-        width:
-          100%;
 
         min-height:
           100dvh;
 
         padding:
           0;
+
+      }
+
+
+      /*
+      Não mostrar título sobre o vídeo.
+      */
+
+      #player-topo {
 
         display:
           none;
@@ -931,34 +1507,8 @@
 
 
       /*
-      Título fica fora do vídeo.
-      */
-
-      #titulo {
-
-        display:
-          block;
-
-        height:
-          36px;
-
-        padding:
-          8px 45px 6px;
-
-        margin:
-          0;
-
-        font-size:
-          14px;
-
-        background:
-          #111111;
-
-      }
-
-
-      /*
-      Vídeo ocupa o espaço restante.
+      O vídeo ocupa praticamente
+      toda a tela.
       */
 
       #video-wrapper {
@@ -967,9 +1517,7 @@
           100%;
 
         height:
-          calc(
-            100dvh - 36px
-          );
+          100dvh;
 
         min-height:
           100dvh;
@@ -981,9 +1529,9 @@
 
 
       /*
-      Os três botões ficam FORA do vídeo.
-      Eles são escondidos no modo paisagem
-      para não ocupar a tela.
+      IMPORTANTE:
+      nenhum dos três botões fica
+      sobre o vídeo.
       */
 
       #opcoes {
@@ -995,45 +1543,42 @@
 
 
       /*
-      Botão voltar também não fica
-      sobre o vídeo.
+      Botão voltar fica discreto
+      fora do centro do vídeo.
       */
 
       #btnVoltar {
 
-        display:
-          block;
-
-        width:
-          auto;
-
         position:
           fixed;
 
-        top:
-          4px;
-
         left:
-          4px;
+          8px;
+
+        top:
+          8px;
 
         z-index:
-          50;
+          60;
+
+        width:
+          auto;
 
         margin:
           0;
 
         padding:
-          7px 10px;
+          8px 10px;
 
-        font-size:
-          12px;
+        border-radius:
+          8px;
 
         background:
           rgba(
             0,
             0,
             0,
-            .65
+            .70
           );
 
         border:
@@ -1045,12 +1590,15 @@
             .18
           );
 
+        font-size:
+          12px;
+
       }
 
 
       /*
-      Erro pode aparecer por cima
-      somente quando necessário.
+      Erro fica sobre o vídeo somente
+      quando necessário.
       */
 
       #erro {
@@ -1059,7 +1607,7 @@
           fixed;
 
         z-index:
-          100;
+          70;
 
         top:
           45px;
@@ -1075,10 +1623,6 @@
 
       }
 
-
-      /*
-      Esconde informações no celular deitado.
-      */
 
       #informacao {
 
@@ -1103,23 +1647,71 @@
 
   <div id="lista-container">
 
+
     <header>
 
-      <h1>
-        📺 TV AO VIVO
-      </h1>
+      <div class="hero-conteudo">
 
-      <input
-        id="pesquisa"
-        type="text"
-        placeholder="🔎 Pesquisar canal..."
-      >
+
+        <div class="hero-logo">
+          📺
+        </div>
+
+
+        <h1>
+          TV AO VIVO
+        </h1>
+
+
+        <div class="hero-subtitulo">
+          TV & entretenimento em um só lugar
+        </div>
+
+
+        <div class="hero-badges">
+
+          <span class="hero-badge">
+            📺 Canais
+          </span>
+
+          <span class="hero-badge">
+            🔎 Pesquisa
+          </span>
+
+          <span class="hero-badge">
+            ▶️ Player
+          </span>
+
+          <span class="hero-badge">
+            📱 Mobile
+          </span>
+
+        </div>
+
+
+        <input
+          id="pesquisa"
+          type="text"
+          placeholder="🔎 Pesquisar canal..."
+        >
+
+      </div>
 
     </header>
 
 
     <div id="status">
       Carregando canais...
+    </div>
+
+
+    <div id="titulo-canais">
+      📺 Canais disponíveis
+    </div>
+
+
+    <div id="subtitulo-canais">
+      Escolha um canal para começar a assistir.
     </div>
 
 
@@ -1134,8 +1726,13 @@
 
   <div id="player-container">
 
-    <div id="titulo">
-      TV Ao Vivo
+
+    <div id="player-topo">
+
+      <div id="titulo">
+        TV Ao Vivo
+      </div>
+
     </div>
 
 
@@ -1152,10 +1749,6 @@
     </div>
 
 
-    <!-- ==================================================
-         BOTÃO VOLTAR
-         ================================================== -->
-
     <button
       id="btnVoltar"
     >
@@ -1163,11 +1756,8 @@
     </button>
 
 
-    <!-- ==================================================
-         OPÇÕES
-         ================================================== -->
-
     <div id="opcoes">
+
 
       <button
         id="btnTelegram"
@@ -1192,12 +1782,15 @@
         🔗 Copiar link
       </button>
 
+
     </div>
 
 
     <div id="erro"></div>
 
+
     <div id="informacao"></div>
+
 
   </div>
 
@@ -1208,7 +1801,9 @@
 
   <div id="modalVlc">
 
+
     <div class="modal-box">
+
 
       <h2>
         📺 Abrir no VLC
@@ -1217,10 +1812,13 @@
 
       <p>
         Vamos tentar abrir o VLC no seu dispositivo.
+        Caso o sistema bloqueie o protocolo, você
+        poderá copiar o endereço do stream.
       </p>
 
 
       <div class="modal-actions">
+
 
         <a
           id="linkVlc"
@@ -1246,6 +1844,7 @@
           Fechar
         </button>
 
+
       </div>
 
 
@@ -1255,27 +1854,28 @@
 
         <br><br>
 
-        Alguns navegadores ou celulares
-        podem bloquear links
-        <b>vlc://</b>.
+        Alguns celulares e navegadores bloqueiam
+        links <b>vlc://</b>.
 
         <br><br>
 
-        Use
-        <b>🔗 Copiar endereço</b>
-        e cole no VLC.
+        Use <b>🔗 Copiar endereço</b> e cole
+        o link diretamente no VLC.
 
       </div>
 
+
     </div>
+
 
   </div>
 
 
   <script>
 
+
     /* =====================================================
-       TELEGRAM MINI APP
+       TELEGRAM
        ===================================================== */
 
     const tg =
@@ -1285,15 +1885,21 @@
         : null;
 
 
+    /*
+    Inicialização segura.
+    */
+
     if (tg) {
 
       try {
 
         tg.ready();
 
-
         /*
-        Expande o Mini App.
+        Aproveita o máximo de espaço normal.
+        Não solicitamos fullscreen aqui,
+        porque o melhor momento é quando
+        o usuário toca em um canal.
         */
 
         if (
@@ -1302,41 +1908,6 @@
         ) {
 
           tg.expand();
-
-        }
-
-
-        /*
-        Solicita fullscreen real
-        quando disponível.
-        */
-
-        if (
-          typeof tg.requestFullscreen ===
-          "function"
-        ) {
-
-          setTimeout(
-            function() {
-
-              try {
-
-                tg.requestFullscreen();
-
-              }
-
-              catch (e) {
-
-                console.log(
-                  "Fullscreen não disponível:",
-                  e
-                );
-
-              }
-
-            },
-            500
-          );
 
         }
 
@@ -1382,85 +1953,102 @@
         "lista-container"
       );
 
+
     const canaisDiv =
       document.getElementById(
         "canais"
       );
+
 
     const statusDiv =
       document.getElementById(
         "status"
       );
 
+
     const playerContainer =
       document.getElementById(
         "player-container"
       );
+
 
     const video =
       document.getElementById(
         "video"
       );
 
+
     const titulo =
       document.getElementById(
         "titulo"
       );
+
 
     const pesquisa =
       document.getElementById(
         "pesquisa"
       );
 
+
     const erro =
       document.getElementById(
         "erro"
       );
+
 
     const informacao =
       document.getElementById(
         "informacao"
       );
 
+
     const btnVoltar =
       document.getElementById(
         "btnVoltar"
       );
+
 
     const btnTelegram =
       document.getElementById(
         "btnTelegram"
       );
 
+
     const btnVlc =
       document.getElementById(
         "btnVlc"
       );
+
 
     const btnCopiar =
       document.getElementById(
         "btnCopiar"
       );
 
+
     const modalVlc =
       document.getElementById(
         "modalVlc"
       );
+
 
     const linkVlc =
       document.getElementById(
         "linkVlc"
       );
 
+
     const copiarVlc =
       document.getElementById(
         "copiarVlc"
       );
 
+
     const fecharModal =
       document.getElementById(
         "fecharModal"
       );
+
 
     const avisoVlc =
       document.getElementById(
@@ -1475,6 +2063,7 @@
     async function carregarM3U() {
 
       try {
+
 
         statusDiv.innerText =
           "Carregando lista de canais...";
@@ -1515,7 +2104,7 @@
         ) {
 
           throw new Error(
-            "Nenhum canal encontrado"
+            "Nenhum canal encontrado."
           );
 
         }
@@ -1530,6 +2119,7 @@
           `${listaCanais.length} canais encontrados`;
 
       }
+
 
       catch (e) {
 
@@ -1548,16 +2138,16 @@
           <div style="
             grid-column: 1 / -1;
             text-align: center;
-            padding: 30px;
-            color: #aaa;
+            padding: 35px;
+            color: #999;
           ">
 
-            Não foi possível carregar
+            ❌ Não foi possível carregar
             <b>br.m3u</b>.
 
             <br><br>
 
-            Confirme se o arquivo está
+            Verifique se o arquivo está
             no mesmo repositório do
             <b>index.html</b>.
 
@@ -1578,6 +2168,7 @@
       texto
     ) {
 
+
       const linhas =
         texto.split(
           /\r?\n/
@@ -1595,6 +2186,7 @@
         i++
       ) {
 
+
         const linha =
           linhas[i].trim();
 
@@ -1606,9 +2198,9 @@
         }
 
 
-        /*
-        EXTINF
-        */
+        /* =================================================
+           EXTINF
+           ================================================= */
 
         if (
           linha
@@ -1617,6 +2209,7 @@
               "#EXTINF"
             )
         ) {
+
 
           const virgula =
             linha.lastIndexOf(
@@ -1669,24 +2262,26 @@
         }
 
 
-        /*
-        URL
-        */
+        /* =================================================
+           URL
+           ================================================= */
 
         else if (
           info &&
           !linha.startsWith("#")
         ) {
 
+
           let url =
             linha.trim();
 
 
           /*
-          URL relativa
+          URLs relativas
           */
 
           if (
+
             !url.startsWith(
               "http://"
             ) &&
@@ -1702,7 +2297,9 @@
             !url.startsWith(
               "rtsp://"
             )
+
           ) {
+
 
             try {
 
@@ -1713,6 +2310,7 @@
                 ).href;
 
             }
+
 
             catch (e) {
 
@@ -1743,7 +2341,8 @@
           });
 
 
-          info = null;
+          info =
+            null;
 
         }
 
@@ -1763,6 +2362,7 @@
       lista
     ) {
 
+
       canaisDiv.innerHTML =
         "";
 
@@ -1771,12 +2371,13 @@
         lista.length === 0
       ) {
 
+
         canaisDiv.innerHTML = `
 
           <div style="
             grid-column: 1 / -1;
             text-align: center;
-            padding: 30px;
+            padding: 35px;
             color: #999;
           ">
 
@@ -1786,6 +2387,7 @@
 
         `;
 
+
         return;
 
       }
@@ -1793,6 +2395,7 @@
 
       lista.forEach(
         canal => {
+
 
           const div =
             document.createElement(
@@ -1808,23 +2411,34 @@
             "";
 
 
+          /*
+          LOGO
+          */
+
           if (
             canal.logo
           ) {
 
+
             logoHTML = `
 
               <img
+
                 class="logo"
+
                 src="${escapar(
                   canal.logo
                 )}"
+
                 alt=""
+
                 onerror="
                   this.style.display='none';
                   this.nextElementSibling.style.display='flex';
                 "
+
               >
+
 
               <div
                 class="sem-logo"
@@ -1837,11 +2451,15 @@
 
           }
 
+
           else {
+
 
             logoHTML = `
 
-              <div class="sem-logo">
+              <div
+                class="sem-logo"
+              >
                 📺
               </div>
 
@@ -1859,6 +2477,15 @@
               ${escapar(
                 canal.nome
               )}
+
+            </div>
+
+
+            <div class="canal-indicador">
+
+              <span class="canal-ponto"></span>
+
+              CANAL
 
             </div>
 
@@ -1894,6 +2521,7 @@
     pesquisa.addEventListener(
       "input",
       function() {
+
 
         const termo =
           pesquisa.value
@@ -1934,8 +2562,41 @@
       canal
     ) {
 
+
       canalAtual =
         canal;
+
+
+      /*
+      Tenta fullscreen do Telegram
+      em resposta à ação do usuário.
+      */
+
+      if (tg) {
+
+        try {
+
+          if (
+            typeof tg.requestFullscreen ===
+            "function"
+          ) {
+
+            tg.requestFullscreen();
+
+          }
+
+        }
+
+        catch (e) {
+
+          console.log(
+            "Fullscreen Telegram:",
+            e
+          );
+
+        }
+
+      }
 
 
       if (hls) {
@@ -1949,9 +2610,11 @@
 
       video.pause();
 
+
       video.removeAttribute(
         "src"
       );
+
 
       video.load();
 
@@ -1975,7 +2638,7 @@
 
       informacao.innerHTML = `
 
-        <b>Stream:</b><br>
+        <b>Endereço do stream:</b><br>
 
         ${escapar(
           canal.url
@@ -1983,6 +2646,10 @@
 
       `;
 
+
+      /*
+      Botão reproduzir
+      */
 
       btnTelegram.onclick =
         function() {
@@ -1994,6 +2661,10 @@
         };
 
 
+      /*
+      VLC
+      */
+
       btnVlc.onclick =
         function() {
 
@@ -2003,6 +2674,10 @@
 
         };
 
+
+      /*
+      Copiar
+      */
 
       btnCopiar.onclick =
         function() {
@@ -2014,9 +2689,28 @@
         };
 
 
+      /*
+      Começar reprodução
+      */
+
       reproduzir(
         canal
       );
+
+
+      /*
+      Topo
+      */
+
+      window.scrollTo({
+
+        top:
+          0,
+
+        behavior:
+          "smooth"
+
+      });
 
     }
 
@@ -2028,6 +2722,7 @@
     function reproduzir(
       canal
     ) {
+
 
       if (!canal) {
 
@@ -2047,9 +2742,11 @@
 
       video.pause();
 
+
       video.removeAttribute(
         "src"
       );
+
 
       video.load();
 
@@ -2059,16 +2756,20 @@
 
 
       /*
-      HTTP EM PÁGINA HTTPS
+      HTTP em página HTTPS
       */
 
       if (
-        location.protocol === "https:" &&
+
+        location.protocol ===
+        "https:" &&
 
         canal.url.startsWith(
           "http://"
         )
+
       ) {
+
 
         erro.innerHTML = `
 
@@ -2077,8 +2778,7 @@
           <br><br>
 
           O navegador pode bloquear
-          a reprodução porque o Mini App
-          está em HTTPS.
+          a reprodução por segurança.
 
           <br><br>
 
@@ -2098,15 +2798,19 @@
 
 
       /*
-      ======================================================
+      =====================================================
       HLS.JS
-      ======================================================
+      =====================================================
       */
 
       if (
+
         window.Hls &&
+
         Hls.isSupported()
+
       ) {
+
 
         hls =
           new Hls({
@@ -2134,8 +2838,11 @@
 
 
         hls.on(
+
           Hls.Events.MANIFEST_PARSED,
+
           function() {
+
 
             erro.style.display =
               "none";
@@ -2148,15 +2855,19 @@
               );
 
           }
+
         );
 
 
         hls.on(
+
           Hls.Events.ERROR,
+
           function(
             event,
             data
           ) {
+
 
             console.error(
               "Erro HLS:",
@@ -2165,9 +2876,13 @@
 
 
             if (
+
               data &&
+
               data.fatal
+
             ) {
+
 
               let mensagem = `
 
@@ -2178,17 +2893,20 @@
 
 
               if (
+
                 data.type ===
                 Hls.ErrorTypes.NETWORK_ERROR
+
               ) {
+
 
                 mensagem += `
 
                   <br><br>
 
                   O servidor pode estar
-                  bloqueando o acesso
-                  pelo navegador.
+                  bloqueando o acesso pelo
+                  navegador.
 
                   <br><br>
 
@@ -2201,9 +2919,12 @@
 
 
               else if (
+
                 data.type ===
                 Hls.ErrorTypes.MEDIA_ERROR
+
               ) {
+
 
                 mensagem += `
 
@@ -2227,30 +2948,39 @@
             }
 
           }
+
         );
 
       }
 
 
       /*
-      ======================================================
+      =====================================================
       HLS NATIVO
-      ======================================================
+      =====================================================
       */
 
       else if (
+
         video.canPlayType(
+
           "application/vnd.apple.mpegurl"
+
         )
+
       ) {
+
 
         video.src =
           canal.url;
 
 
         video.addEventListener(
+
           "loadedmetadata",
+
           function() {
+
 
             erro.style.display =
               "none";
@@ -2263,15 +2993,21 @@
               );
 
           },
+
           {
-            once: true
+            once:
+              true
           }
+
         );
 
 
         video.addEventListener(
+
           "error",
+
           function() {
+
 
             erro.innerHTML = `
 
@@ -2290,9 +3026,12 @@
               "block";
 
           },
+
           {
-            once: true
+            once:
+              true
           }
+
         );
 
       }
@@ -2300,9 +3039,10 @@
 
       else {
 
+
         erro.innerHTML = `
 
-          ❌ O navegador não suporta
+          ❌ Seu navegador não suporta
           reprodução HLS.
 
         `;
@@ -2317,11 +3057,118 @@
 
 
     /* =====================================================
-       BOTÃO VOLTAR
+       VLC
+       ===================================================== */
+
+    function abrirVlc(
+      url
+    ) {
+
+
+      const vlcUrl =
+        "vlc://" +
+        url;
+
+
+      avisoVlc.style.display =
+        "none";
+
+
+      linkVlc.href =
+        vlcUrl;
+
+
+      modalVlc.style.display =
+        "flex";
+
+
+      linkVlc.onclick =
+        function() {
+
+
+          try {
+
+            window.location.href =
+              vlcUrl;
+
+          }
+
+
+          catch (e) {
+
+            console.error(
+              e
+            );
+
+          }
+
+
+          setTimeout(
+
+            function() {
+
+              avisoVlc.style.display =
+                "block";
+
+            },
+
+            2000
+
+          );
+
+        };
+
+
+      copiarVlc.onclick =
+        function() {
+
+          copiarTexto(
+            url
+          );
+
+        };
+
+    }
+
+
+    /* =====================================================
+       FECHAR MODAL VLC
+       ===================================================== */
+
+    fecharModal.onclick =
+      function() {
+
+        modalVlc.style.display =
+          "none";
+
+      };
+
+
+    modalVlc.addEventListener(
+      "click",
+      function(event) {
+
+        if (
+          event.target ===
+          modalVlc
+        ) {
+
+          modalVlc.style.display =
+            "none";
+
+        }
+
+      }
+    );
+
+
+    /* =====================================================
+       VOLTAR
        ===================================================== */
 
     btnVoltar.onclick =
       function() {
+
 
         video.pause();
 
@@ -2359,7 +3206,40 @@
           "";
 
 
+        /*
+        Tenta sair do fullscreen
+        do Telegram ao voltar.
+        */
+
+        if (tg) {
+
+          try {
+
+            if (
+              typeof tg.exitFullscreen ===
+              "function"
+            ) {
+
+              tg.exitFullscreen();
+
+            }
+
+          }
+
+          catch (e) {
+
+            console.log(
+              "Exit fullscreen:",
+              e
+            );
+
+          }
+
+        }
+
+
         window.scrollTo({
+
           top:
             0,
 
@@ -2372,112 +3252,13 @@
 
 
     /* =====================================================
-       VLC
-       ===================================================== */
-
-    function abrirVlc(
-      url
-    ) {
-
-      const vlcUrl =
-        "vlc://" +
-        url;
-
-
-      avisoVlc.style.display =
-        "none";
-
-
-      linkVlc.href =
-        vlcUrl;
-
-
-      modalVlc.style.display =
-        "flex";
-
-
-      linkVlc.onclick =
-        function() {
-
-          try {
-
-            window.location.href =
-              vlcUrl;
-
-          }
-
-          catch (e) {
-
-            console.error(
-              e
-            );
-
-          }
-
-
-          setTimeout(
-            function() {
-
-              avisoVlc.style.display =
-                "block";
-
-            },
-            2000
-          );
-
-        };
-
-
-      copiarVlc.onclick =
-        function() {
-
-          copiarTexto(
-            url
-          );
-
-        };
-
-    }
-
-
-    /* =====================================================
-       FECHAR MODAL
-       ===================================================== */
-
-    fecharModal.onclick =
-      function() {
-
-        modalVlc.style.display =
-          "none";
-
-      };
-
-
-    modalVlc.addEventListener(
-      "click",
-      function(event) {
-
-        if (
-          event.target ===
-          modalVlc
-        ) {
-
-          modalVlc.style.display =
-            "none";
-
-        }
-
-      }
-    );
-
-
-    /* =====================================================
-       COPIAR
+       COPIAR LINK
        ===================================================== */
 
     async function copiarTexto(
       texto
     ) {
+
 
       try {
 
@@ -2492,7 +3273,9 @@
 
       }
 
+
       catch (e) {
+
 
         const area =
           document.createElement(
@@ -2533,6 +3316,7 @@
 
         }
 
+
         catch (erroCopia) {
 
           alert(
@@ -2558,6 +3342,7 @@
     function escapar(
       texto
     ) {
+
 
       return String(
         texto
@@ -2598,6 +3383,7 @@
     carregarM3U();
 
   </script>
+
 
 </body>
 
