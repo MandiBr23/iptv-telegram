@@ -1,4 +1,4 @@
-
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -18,18 +18,10 @@
 
   <title>TV Ao Vivo</title>
 
-
-  <!-- =====================================================
-       TELEGRAM MINI APP
-       ===================================================== -->
-
+  <!-- Telegram Mini App -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-
-  <!-- =====================================================
-       HLS
-       ===================================================== -->
-
+  <!-- HLS -->
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
 
@@ -45,33 +37,22 @@
 
     html,
     body {
-
-      width: 100%;
-      min-height: 100%;
-
       margin: 0;
       padding: 0;
-
+      width: 100%;
+      min-height: 100%;
       background: #070707;
-      color: #ffffff;
-
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
+      color: #fff;
+      font-family: Arial, Helvetica, sans-serif;
     }
 
-
     body {
-
       overflow-x: hidden;
-
     }
 
 
     /* =====================================================
-       FUNDO GERAL
+       FUNDO
        ===================================================== */
 
     body::before {
@@ -82,41 +63,29 @@
 
       inset: 0;
 
-      z-index: -2;
+      z-index: -5;
 
       background:
         radial-gradient(
-          circle at 10% 10%,
-          rgba(255,255,255,.035),
+          circle at 10% 0%,
+          rgba(255,255,255,.05),
           transparent 25%
         ),
         radial-gradient(
-          circle at 90% 30%,
-          rgba(255,255,255,.025),
-          transparent 28%
+          circle at 90% 20%,
+          rgba(255,255,255,.035),
+          transparent 30%
         ),
         linear-gradient(
           180deg,
           #090909 0%,
           #050505 100%
         );
-
     }
 
 
     /* =====================================================
-       LISTA
-       ===================================================== */
-
-    #lista-container {
-
-      width: 100%;
-
-    }
-
-
-    /* =====================================================
-       BANNER / HERO
+       HEADER / BANNER
        ===================================================== */
 
     header {
@@ -125,39 +94,33 @@
 
       overflow: hidden;
 
-      min-height: 245px;
+      min-height: 250px;
 
-      padding:
-        30px 18px 22px;
+      padding: 28px 15px 22px;
 
       text-align: center;
-
-      border-bottom:
-        1px solid rgba(255,255,255,.08);
 
       background:
 
         linear-gradient(
           180deg,
-          rgba(0,0,0,.10),
-          rgba(0,0,0,.75)
+          rgba(0,0,0,.15),
+          rgba(0,0,0,.82)
         ),
 
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='700' viewBox='0 0 1600 700'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%231d1d1d'/%3E%3Cstop offset='.55' stop-color='%230b0b0b'/%3E%3Cstop offset='1' stop-color='%23212121'/%3E%3C/linearGradient%3E%3ClinearGradient id='b' x1='0' y1='1' x2='1' y2='0'%3E%3Cstop offset='0' stop-color='%23000000' stop-opacity='.95'/%3E%3Cstop offset='1' stop-color='%23000000' stop-opacity='.1'/%3E%3C/linearGradient%3E%3Cfilter id='blur'%3E%3CfeGaussianBlur stdDeviation='28'/%3E%3C/filter%3E%3C/defs%3E%3Crect width='1600' height='700' fill='url(%23g)'/%3E%3Cg opacity='.18' filter='url(%23blur)'%3E%3Ccircle cx='250' cy='180' r='170' fill='%23ffffff'/%3E%3Ccircle cx='1170' cy='150' r='210' fill='%23ffffff'/%3E%3Ccircle cx='920' cy='520' r='170' fill='%23ffffff'/%3E%3C/g%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='.09'%3E%3Crect x='110' y='90' width='430' height='250' rx='26'/%3E%3Crect x='585' y='80' width='430' height='250' rx='26'/%3E%3Crect x='1060' y='90' width='430' height='250' rx='26'/%3E%3C/g%3E%3Cg fill='%23ffffff' opacity='.05'%3E%3Cpolygon points='110,380 510,380 700,540 300,540'/%3E%3Cpolygon points='700,390 1100,390 1300,560 900,560'/%3E%3C/g%3E%3Crect width='1600' height='700' fill='url(%23b)'/%3E%3C/svg%3E");
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='700' viewBox='0 0 1600 700'%3E%3Cdefs%3E%3ClinearGradient id='a' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23252525'/%3E%3Cstop offset='.5' stop-color='%230b0b0b'/%3E%3Cstop offset='1' stop-color='%23202020'/%3E%3C/linearGradient%3E%3ClinearGradient id='b' x1='0' y1='1' x2='1' y2='0'%3E%3Cstop offset='0' stop-color='%23000000' stop-opacity='.96'/%3E%3Cstop offset='1' stop-color='%23000000' stop-opacity='.08'/%3E%3C/linearGradient%3E%3Cfilter id='c'%3E%3CfeGaussianBlur stdDeviation='28'/%3E%3C/filter%3E%3C/defs%3E%3Crect width='1600' height='700' fill='url(%23a)'/%3E%3Cg opacity='.15' filter='url(%23c)' fill='%23ffffff'%3E%3Ccircle cx='260' cy='170' r='170'/%3E%3Ccircle cx='1280' cy='150' r='220'/%3E%3Ccircle cx='840' cy='520' r='170'/%3E%3C/g%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='.09'%3E%3Crect x='90' y='90' width='430' height='245' rx='25'/%3E%3Crect x='585' y='75' width='430' height='245' rx='25'/%3E%3Crect x='1080' y='90' width='430' height='245' rx='25'/%3E%3C/g%3E%3Cg fill='%23ffffff' opacity='.04'%3E%3Cpolygon points='80,390 490,390 710,570 300,570'/%3E%3Cpolygon points='660,395 1080,395 1290,570 880,570'/%3E%3C/g%3E%3Crect width='1600' height='700' fill='url(%23b)'/%3E%3C/svg%3E");
 
-      background-size:
-        cover;
+      background-size: cover;
 
-      background-position:
-        center;
+      background-position: center;
+
+      border-bottom:
+        1px solid rgba(255,255,255,.08);
 
       box-shadow:
-        inset 0 -80px 100px rgba(0,0,0,.7);
-
+        inset 0 -90px 110px rgba(0,0,0,.72);
     }
 
-
-    /* brilho decorativo */
 
     header::after {
 
@@ -165,31 +128,26 @@
 
       position: absolute;
 
-      width: 340px;
-      height: 340px;
+      width: 360px;
+      height: 360px;
+
+      top: -170px;
+      right: -130px;
 
       border-radius: 50%;
-
-      right: -120px;
-      top: -130px;
 
       background:
         radial-gradient(
           circle,
           rgba(255,255,255,.12),
-          rgba(255,255,255,0) 68%
+          transparent 68%
         );
 
       pointer-events: none;
-
     }
 
 
-    /* =====================================================
-       HERO CONTEÚDO
-       ===================================================== */
-
-    .hero-conteudo {
+    .hero {
 
       position: relative;
 
@@ -197,137 +155,107 @@
 
       max-width: 900px;
 
-      margin:
-        0 auto;
-
+      margin: 0 auto;
     }
 
 
     .hero-logo {
 
-      width: 76px;
-      height: 76px;
+      width: 78px;
+      height: 78px;
 
-      margin:
-        0 auto 12px;
+      margin: 0 auto 12px;
 
-      display:
-        flex;
+      display: flex;
 
-      align-items:
-        center;
+      align-items: center;
 
-      justify-content:
-        center;
+      justify-content: center;
+
+      font-size: 38px;
+
+      border-radius: 20px;
+
+      background: rgba(0,0,0,.42);
 
       border:
-        1px solid rgba(255,255,255,.18);
+        1px solid rgba(255,255,255,.16);
 
-      border-radius:
-        20px;
-
-      background:
-        rgba(0,0,0,.45);
-
-      backdrop-filter:
-        blur(12px);
+      backdrop-filter: blur(12px);
 
       box-shadow:
-        0 12px 35px rgba(0,0,0,.35);
-
-      font-size:
-        38px;
-
+        0 15px 40px rgba(0,0,0,.4);
     }
 
 
-    header h1 {
+    h1 {
 
-      margin:
-        0;
+      margin: 0;
 
       font-size:
         clamp(
           28px,
-          5vw,
-          40px
+          6vw,
+          42px
         );
 
-      font-weight:
-        900;
+      font-weight: 900;
 
-      letter-spacing:
-        .5px;
+      letter-spacing: .4px;
 
       text-shadow:
-        0 5px 20px rgba(0,0,0,.65);
-
+        0 5px 25px rgba(0,0,0,.7);
     }
 
 
-    .hero-subtitulo {
+    .hero-subtitle {
 
-      margin:
-        8px 0 18px;
+      margin-top: 8px;
 
-      color:
-        rgba(255,255,255,.78);
+      margin-bottom: 15px;
 
-      font-size:
-        14px;
+      color: rgba(255,255,255,.76);
 
-      letter-spacing:
-        1.8px;
+      font-size: 13px;
 
-      text-transform:
-        uppercase;
+      letter-spacing: 2px;
 
+      text-transform: uppercase;
     }
 
 
-    .hero-badges {
+    .hero-tags {
 
-      display:
-        flex;
+      display: flex;
 
-      justify-content:
-        center;
+      flex-wrap: wrap;
 
-      flex-wrap:
-        wrap;
+      justify-content: center;
 
-      gap:
-        8px;
+      gap: 7px;
 
-      margin-bottom:
-        18px;
-
+      margin-bottom: 17px;
     }
 
 
-    .hero-badge {
+    .hero-tag {
 
-      padding:
-        7px 11px;
+      padding: 6px 10px;
 
-      border:
-        1px solid rgba(255,255,255,.12);
-
-      border-radius:
-        999px;
+      border-radius: 999px;
 
       background:
         rgba(0,0,0,.35);
 
-      backdrop-filter:
-        blur(8px);
+      border:
+        1px solid rgba(255,255,255,.10);
 
       color:
         rgba(255,255,255,.82);
 
-      font-size:
-        12px;
+      font-size: 11px;
 
+      backdrop-filter: blur(8px);
     }
 
 
@@ -337,63 +265,112 @@
 
     #pesquisa {
 
-      width:
-        100%;
+      width: 100%;
 
-      max-width:
-        680px;
+      max-width: 680px;
 
-      padding:
-        14px 18px;
+      padding: 14px 17px;
 
       border:
-        1px solid rgba(255,255,255,.14);
+        1px solid rgba(255,255,255,.15);
 
-      border-radius:
-        14px;
+      border-radius: 14px;
 
       background:
-        rgba(10,10,10,.62);
+        rgba(10,10,10,.60);
 
-      color:
-        #ffffff;
+      color: #fff;
 
-      font-size:
-        15px;
+      font-size: 15px;
 
-      outline:
-        none;
+      outline: none;
 
-      backdrop-filter:
-        blur(12px);
+      backdrop-filter: blur(10px);
 
       box-shadow:
-        0 10px 30px rgba(0,0,0,.25);
-
-      transition:
-        border-color .2s ease,
-        box-shadow .2s ease;
-
+        0 12px 30px rgba(0,0,0,.25);
     }
 
 
     #pesquisa::placeholder {
 
       color:
-        #999999;
-
+        #999;
     }
 
 
     #pesquisa:focus {
 
       border-color:
-        rgba(255,255,255,.32);
+        rgba(255,255,255,.30);
 
       box-shadow:
         0 0 0 3px rgba(255,255,255,.05),
-        0 10px 30px rgba(0,0,0,.3);
+        0 12px 30px rgba(0,0,0,.30);
+    }
 
+
+    /* =====================================================
+       ÁREA DE FILTROS
+       ===================================================== */
+
+    #barra-categorias {
+
+      display:
+        flex;
+
+      gap:
+        7px;
+
+      overflow-x:
+        auto;
+
+      padding:
+        15px 15px 5px;
+
+      scrollbar-width:
+        thin;
+    }
+
+
+    .categoria {
+
+      flex:
+        0 0 auto;
+
+      padding:
+        8px 12px;
+
+      border:
+        1px solid #2f2f2f;
+
+      border-radius:
+        999px;
+
+      background:
+        #151515;
+
+      color:
+        #aaa;
+
+      font-size:
+        12px;
+
+      cursor:
+        pointer;
+    }
+
+
+    .categoria.ativa {
+
+      background:
+        #2b2b2b;
+
+      border-color:
+        #505050;
+
+      color:
+        #fff;
     }
 
 
@@ -404,49 +381,46 @@
     #status {
 
       padding:
-        14px 15px 4px;
+        12px 15px 4px;
 
       text-align:
         center;
 
       color:
-        #999999;
+        #929292;
 
       font-size:
         13px;
-
     }
 
 
     /* =====================================================
-       TÍTULO DOS CANAIS
+       TÍTULO
        ===================================================== */
 
     #titulo-canais {
 
       padding:
-        18px 15px 4px;
+        14px 15px 3px;
 
       font-size:
         20px;
 
       font-weight:
         800;
-
     }
 
 
     #subtitulo-canais {
 
       padding:
-        0 15px 12px;
+        0 15px 13px;
 
       color:
-        #888888;
+        #808080;
 
       font-size:
-        13px;
-
+        12px;
     }
 
 
@@ -472,8 +446,7 @@
         14px;
 
       padding:
-        0 15px 24px;
-
+        0 15px 25px;
     }
 
 
@@ -489,12 +462,8 @@
       overflow:
         hidden;
 
-      background:
-        linear-gradient(
-          145deg,
-          #1d1d1d,
-          #111111
-        );
+      padding:
+        16px 12px;
 
       border:
         1px solid #292929;
@@ -502,58 +471,27 @@
       border-radius:
         16px;
 
-      padding:
-        16px 12px;
-
-      cursor:
-        pointer;
+      background:
+        linear-gradient(
+          145deg,
+          #1d1d1d,
+          #111111
+        );
 
       text-align:
         center;
 
+      cursor:
+        pointer;
+
       transition:
-        transform .2s ease,
-        border-color .2s ease,
-        background .2s ease,
-        box-shadow .2s ease;
+        transform .18s ease,
+        background .18s ease,
+        border-color .18s ease,
+        box-shadow .18s ease;
 
       box-shadow:
-        0 8px 22px rgba(0,0,0,.16);
-
-    }
-
-
-    .canal::before {
-
-      content:
-        "";
-
-      position:
-        absolute;
-
-      left:
-        0;
-
-      right:
-        0;
-
-      top:
-        0;
-
-      height:
-        1px;
-
-      background:
-        linear-gradient(
-          90deg,
-          transparent,
-          rgba(255,255,255,.2),
-          transparent
-        );
-
-      opacity:
-        .65;
-
+        0 8px 23px rgba(0,0,0,.17);
     }
 
 
@@ -562,19 +500,18 @@
       transform:
         translateY(-4px);
 
-      border-color:
-        #444444;
-
       background:
         linear-gradient(
           145deg,
-          #262626,
+          #282828,
           #151515
         );
 
-      box-shadow:
-        0 15px 32px rgba(0,0,0,.3);
+      border-color:
+        #444;
 
+      box-shadow:
+        0 15px 32px rgba(0,0,0,.30);
     }
 
 
@@ -582,7 +519,6 @@
 
       transform:
         scale(.98);
-
     }
 
 
@@ -590,8 +526,7 @@
        LOGOS
        ===================================================== */
 
-    .logo,
-    .sem-logo {
+    .logo {
 
       width:
         82px;
@@ -599,36 +534,36 @@
       height:
         82px;
 
+      display:
+        block;
+
       margin:
         0 auto 14px;
 
-      border-radius:
-        16px;
-
-    }
-
-
-    .logo {
-
-      display:
-        block;
+      padding:
+        5px;
 
       object-fit:
         contain;
 
-      padding:
-        6px;
+      border-radius:
+        15px;
 
       background:
         #0d0d0d;
 
       border:
-        1px solid rgba(255,255,255,.06);
-
+        1px solid rgba(255,255,255,.05);
     }
 
 
     .sem-logo {
+
+      width:
+        82px;
+
+      height:
+        82px;
 
       display:
         flex;
@@ -639,23 +574,31 @@
       justify-content:
         center;
 
+      margin:
+        0 auto 14px;
+
+      border-radius:
+        15px;
+
       background:
         radial-gradient(
-          circle at center,
-          #222222,
-          #0c0c0c
+          circle,
+          #242424,
+          #0d0d0d
         );
 
       border:
-        1px solid #292929;
+        1px solid #2b2b2b;
 
       font-size:
         34px;
-
     }
 
 
     .nome {
+
+      min-height:
+        38px;
 
       font-size:
         14px;
@@ -664,15 +607,27 @@
         700;
 
       line-height:
-        1.4;
+        1.35;
 
       color:
-        #f4f4f4;
-
+        #f2f2f2;
     }
 
 
-    .canal-indicador {
+    .grupo {
+
+      margin-top:
+        9px;
+
+      color:
+        #7d7d7d;
+
+      font-size:
+        10px;
+    }
+
+
+    .ao-vivo {
 
       display:
         inline-flex;
@@ -684,30 +639,29 @@
         5px;
 
       margin-top:
-        10px;
+        9px;
 
       padding:
         4px 8px;
 
+      border:
+        1px solid rgba(255,255,255,.07);
+
       border-radius:
         999px;
 
-      border:
-        1px solid rgba(255,255,255,.08);
-
       background:
-        rgba(0,0,0,.25);
+        rgba(0,0,0,.20);
 
       color:
-        #8f8f8f;
+        #8d8d8d;
 
       font-size:
-        10px;
-
+        9px;
     }
 
 
-    .canal-ponto {
+    .bolinha {
 
       width:
         6px;
@@ -719,8 +673,7 @@
         50%;
 
       background:
-        #6f6f6f;
-
+        #737373;
     }
 
 
@@ -740,11 +693,10 @@
         100dvh;
 
       padding:
-        8px;
+        7px;
 
       background:
         #050505;
-
     }
 
 
@@ -760,12 +712,11 @@
         10px;
 
       margin-bottom:
-        8px;
-
+        7px;
     }
 
 
-    #titulo {
+    #titulo-player {
 
       flex:
         1;
@@ -774,7 +725,7 @@
         0;
 
       font-size:
-        18px;
+        17px;
 
       font-weight:
         800;
@@ -789,13 +740,12 @@
         ellipsis;
 
       text-align:
-        left;
-
+        center;
     }
 
 
     /* =====================================================
-       PLAYER VÍDEO
+       VIDEO
        ===================================================== */
 
     #video-wrapper {
@@ -808,17 +758,17 @@
 
       height:
         calc(
-          100dvh - 205px
+          100dvh - 235px
         );
 
       min-height:
-        300px;
+        290px;
 
       background:
-        #000000;
+        #000;
 
       border-radius:
-        10px;
+        9px;
 
       overflow:
         hidden;
@@ -833,8 +783,7 @@
         center;
 
       box-shadow:
-        0 16px 45px rgba(0,0,0,.45);
-
+        0 16px 45px rgba(0,0,0,.48);
     }
 
 
@@ -853,16 +802,15 @@
         contain;
 
       background:
-        #000000;
-
+        #000;
     }
 
 
     /* =====================================================
-       BOTÕES
+       CONTROLES
        ===================================================== */
 
-    #opcoes {
+    #controles-player {
 
       display:
         flex;
@@ -870,19 +818,27 @@
       flex-wrap:
         wrap;
 
+      justify-content:
+        center;
+
       gap:
         8px;
 
       margin:
         9px 0;
-
     }
 
 
     .btn {
 
+      padding:
+        10px 14px;
+
       border:
-        1px solid #363636;
+        1px solid #373737;
+
+      border-radius:
+        9px;
 
       background:
         linear-gradient(
@@ -892,31 +848,16 @@
         );
 
       color:
-        #ffffff;
-
-      padding:
-        10px 14px;
-
-      border-radius:
-        9px;
-
-      cursor:
-        pointer;
+        #fff;
 
       font-size:
         13px;
 
+      cursor:
+        pointer;
+
       text-decoration:
         none;
-
-      display:
-        inline-block;
-
-      transition:
-        background .15s ease,
-        transform .15s ease,
-        border-color .15s ease;
-
     }
 
 
@@ -926,16 +867,7 @@
         #2b2b2b;
 
       border-color:
-        #494949;
-
-    }
-
-
-    .btn:active {
-
-      transform:
-        scale(.98);
-
+        #4b4b4b;
     }
 
 
@@ -944,113 +876,63 @@
       width:
         100%;
 
-      margin:
-        8px 0 10px;
-
       padding:
         13px;
 
+      margin:
+        6px 0 7px;
+
       border:
-        1px solid #363636;
+        1px solid #383838;
 
       border-radius:
         10px;
 
       background:
-        #1c1c1c;
+        #1d1d1d;
 
       color:
-        #ffffff;
-
-      font-size:
-        15px;
+        #fff;
 
       font-weight:
         800;
 
       cursor:
         pointer;
-
     }
 
-
-    #btnVoltar:hover {
-
-      background:
-        #272727;
-
-    }
-
-
-    /* =====================================================
-       ERRO
-       ===================================================== */
 
     #erro {
 
       display:
         none;
 
-      margin-top:
-        10px;
-
       padding:
-        14px;
-
-      border:
-        1px solid #352c2b;
-
-      border-radius:
-        9px;
-
-      background:
-        #1a1515;
-
-      color:
-        #ffb4ad;
-
-      line-height:
-        1.5;
-
-      font-size:
         13px;
-
-    }
-
-
-    /* =====================================================
-       INFORMAÇÃO
-       ===================================================== */
-
-    #informacao {
 
       margin-top:
         8px;
 
-      padding:
-        10px;
-
       border:
-        1px solid #262626;
+        1px solid #382c2b;
 
       border-radius:
         9px;
 
       background:
-        #121212;
+        #1a1414;
 
       color:
-        #777777;
+        #ffb4ad;
 
       font-size:
-        11px;
+        13px;
 
       line-height:
         1.5;
 
-      word-break:
-        break-word;
-
+      text-align:
+        center;
     }
 
 
@@ -1072,23 +954,17 @@
       z-index:
         1000;
 
+      padding:
+        18px;
+
       background:
-        rgba(
-          0,
-          0,
-          0,
-          .82
-        );
+        rgba(0,0,0,.84);
 
       align-items:
         center;
 
       justify-content:
         center;
-
-      padding:
-        18px;
-
     }
 
 
@@ -1103,6 +979,12 @@
       padding:
         20px;
 
+      border:
+        1px solid #363636;
+
+      border-radius:
+        15px;
+
       background:
         linear-gradient(
           145deg,
@@ -1110,18 +992,11 @@
           #111111
         );
 
-      border:
-        1px solid #353535;
-
-      border-radius:
-        15px;
+      box-shadow:
+        0 25px 70px rgba(0,0,0,.55);
 
       text-align:
         center;
-
-      box-shadow:
-        0 25px 70px rgba(0,0,0,.5);
-
     }
 
 
@@ -1132,21 +1007,19 @@
 
       font-size:
         20px;
-
     }
 
 
     .modal-box p {
 
       color:
-        #aaaaaa;
-
-      line-height:
-        1.5;
+        #aaa;
 
       font-size:
         13px;
 
+      line-height:
+        1.5;
     }
 
 
@@ -1166,7 +1039,6 @@
 
       margin-top:
         15px;
-
     }
 
 
@@ -1185,17 +1057,16 @@
         9px;
 
       background:
-        #222222;
+        #222;
 
       color:
-        #aaaaaa;
-
-      line-height:
-        1.5;
+        #aaa;
 
       font-size:
         12px;
 
+      line-height:
+        1.5;
     }
 
 
@@ -1205,21 +1076,12 @@
 
     @media (min-width: 901px) {
 
-      #player-container {
-
-        padding:
-          8px 15px;
-
-      }
-
-
       #video-wrapper {
 
         height:
           calc(
             100vh - 205px
           );
-
       }
 
 
@@ -1233,7 +1095,6 @@
 
         margin:
           10px auto;
-
       }
 
     }
@@ -1251,55 +1112,50 @@
           225px;
 
         padding:
-          25px 12px 18px;
-
+          24px 10px 17px;
       }
 
 
       .hero-logo {
 
         width:
-          65px;
+          64px;
 
         height:
-          65px;
+          64px;
 
         font-size:
-          32px;
-
+          31px;
       }
 
 
-      .hero-subtitulo {
+      .hero-subtitle {
 
         font-size:
-          11px;
+          10px;
 
         letter-spacing:
           1.2px;
-
       }
 
 
-      .hero-badges {
+      .hero-tags {
 
         gap:
           5px;
 
         margin-bottom:
-          13px;
-
+          12px;
       }
 
 
-      .hero-badge {
+      .hero-tag {
 
         padding:
-          6px 8px;
+          5px 8px;
 
         font-size:
-          10px;
-
+          9px;
       }
 
 
@@ -1316,18 +1172,16 @@
 
         padding:
           0 10px 20px;
-
       }
 
 
       .canal {
 
         padding:
-          12px 7px;
+          11px 6px;
 
         border-radius:
           14px;
-
       }
 
 
@@ -1342,7 +1196,6 @@
 
         border-radius:
           13px;
-
       }
 
 
@@ -1351,47 +1204,49 @@
         font-size:
           12px;
 
+        min-height:
+          34px;
       }
 
 
-      .canal-indicador {
+      .grupo {
 
         font-size:
           9px;
-
-        margin-top:
-          8px;
-
       }
 
 
       #titulo-canais {
 
         padding:
-          16px 10px 4px;
+          15px 10px 3px;
 
         font-size:
           18px;
-
       }
 
 
       #subtitulo-canais {
 
         padding:
-          0 10px 10px;
+          0 10px 11px;
 
         font-size:
-          12px;
+          11px;
+      }
 
+
+      #barra-categorias {
+
+        padding:
+          12px 10px 4px;
       }
 
 
       #status {
 
         padding:
-          11px 10px 3px;
-
+          10px 10px 3px;
       }
 
 
@@ -1399,18 +1254,13 @@
 
         padding:
           5px;
-
       }
 
 
-      #titulo {
+      #titulo-player {
 
         font-size:
           15px;
-
-        text-align:
-          center;
-
       }
 
 
@@ -1418,7 +1268,7 @@
 
         height:
           calc(
-            100dvh - 205px
+            100dvh - 215px
           );
 
         min-height:
@@ -1426,48 +1276,26 @@
 
         border-radius:
           6px;
-
       }
 
 
-      #opcoes {
+      #controles-player {
 
         flex-direction:
           column;
 
         gap:
           6px;
-
       }
 
 
-      #opcoes .btn {
+      #controles-player .btn {
 
         width:
           100%;
 
         text-align:
           center;
-
-      }
-
-
-      #btnVoltar {
-
-        font-size:
-          15px;
-
-        padding:
-          14px;
-
-      }
-
-
-      #informacao {
-
-        display:
-          none;
-
       }
 
     }
@@ -1490,26 +1318,15 @@
 
         padding:
           0;
-
       }
 
-
-      /*
-      Não mostrar título sobre o vídeo.
-      */
 
       #player-topo {
 
         display:
           none;
-
       }
 
-
-      /*
-      O vídeo ocupa praticamente
-      toda a tela.
-      */
 
       #video-wrapper {
 
@@ -1524,27 +1341,23 @@
 
         border-radius:
           0;
-
       }
 
 
       /*
-      IMPORTANTE:
-      nenhum dos três botões fica
-      sobre o vídeo.
+      Esconde os botões para não
+      ficarem em cima do vídeo.
       */
 
-      #opcoes {
+      #controles-player {
 
         display:
           none;
-
       }
 
 
       /*
-      Botão voltar fica discreto
-      fora do centro do vídeo.
+      Voltar fica discreto no canto.
       */
 
       #btnVoltar {
@@ -1559,7 +1372,7 @@
           8px;
 
         z-index:
-          60;
+          50;
 
         width:
           auto;
@@ -1570,36 +1383,16 @@
         padding:
           8px 10px;
 
-        border-radius:
-          8px;
-
         background:
-          rgba(
-            0,
-            0,
-            0,
-            .70
-          );
+          rgba(0,0,0,.70);
 
         border:
-          1px solid
-          rgba(
-            255,
-            255,
-            255,
-            .18
-          );
+          1px solid rgba(255,255,255,.18);
 
         font-size:
           12px;
-
       }
 
-
-      /*
-      Erro fica sobre o vídeo somente
-      quando necessário.
-      */
 
       #erro {
 
@@ -1609,26 +1402,17 @@
         z-index:
           70;
 
-        top:
-          45px;
-
         left:
           10px;
 
         right:
           10px;
 
+        top:
+          45px;
+
         margin:
           0;
-
-      }
-
-
-      #informacao {
-
-        display:
-          none;
-
       }
 
     }
@@ -1642,7 +1426,7 @@
 
 
   <!-- =====================================================
-       LISTA DE CANAIS
+       LISTA
        ===================================================== -->
 
   <div id="lista-container">
@@ -1650,7 +1434,7 @@
 
     <header>
 
-      <div class="hero-conteudo">
+      <div class="hero">
 
 
         <div class="hero-logo">
@@ -1663,27 +1447,31 @@
         </h1>
 
 
-        <div class="hero-subtitulo">
+        <div class="hero-subtitle">
           TV & entretenimento em um só lugar
         </div>
 
 
-        <div class="hero-badges">
+        <div class="hero-tags">
 
-          <span class="hero-badge">
+          <span class="hero-tag">
             📺 Canais
           </span>
 
-          <span class="hero-badge">
+          <span class="hero-tag">
             🔎 Pesquisa
           </span>
 
-          <span class="hero-badge">
+          <span class="hero-tag">
             ▶️ Player
           </span>
 
-          <span class="hero-badge">
+          <span class="hero-tag">
             📱 Mobile
+          </span>
+
+          <span class="hero-tag">
+            💻 PC
           </span>
 
         </div>
@@ -1698,6 +1486,11 @@
       </div>
 
     </header>
+
+
+    <div
+      id="barra-categorias"
+    ></div>
 
 
     <div id="status">
@@ -1729,7 +1522,7 @@
 
     <div id="player-topo">
 
-      <div id="titulo">
+      <div id="titulo-player">
         TV Ao Vivo
       </div>
 
@@ -1756,14 +1549,22 @@
     </button>
 
 
-    <div id="opcoes">
+    <div id="controles-player">
 
 
       <button
-        id="btnTelegram"
+        id="btnReproduzir"
         class="btn"
       >
         ▶️ Reproduzir
+      </button>
+
+
+      <button
+        id="btnFullscreen"
+        class="btn"
+      >
+        ⛶ Tela cheia
       </button>
 
 
@@ -1788,10 +1589,6 @@
 
     <div id="erro"></div>
 
-
-    <div id="informacao"></div>
-
-
   </div>
 
 
@@ -1811,9 +1608,9 @@
 
 
       <p>
-        Vamos tentar abrir o VLC no seu dispositivo.
-        Caso o sistema bloqueie o protocolo, você
-        poderá copiar o endereço do stream.
+        Tentaremos abrir este stream no VLC.
+        Caso o sistema bloqueie, você poderá
+        copiar o endereço.
       </p>
 
 
@@ -1854,19 +1651,18 @@
 
         <br><br>
 
-        Alguns celulares e navegadores bloqueiam
-        links <b>vlc://</b>.
+        Alguns navegadores e celulares
+        bloqueiam links <b>vlc://</b>.
 
         <br><br>
 
-        Use <b>🔗 Copiar endereço</b> e cole
-        o link diretamente no VLC.
+        Use <b>🔗 Copiar endereço</b>
+        e cole o link no VLC.
 
       </div>
 
 
     </div>
-
 
   </div>
 
@@ -1875,7 +1671,7 @@
 
 
     /* =====================================================
-       TELEGRAM
+       TELEGRAM MINI APP
        ===================================================== */
 
     const tg =
@@ -1885,22 +1681,12 @@
         : null;
 
 
-    /*
-    Inicialização segura.
-    */
-
     if (tg) {
 
       try {
 
         tg.ready();
 
-        /*
-        Aproveita o máximo de espaço normal.
-        Não solicitamos fullscreen aqui,
-        porque o melhor momento é quando
-        o usuário toca em um canal.
-        */
 
         if (
           typeof tg.expand ===
@@ -1916,7 +1702,7 @@
       catch (e) {
 
         console.log(
-          "Telegram WebApp:",
+          "Telegram:",
           e
         );
 
@@ -1926,22 +1712,811 @@
 
 
     /* =====================================================
-       CONFIGURAÇÃO
+       LISTA FIXA DE CANAIS
        ===================================================== */
 
-    const M3U_URL =
-      "./br_pluto.m3u";
+    const canais = [
 
+      {
+        nome: "Amazon Sat (1080p)",
+        grupo: "Entertainment",
+        logo: "https://i.imgur.com/7rjCS5i.png",
+        url: "https://amazonsat.brasilstream.com.br/hls/amazonsat/index.m3u8"
+      },
 
-    /* =====================================================
-       VARIÁVEIS
-       ===================================================== */
+      {
+        nome: "Araruna TV",
+        grupo: "General",
+        logo: "https://i.imgur.com/jl39ula.png",
+        url: "https://video05.logicahost.com.br/ararunatv/ararunatv/playlist.m3u8"
+      },
 
-    let listaCanais = [];
+      {
+        nome: "SBT Nacional (720p)",
+        grupo: "Entertainment",
+        logo: "https://i.imgur.com/tc1ALuu.png",
+        url: "https://cdn.live.br1.jmvstream.com/w/LVW-9359/LVW9359_XSyReL0QVf/playlist.m3u8"
+      },
 
-    let canalAtual = null;
+      {
+        nome: "AWTV (1080p)",
+        grupo: "Classic / Series",
+        logo: "https://i.imgur.com/2tdMyef.png",
+        referrer: "https://awtv.com.br",
+        url: "https://awtv.nuvemplay.live/hls/stream.m3u8"
+      },
 
-    let hls = null;
+      {
+        nome: "Blitstv",
+        grupo: "Entertainment",
+        logo: "https://i.imgur.com/FO4QTRf.jpeg",
+        url: "https://stmv1.transmissaodigital.com/blitstv/blitstv/playlist.m3u8"
+      },
+
+      {
+        nome: "BR8 TV",
+        grupo: "News",
+        logo: "https://i.ibb.co/1QZv2q1/Br8-fb-graph.png",
+        url: "https://cdn.live.br1.jmvstream.com/w/LVW-11668/ngrp:LVW11668_wiJpjbMrks_all/playlist.m3u8"
+      },
+
+      {
+        nome: "Canal FDR",
+        grupo: "Education / General",
+        logo: "https://i.imgur.com/7SE4CkE.png",
+        url: "https://v-us-01.wisestream.io/memfs/e4ade538-7924-4359-81ef-b9d4dd229e91.m3u8"
+      },
+
+      {
+        nome: "Canal Metropolitano de Noticias",
+        grupo: "News",
+        logo: "https://i.imgur.com/G0x4xqa.png",
+        url: "https://stmv5.samcast.com.br/claudio8701/claudio8701/playlist.m3u8"
+      },
+
+      {
+        nome: "Catve2 (720p)",
+        grupo: "General",
+        logo: "https://i.imgur.com/qiVfsfB.png",
+        url: "https://5b33b873179a2.streamlock.net:1443/catve2/catve2/playlist.m3u8"
+      },
+
+      {
+        nome: "Catve FM (720p)",
+        grupo: "General",
+        logo: "https://i.imgur.com/w89yw36.png",
+        url: "https://5b33b873179a2.streamlock.net:1443/radiocamera/livestream/playlist.m3u8"
+      },
+
+      {
+        nome: "Catve Master TV (720p)",
+        grupo: "General",
+        logo: "https://i.imgur.com/4m7Iazm.png",
+        url: "https://5b33b873179a2.streamlock.net:1443/mastertv/livestream/playlist.m3u8"
+      },
+
+      {
+        nome: "Chroma TV (480p)",
+        grupo: "Entertainment",
+        logo: "https://i.imgur.com/SnaIMgj.png",
+        url: "https://5c483b9d1019c.streamlock.net/8054/8054/playlist.m3u8"
+      },
+
+      {
+        nome: "Classique TV (360p)",
+        grupo: "Movies",
+        logo: "https://i.imgur.com/rHxcraT.png",
+        url: "https://stmv1.srvif.com/classique/classique/playlist.m3u8"
+      },
+
+      {
+        nome: "COM Brasil (1080p)",
+        grupo: "General",
+        logo: "https://i.imgur.com/GrjGwKM.png",
+        url: "https://br5093.streamingdevideo.com.br/abc/abc/playlist.m3u8"
+      },
+
+      {
+        nome: "Conecta Mais TV (720p)",
+        grupo: "Entertainment",
+        logo: "https://i.imgur.com/qHwTWlz.png",
+        url: "https://adylnet.streampool.net/10324/live/hls/Conecta/index.m3u8"
+      },
+
+      {
+        nome: "ConecTV Brasil (720p)",
+        grupo: "General",
+        logo: "https://i.imgur.com/XN6jjMR.png",
+        url: "https://stream01.msolutionbrasil.com.br/hls/conectv/live.m3u8"
+      },
+
+      {
+        nome: "Cultura Fast (720p)",
+        grupo: "General",
+        logo: "https://eitv6.cdn.broadpeak.io/account351-i1438/channel/53/quadrada_-3-_pequeno-1723832301.png",
+        url: "https://fpa-gateway.tvcultura.com.br:8181/memfs/606caef0-a290-413d-9f1f-8fcdb3a73831.m3u8"
+      },
+
+      {
+        nome: "Despertar TV (720p)",
+        grupo: "Religious",
+        logo: "https://res.cloudinary.com/dpkehkbpv/image/upload/v1721839192/logo/mixtv/despertar_tv_ieb2l3.png",
+        url: "https://br.conectmy.com.br/DespertarTV/index.m3u8"
+      },
+
+      {
+        nome: "ElyTV (360p)",
+        grupo: "Entertainment",
+        logo: "https://i.imgur.com/1eHNe91.png",
+        url: "https://stmv1.srvsite.com/ely/ely/playlist.m3u8"
+      },
+
+      {
+        nome: "Fala Litoral (480p)",
+        grupo: "General",
+        logo: "https://i.imgur.com/NF6PL8O.png",
+        url: "https://5c483b9d1019c.streamlock.net/falalitoraltv/falalitoraltv/playlist.m3u8"
+      },
+
+      {
+        nome: "FIFA+ Portuguese (720p)",
+        grupo: "Sports",
+        logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/FIFA%2B_(2025).svg/960px-FIFA%2B_(2025).svg.png",
+        url: "https://e3be9ac5.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEctYnJfRklGQVBsdXNQb3J0dWd1ZXNlX0hMUw/playlist.m3u8"
+      },
+
+      {
+        nome: "Fora Tedio TV (720p)",
+        grupo: "Comedy",
+        logo: "https://i.imgur.com/R9ul4T1.png",
+        referrer: "https://www.foratedio.com",
+        url: "https://stmv2.srvif.com/foratedio/foratedio/playlist.m3u8"
+      },
+
+      {
+        nome: "ge Fast (1080p)",
+        grupo: "Sports",
+        logo: "https://i.ibb.co/WGXHDnF/logo-ge-fast.png",
+        url: "https://amg00716-globo-amg00716c1-tcl-br-9495.playouts.now.amagi.tv/playlist.m3u8"
+      },
+
+      {
+        nome: "Gospel Cartoon (360p)",
+        grupo: "Religious",
+        logo: "https://i.imgur.com/yxjPno5.png",
+        url: "https://stmv1.srvif.com/gospelcartoon/gospelcartoon/playlist.m3u8"
+      },
+
+      {
+        nome: "Gospel Movie TV (360p)",
+        grupo: "Religious",
+        logo: "https://i.imgur.com/cQN3nWt.png",
+        url: "https://stmv1.srvif.com/gospelf/gospelf/playlist.m3u8"
+      },
+
+      {
+        nome: "ISTV (720p)",
+        grupo: "Education",
+        logo: "https://i.imgur.com/RUKVrOH.png",
+        url: "https://stmv1.srvstm.com/sistema7933/sistema7933/playlist.m3u8"
+      },
+
+      {
+        nome: "J3NEWS TV",
+        grupo: "News",
+        logo: "https://i.imgur.com/lezIQyL.png",
+        url: "https://video01.brascast.com/d92ebb4f/d92ebb4f/playlist.m3u8"
+      },
+
+      {
+        nome: "KpopTV Play (576p)",
+        grupo: "Music",
+        logo: "https://i.imgur.com/Tf0vweF.png",
+        url: "https://giatv.bozztv.com/giatv/giatv-kpoptvplay/kpoptvplay/playlist.m3u8"
+      },
+
+      {
+        nome: "Kuriakos Kids (1080p)",
+        grupo: "Kids / Religious",
+        logo: "https://i.imgur.com/SRX6EPY.png",
+        url: "https://w2.manasat.com/kkids/smil:kkids.smil/playlist.m3u8"
+      },
+
+      {
+        nome: "Lamore Rock Show WebTV (720p)",
+        grupo: "Music",
+        logo: "https://www.lamorerockshowwebtv.com.br/wp-content/uploads/2024/11/logo_rockshow.avif",
+        url: "https://a.cdni.live/rodrigo2364/rodrigo2364/playlist.m3u8"
+      },
+
+      {
+        nome: "Loading (720p)",
+        grupo: "Entertainment",
+        logo: "https://i.imgur.com/R0aflu1.png",
+        url: "https://stmv1.srvif.com/loadingtv/loadingtv/playlist.m3u8"
+      },
+
+      {
+        nome: "MyTime Movie Network Brazil (720p)",
+        grupo: "Movies",
+        logo: "https://i.imgur.com/aiGQtzI.png",
+        url: "https://appletree-mytime-samsungbrazil.amagi.tv/playlist.m3u8"
+      },
+
+      {
+        nome: "N Sports (1080p)",
+        grupo: "Sports",
+        logo: "https://i.imgur.com/7QnJojr.png",
+        url: "https://ogc-nsprt-tcl-roku-syndication.otteravision.com/ogc/nsprt/nsprt.m3u8"
+      },
+
+      {
+        nome: "NickOnline HD (720p)",
+        grupo: "Kids",
+        logo: "https://x1colegal.com/logo.png",
+        url: "https://x1colegal.com/hls/stream.m3u8"
+      },
+
+      {
+        nome: "NickToons Brasil (480p)",
+        grupo: "Kids",
+        logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Nicktoons_logo_%282023%29.svg/330px-Nicktoons_logo_%282023%29.svg.png",
+        userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+        url: "https://stmv2.srvif.com/nicktoons/nicktoons/playlist.m3u8"
+      },
+
+      {
+        nome: "NTV (720p)",
+        grupo: "Entertainment / General",
+        logo: "https://i.imgur.com/n79nkVC.png",
+        url: "https://cdn.livespanel.com/nossatv/nossatv/playlist.m3u8"
+      },
+
+      {
+        nome: "O Dia TV",
+        grupo: "General",
+        logo: "https://i.imgur.com/1LUbAVP.png",
+        url: "https://6836041ea1117.streamlock.net/tvodia/tvodia/playlist.m3u8"
+      },
+
+      {
+        nome: "Petlovers TV",
+        grupo: "Entertainment",
+        logo: "https://petloverstv.com.br/storage/357/config/yqP4nOugWRxRFCmgLqXF4gRKyM9ybsAOfHgUaqPt.png",
+        url: "https://video04.logicahost.com.br/petloverstv/petloverstv/playlist.m3u8"
+      },
+
+      {
+        nome: "Plenitude TV",
+        grupo: "Religious",
+        logo: "",
+        url: "https://strv.painelvox.top/plenitude/plenitude/playlist.m3u8"
+      },
+
+      {
+        nome: "Band (720p)",
+        grupo: "General",
+        logo: "https://i.imgur.com/1r5T6Pw.png",
+        url: "https://cdn.live.br1.jmvstream.com/w/LVW-15748/LVW15748_Yed7yzLuRC/playlist.m3u8"
+      },
+
+      {
+        nome: "Rede Brasil (1080p)",
+        grupo: "General",
+        logo: "https://i.imgur.com/TXJKwzZ.png",
+        url: "https://redebrasil.nuvemplay.live/hls/stream.m3u8"
+      },
+
+      {
+        nome: "Rede Gospel (1080p)",
+        grupo: "Religious",
+        logo: "https://i.imgur.com/mttSwgO.png",
+        url: "https://cdn.live.br1.jmvstream.com/w/LVW-8719/LVW8719_AcLVAxWy5J/playlist.m3u8"
+      },
+
+      {
+        nome: "Rede Meio Norte (720p)",
+        grupo: "General",
+        logo: "https://i.imgur.com/KVdTi0M.png",
+        url: "https://maystreaming.cloudecast.com/redemeio/index.m3u8"
+      },
+
+      {
+        nome: "Rede NGT (1080p)",
+        grupo: "Entertainment",
+        logo: "https://i.imgur.com/ZFN1R4B.png",
+        url: "https://isaocorp.cloudecast.com/ngt/index.m3u8"
+      },
+
+      {
+        nome: "Rede TV! Mais",
+        grupo: "General",
+        logo: "https://i.ibb.co/F0Tm2WP/2103f4c07b851d64b4c96955765a9a95.png",
+        url: "https://cdn.live.br1.jmvstream.com/webtv/AVJ-15235/playlist/playlist.m3u8"
+      },
+
+      {
+        nome: "RedeTV! Paraná",
+        grupo: "General",
+        logo: "https://i.imgur.com/D8R0Af4.png",
+        url: "https://tv01.zas.media:1936/redetvparana/redetvparana/playlist.m3u8"
+      },
+
+      {
+        nome: "SBT News (720p)",
+        grupo: "News",
+        logo: "https://upload.wikimedia.org/wikipedia/commons/4/42/SBT_News_2025.svg",
+        url: "https://dai.google.com/linear/hls/event/1XSOdtQ0SH2G8OEmEfGgjQ/master.m3u8"
+      },
+
+      {
+        nome: "SIC TV (720p)",
+        grupo: "General",
+        logo: "https://i.imgur.com/mHxQyB2.png",
+        url: "https://parecisfmlive.brasilstream.com.br/hls/parecisfmlive/index.m3u8"
+      },
+
+      {
+        nome: "SOU TV",
+        grupo: "General",
+        logo: "https://i.ibb.co/8cKmCNm/ezgif-com-gif-maker.png",
+        url: "https://video10.logicahost.com.br/soutv/soutv/playlist.m3u8"
+      },
+
+      {
+        nome: "STZ TV (1080p)",
+        grupo: "Culture / News",
+        logo: "https://i.imgur.com/SeF2I7q.png",
+        url: "https://cdn.live.br1.jmvstream.com/webtv/AVJ-12952/playlist/playlist.m3u8"
+      },
+
+      {
+        nome: "TCM 10 HD (1080p)",
+        grupo: "News",
+        logo: "https://i.imgur.com/aMuMVvB.png",
+        url: "https://live.tcm10.com.br/tcm10hd/stream.m3u8"
+      },
+
+      {
+        nome: "TELE 6 (720p)",
+        grupo: "General",
+        logo: "https://i.imgur.com/p7tt72X.png",
+        url: "https://lbgo.bozztv.com/ssh101/ssh101/tele6/playlist.m3u8"
+      },
+
+      {
+        nome: "TikTok Radio Brasil (1080p)",
+        grupo: "Music",
+        logo: "https://static.wikia.nocookie.net/logopedia/images/f/f4/TikTok_Radio.svg",
+        url: "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99992529"
+      },
+
+      {
+        nome: "Trace Brasil (1080p)",
+        grupo: "Music",
+        logo: "https://i.imgur.com/DFBocPu.png",
+        url: "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg01131-tracetv-tracebrazuca-samsungbr/playlist.m3u8"
+      },
+
+      {
+        nome: "TV 3 Curitiba",
+        grupo: "General",
+        logo: "https://eswqkrogupaisirwcsys.supabase.co/storage/v1/object/public/mbc-media/canais/1776133208960-o2l2f7f02f.png",
+        url: "https://stmv.webtvninjas.com.br/tv3/tv3/playlist.m3u8"
+      },
+
+      {
+        nome: "TV A Critica",
+        grupo: "General",
+        logo: "https://i.imgur.com/j51rBro.png",
+        url: "https://cdn.live.br1.jmvstream.com/w/LVW-20715/LVW20715_50E3x2MCm2/playlist.m3u8"
+      },
+
+      {
+        nome: "TV A Folha (720p)",
+        grupo: "News",
+        logo: "https://i.imgur.com/I7XGMhj.png",
+        url: "https://video01.logicahost.com.br/tvafolha/tvafolha/playlist.m3u8"
+      },
+
+      {
+        nome: "TV Aldeia (720p)",
+        grupo: "General",
+        logo: "https://i.imgur.com/rsfnv4Z.png",
+        url: "https://stmv1.samcast.com.br/giovane7843/giovane7843/playlist.m3u8"
+      },
+
+      {
+        nome: "TV Arapuan (720p)",
+        grupo: "General",
+        logo: "https://i.imgur.com/3395A2h.png",
+        url: "https://5b7f3c45ab7c2.streamlock.net/arapuan/ngrp:arapuan_all/playlist.m3u8"
+      },
+
+      {
+        nome: "TV Assembleia Piauí",
+        grupo: "Legislative",
+        logo: "https://i.imgur.com/eMguSjM.png",
+        url: "https://stmv1.srvstm.com/piaui8071/piaui8071/playlist.m3u8"
+      },
+
+      {
+        nome: "REDE BRASIL (720p)",
+        grupo: "General",
+        logo: "https://i.imgur.com/noqGfuy.png",
+        url: "https://5ad482a77183d.streamlock.net/operacaotbomt.com/operacaotbomt.com/playlist.m3u8"
+      },
+
+      {
+        nome: "TV BRICS Portuguese (1080p)",
+        grupo: "General",
+        logo: "https://i.imgur.com/vLpm8tN.png",
+        url: "https://porbrics.mediacdn.ru/cdn/brics/portuguese/playlist.m3u8"
+      },
+
+      {
+        nome: "TV Brusque (720p)",
+        grupo: "News",
+        logo: "https://i.imgur.com/J2EAZPS.png",
+        url: "https://5ad482a77183d.streamlock.net/rodrigotvbrusque.com.br/5d880199c902eb4a1e8df00d/playlist.m3u8"
+      },
+
+      {
+        nome: "TV Câmara (1080p)",
+        grupo: "Legislative",
+        logo: "https://i.imgur.com/Sdou1Ab.png",
+        url: "https://stream3.camara.gov.br/tv1/manifest.m3u8"
+      },
+
+      {
+        nome: "TV Cidade Verde Cuiabá",
+        grupo: "General",
+        logo: "https://i.imgur.com/e67h04h.png",
+        referrer: "https://www.tvcidadeverde.com.br",
+        url: "https://televisaocidadeverde.brasilstream.com.br/hls/televisaocidadeverde/index.m3u8"
+      },
+
+      {
+        nome: "TV Clube (720p)",
+        grupo: "General",
+        logo: "https://i.imgur.com/CpXjcyE.png",
+        url: "https://5c483b9d1019c.streamlock.net/8186/8186/playlist.m3u8"
+      },
+
+      {
+        nome: "TV Curuça (360p)",
+        grupo: "Entertainment",
+        logo: "https://i.imgur.com/JdCKNZ4.png",
+        url: "https://stmv1.srvif.com/tvcurucasp/tvcurucasp/playlist.m3u8"
+      },
+
+      {
+        nome: "TV Difusão (720p)",
+        grupo: "General",
+        logo: "https://storage.googleapis.com/soultv-prod-media/media/brand/LOGO_TV_DIFUS%C3%83O_100x100px_doiivZN.png",
+        url: "https://tvdsoultv.acessaradios.com.br/tvdsoultv/tvdsoultv.stream/playlist.m3u8"
+      },
+
+      {
+        nome: "TV Fronteira (480i)",
+        grupo: "General",
+        logo: "https://i.imgur.com/NtcoW6G.png",
+        url: "https://tvfronteira.brasilstream.com.br/hls/tvfronteira/index.m3u8"
+      },
+
+      {
+        nome: "TV Futuro (1080p)",
+        grupo: "General",
+        logo: "https://i.imgur.com/xonrNBf.png",
+        url: "https://tv02.zas.media:1936/tvfuturo/tvfuturo/playlist.m3u8"
+      },
+
+      {
+        nome: "TV Guará (720p)",
+        grupo: "General",
+        logo: "https://i.imgur.com/8PErNBT.png",
+        url: "https://video02.logicahost.com.br/tvguara23/tvguara23/playlist.m3u8"
+      },
+
+      {
+        nome: "TV Life America (720p)",
+        grupo: "Culture",
+        logo: "https://i.imgur.com/HZI0ilU.png",
+        url: "https://streaming.cloudecast.com/hls/tvlifeamerica/index.m3u8"
+      },
+
+      {
+        nome: "TV Litoral RN (720p)",
+        grupo: "General",
+        logo: "https://upload.wikimedia.org/wikipedia/commons/3/3e/TV_LITORAL_RN.jpg",
+        url: "https://5ad482a77183d.streamlock.net/tvnordesteegmail.com/tvnordesteegmail.com/playlist.m3u8"
+      },
+
+      {
+        nome: "TV Mais Maricá (1080p)",
+        grupo: "General",
+        logo: "https://i.imgur.com/lgCRX7q.png",
+        url: "https://5cf4a2c2512a2.streamlock.net/tvmaismarica/tvmaismarica/playlist.m3u8"
+      },
+
+      {
+        nome: "TV Maná Brasil (1080p)",
+        grupo: "Religious",
+        logo: "https://i.imgur.com/AFb712e.png",
+        url: "https://w1.manasat.com/tvmana-brasil/smil:tvmana-brasil.smil/playlist.m3u8"
+      },
+
+      {
+        nome: "TV Marajoara (720p)",
+        grupo: "General",
+        logo: "https://i.imgur.com/9d9vBN7.png",
+        url: "https://tv02.zas.media:1936/tvmarajoara/tvmarajoara/playlist.m3u8"
+      },
+
+      {
+        nome: "TV Metropole (720p)",
+        grupo: "General",
+        logo: "https://i.imgur.com/bJyjLpg.png",
+        url: "https://cdn-fundacao-2110.ciclano.io:1443/fundacao-2110/fundacao-2110/playlist.m3u8"
+      },
+
+      {
+        nome: "TV Padre Cicero (720p)",
+        grupo: "Religious",
+        logo: "https://i.imgur.com/Y7b29VG.png",
+        url: "https://video01.logicahost.com.br/tvpadrecicero/tvpadrecicero/playlist.m3u8"
+      },
+
+      {
+        nome: "TV Pantanal MS (360p)",
+        grupo: "General",
+        logo: "https://i.imgur.com/0FOmktl.png",
+        url: "https://5a2b083e9f360.streamlock.net/tvpantanal/tvpantanal.sdp/playlist.m3u8"
+      },
+
+      {
+        nome: "TV Paraense (720p)",
+        grupo: "General",
+        logo: "https://duckduckgo.com/i/e408ea02.png",
+        url: "https://video09.logicahost.com.br/tvparaense/tvparaense/playlist.m3u"
+      },
+
+      {
+        nome: "TV Passo Fundo (720p)",
+        grupo: "General",
+        logo: "https://i.imgur.com/QFE6TiV.png",
+        url: "https://5a57bda70564a.streamlock.net/tvpasso/tvpasso.sdp/playlist.m3u8"
+      },
+
+      {
+        nome: "TV São Raimundo (268p)",
+        grupo: "General",
+        logo: "https://i.imgur.com/f34CQIG.png",
+        url: "https://stmv1.voxtvhd.com.br/9030/9030/playlist.m3u8"
+      },
+
+      {
+        nome: "TV Series (480p)",
+        grupo: "Series",
+        logo: "https://i.imgur.com/Ff5mj0o.png",
+        url: "https://stmv1.srvif.com/tvserie/tvserie/playlist.m3u8"
+      },
+
+      {
+        nome: "TV Sim Cachoeiro (720p)",
+        grupo: "News",
+        logo: "https://i.imgur.com/t5oUK3C.png",
+        url: "https://5cf4a2c2512a2.streamlock.net/8104/8104/playlist.m3u8"
+      },
+
+      {
+        nome: "TV Sul Bahia (320p)",
+        grupo: "General",
+        logo: "https://i.imgur.com/qM6nMWm.png",
+        url: "https://live.cdn.upx.com/00046/myStream.sdp/playlist.m3u8"
+      },
+
+      {
+        nome: "TV Sul de Minas (720p)",
+        grupo: "General",
+        logo: "https://i.imgur.com/hPh8cxK.png",
+        url: "https://5cf4a2c2512a2.streamlock.net/tvsuldeminas/tvsuldeminas/playlist.m3u8"
+      },
+
+      {
+        nome: "TV Terceiro Anjo (360p)",
+        grupo: "Religious",
+        logo: "https://i.imgur.com/PExKWNv.png",
+        url: "https://streamer1.streamhost.org/salive/GMI3anjoh/playlist.m3u8"
+      },
+
+      {
+        nome: "TV UFOP (1080p)",
+        grupo: "Culture / Education",
+        logo: "https://raw.githubusercontent.com/daniloroxette/tvufop/refs/heads/main/images/tvufop_logo.png",
+        url: "https://app.tvufop.com.br/hls/tvufop.m3u8"
+      },
+
+      {
+        nome: "TV+Pet",
+        grupo: "Entertainment",
+        logo: "https://www.tvmaispet.com.br/images/tvpet-logo.png",
+        url: "https://stmv5.samcast.com.br/tvmaispet6354/tvmaispet6354/playlist.m3u8"
+      },
+
+      {
+        nome: "TVC-Rio",
+        grupo: "General",
+        logo: "https://i.imgur.com/WDiikWv.png",
+        url: "https://video05.logicahost.com.br/comunitariario/comunitariario/playlist.m3u8"
+      },
+
+      {
+        nome: "TVCOM DF (360p)",
+        grupo: "General",
+        logo: "https://i.imgur.com/uxefHY3.png",
+        url: "https://5b7f3c45ab7c2.streamlock.net/8008/smil:8008.smil/playlist.m3u8?DVR="
+      },
+
+      {
+        nome: "TVCOM Maceió (480p)",
+        grupo: "General",
+        logo: "https://i.imgur.com/IE7IZzi.png",
+        url: "https://srv5.zcast.com.br/tvcommaceio/tvcommaceio/playlist.m3u8"
+      },
+
+      {
+        nome: "TVE RS (1080p)",
+        grupo: "Culture / Education",
+        logo: "https://i.imgur.com/MQ6lJpS.png",
+        url: "https://streaming.procergs.com.br:8443/tve/stve/playlist.m3u8"
+      },
+
+      {
+        nome: "TVídeoNews (720p)",
+        grupo: "News",
+        logo: "https://i.imgur.com/vstHOYx.png",
+        url: "https://video01.logicahost.com.br/tvideonews/tvideonews/playlist.m3u8"
+      },
+
+      {
+        nome: "TVitapé (720p)",
+        grupo: "General",
+        logo: "https://i.imgur.com/XeqcwKe.png",
+        url: "https://stream01.msolutionbrasil.com.br/hls/tvitape/live.m3u8"
+      },
+
+      {
+        nome: "TVLatinaSat (720p)",
+        grupo: "General",
+        logo: "https://latinasat.com.br/logo.png",
+        url: "https://www.latinasat.com.br/hls/live/stream/index.m3u8"
+      },
+
+      {
+        nome: "UMA TV",
+        grupo: "Entertainment",
+        logo: "https://i.imgur.com/m0RVb79.png",
+        url: "https://umatv.nuvemplay.live/hls/stream.m3u8"
+      },
+
+      {
+        nome: "UNISUL TV (720p)",
+        grupo: "Culture / Education",
+        logo: "https://i.imgur.com/N0TvAFz.png",
+        url: "https://sitetv.brasilstream.com.br/hls/sitetv/index.m3u8?token="
+      },
+
+      {
+        nome: "VEJA+ TV (1080p)",
+        grupo: "News",
+        logo: "https://i.imgur.com/n0pxHo4.png",
+        url: "https://gpa-vja.otteravision.com/gpa/vja/vja.m3u8"
+      },
+
+      /* ==================================================
+         LINKS ADICIONAIS QUE VOCÊ ENVIOU
+         ================================================== */
+
+      {
+        nome: "CNN Portugal",
+        grupo: "News",
+        logo: "",
+        url: "https://github.com/LITUATUI/M3UPT/raw/main/M3U/CNN_Portugal.m3u8"
+      },
+
+      {
+        nome: "Canal Internacional",
+        grupo: "General",
+        logo: "",
+        url: "https://d25usgadhphvwi.cloudfront.net/hls/main.m3u8"
+      },
+
+      {
+        nome: "TV Brasil Internacional",
+        grupo: "General",
+        logo: "",
+        url: "https://tvbrasilinternacional-stream.ebc.com.br/index.m3u8"
+      },
+
+      {
+        nome: "Rede Brasil",
+        grupo: "General",
+        logo: "https://i.imgur.com/TXJKwzZ.png",
+        url: "https://redebrasil.nuvemplay.live/hls/stream.m3u8"
+      },
+
+      {
+        nome: "TV Câmara",
+        grupo: "Legislative",
+        logo: "https://i.imgur.com/Sdou1Ab.png",
+        url: "https://stream3.camara.gov.br/tv1/manifest.m3u8"
+      },
+
+      {
+        nome: "TV Cultura",
+        grupo: "Culture",
+        logo: "",
+        url: "https://player-tvcultura.stream.uol.com.br/live/tvcultura.m3u8"
+      },
+
+      {
+        nome: "Trace Brasil",
+        grupo: "Music",
+        logo: "https://i.imgur.com/DFBocPu.png",
+        url: "https://amg01131-tracetv-tracebrazuca-xiaomi-vvr19.amagi.tv/playlist/amg01131-tracetv-tracebrazuca-xiaomi/playlist.m3u8"
+      },
+
+      {
+        nome: "Trace Gospel",
+        grupo: "Music / Religious",
+        logo: "",
+        url: "https://channels.trace.plus/Traceprod/GOSPEL_FR/.m3u8"
+      },
+
+      {
+        nome: "TV Maná Brasil",
+        grupo: "Religious",
+        logo: "https://i.imgur.com/AFb712e.png",
+        url: "https://w1.manasat.com/tvmana-brasil/smil:tvmana-brasil.smil/playlist.m3u8"
+      },
+
+      {
+        nome: "Rakuten Viki",
+        grupo: "Entertainment",
+        logo: "",
+        url: "https://fd18f1cadd404894a31a3362c5f319bd.mediatailor.us-east-1.amazonaws.com/v1/master/04fd913bb278d8775298c26fdca9d9841f37601f/RakutenTV-eu_RakutenViki-1/playlist.m3u8"
+      },
+
+      {
+        nome: "Canal Hybrid",
+        grupo: "Entertainment",
+        logo: "",
+        url: "https://stream.ichibansys.com:3764/hybrid/play.m3u8"
+      },
+
+      {
+        nome: "4FUN TV",
+        grupo: "Music / Entertainment",
+        logo: "",
+        url: "https://stream.4fun.tv:8888/hls/4f_high/index.m3u8"
+      },
+
+      {
+        nome: "KpopTV Play",
+        grupo: "Music",
+        logo: "https://i.imgur.com/Tf0vweF.png",
+        url: "https://183.bozztv.com/giatv/giatv-kpoptvplay/kpoptvplay/playlist.m3u8"
+      },
+
+      {
+        nome: "K Music",
+        grupo: "Music",
+        logo: "",
+        url: "https://w2.manasat.com/kmusic/kmusic.smil/playlist.m3u8"
+      }
+
+    ];
 
 
     /* =====================================================
@@ -1953,102 +2528,90 @@
         "lista-container"
       );
 
-
     const canaisDiv =
       document.getElementById(
         "canais"
       );
-
 
     const statusDiv =
       document.getElementById(
         "status"
       );
 
+    const pesquisa =
+      document.getElementById(
+        "pesquisa"
+      );
+
+    const barraCategorias =
+      document.getElementById(
+        "barra-categorias"
+      );
 
     const playerContainer =
       document.getElementById(
         "player-container"
       );
 
-
     const video =
       document.getElementById(
         "video"
       );
 
-
-    const titulo =
+    const tituloPlayer =
       document.getElementById(
-        "titulo"
+        "titulo-player"
       );
-
-
-    const pesquisa =
-      document.getElementById(
-        "pesquisa"
-      );
-
-
-    const erro =
-      document.getElementById(
-        "erro"
-      );
-
-
-    const informacao =
-      document.getElementById(
-        "informacao"
-      );
-
 
     const btnVoltar =
       document.getElementById(
         "btnVoltar"
       );
 
-
-    const btnTelegram =
+    const btnReproduzir =
       document.getElementById(
-        "btnTelegram"
+        "btnReproduzir"
       );
 
+    const btnFullscreen =
+      document.getElementById(
+        "btnFullscreen"
+      );
 
     const btnVlc =
       document.getElementById(
         "btnVlc"
       );
 
-
     const btnCopiar =
       document.getElementById(
         "btnCopiar"
       );
 
+    const erro =
+      document.getElementById(
+        "erro"
+      );
 
     const modalVlc =
       document.getElementById(
         "modalVlc"
       );
 
-
     const linkVlc =
       document.getElementById(
         "linkVlc"
       );
-
 
     const copiarVlc =
       document.getElementById(
         "copiarVlc"
       );
 
-
     const fecharModal =
       document.getElementById(
         "fecharModal"
       );
-
 
     const avisoVlc =
       document.getElementById(
@@ -2057,299 +2620,138 @@
 
 
     /* =====================================================
-       CARREGAR M3U
+       ESTADO
        ===================================================== */
 
-    async function carregarM3U() {
+    let hls = null;
 
-      try {
+    let canalAtual = null;
 
-
-        statusDiv.innerText =
-          "Carregando lista de canais...";
-
-
-        const resposta =
-          await fetch(
-            M3U_URL,
-            {
-              cache:
-                "no-store"
-            }
-          );
-
-
-        if (!resposta.ok) {
-
-          throw new Error(
-            "HTTP " +
-            resposta.status
-          );
-
-        }
-
-
-        const texto =
-          await resposta.text();
-
-
-        listaCanais =
-          interpretarM3U(
-            texto
-          );
-
-
-        if (
-          listaCanais.length === 0
-        ) {
-
-          throw new Error(
-            "Nenhum canal encontrado."
-          );
-
-        }
-
-
-        mostrarCanais(
-          listaCanais
-        );
-
-
-        statusDiv.innerText =
-          `${listaCanais.length} canais encontrados`;
-
-      }
-
-
-      catch (e) {
-
-        console.error(
-          "Erro ao carregar M3U:",
-          e
-        );
-
-
-        statusDiv.innerText =
-          "❌ Erro ao carregar br.m3u";
-
-
-        canaisDiv.innerHTML = `
-
-          <div style="
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 35px;
-            color: #999;
-          ">
-
-            ❌ Não foi possível carregar
-            <b>br.m3u</b>.
-
-            <br><br>
-
-            Verifique se o arquivo está
-            no mesmo repositório do
-            <b>index.html</b>.
-
-          </div>
-
-        `;
-
-      }
-
-    }
+    let categoriaAtual = "TODOS";
 
 
     /* =====================================================
-       INTERPRETAR M3U
+       CATEGORIAS
        ===================================================== */
 
-    function interpretarM3U(
-      texto
-    ) {
+    function criarCategorias() {
 
+      const grupos = new Set();
 
-      const linhas =
-        texto.split(
-          /\r?\n/
-        );
-
-
-      const canais = [];
-
-      let info = null;
-
-
-      for (
-        let i = 0;
-        i < linhas.length;
-        i++
-      ) {
-
-
-        const linha =
-          linhas[i].trim();
-
-
-        if (!linha) {
-
-          continue;
-
-        }
-
-
-        /* =================================================
-           EXTINF
-           ================================================= */
-
-        if (
-          linha
-            .toUpperCase()
-            .startsWith(
-              "#EXTINF"
-            )
-        ) {
-
-
-          const virgula =
-            linha.lastIndexOf(
-              ","
-            );
-
-
-          const nome =
-            virgula >= 0
-
-              ? linha
-                  .substring(
-                    virgula + 1
-                  )
-                  .trim()
-
-              : "Canal";
-
-
-          const logoMatch =
-            linha.match(
-              /tvg-logo=["']([^"']*)["']/i
-            );
-
-
-          const grupoMatch =
-            linha.match(
-              /group-title=["']([^"']*)["']/i
-            );
-
-
-          info = {
-
-            nome:
-              nome ||
-              "Canal",
-
-            logo:
-              logoMatch
-                ? logoMatch[1].trim()
-                : "",
-
-            grupo:
-              grupoMatch
-                ? grupoMatch[1].trim()
-                : ""
-
-          };
-
-        }
-
-
-        /* =================================================
-           URL
-           ================================================= */
-
-        else if (
-          info &&
-          !linha.startsWith("#")
-        ) {
-
-
-          let url =
-            linha.trim();
-
-
-          /*
-          URLs relativas
-          */
+      canais.forEach(
+        canal => {
 
           if (
-
-            !url.startsWith(
-              "http://"
-            ) &&
-
-            !url.startsWith(
-              "https://"
-            ) &&
-
-            !url.startsWith(
-              "rtmp://"
-            ) &&
-
-            !url.startsWith(
-              "rtsp://"
-            )
-
+            canal.grupo
           ) {
 
+            grupos.add(
+              canal.grupo
+            );
 
-            try {
+          }
 
-              url =
-                new URL(
-                  url,
-                  M3U_URL
-                ).href;
-
-            }
+        }
+      );
 
 
-            catch (e) {
+      const lista =
+        [
+          "TODOS",
+          ...Array.from(
+            grupos
+          ).sort()
+        ];
 
-              console.error(
-                "URL relativa inválida:",
-                url
-              );
 
-            }
+      barraCategorias.innerHTML =
+        "";
+
+
+      lista.forEach(
+        grupo => {
+
+          const botao =
+            document.createElement(
+              "button"
+            );
+
+
+          botao.className =
+            "categoria";
+
+
+          if (
+            grupo ===
+            categoriaAtual
+          ) {
+
+            botao.classList.add(
+              "ativa"
+            );
 
           }
 
 
-          canais.push({
-
-            nome:
-              info.nome,
-
-            logo:
-              info.logo,
-
-            grupo:
-              info.grupo,
-
-            url:
-              url
-
-          });
+          botao.textContent =
+            grupo;
 
 
-          info =
-            null;
+          botao.addEventListener(
+            "click",
+            function() {
+
+              categoriaAtual =
+                grupo;
+
+              atualizarCategorias();
+
+              aplicarFiltros();
+
+            }
+          );
+
+
+          barraCategorias.appendChild(
+            botao
+          );
 
         }
+      );
 
-      }
+    }
 
 
-      return canais;
+    function atualizarCategorias() {
+
+      const botoes =
+        barraCategorias.querySelectorAll(
+          ".categoria"
+        );
+
+
+      botoes.forEach(
+        botao => {
+
+          if (
+            botao.textContent ===
+            categoriaAtual
+          ) {
+
+            botao.classList.add(
+              "ativa"
+            );
+
+          } else {
+
+            botao.classList.remove(
+              "ativa"
+            );
+
+          }
+
+        }
+      );
 
     }
 
@@ -2362,7 +2764,6 @@
       lista
     ) {
 
-
       canaisDiv.innerHTML =
         "";
 
@@ -2371,14 +2772,13 @@
         lista.length === 0
       ) {
 
-
         canaisDiv.innerHTML = `
 
           <div style="
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 35px;
-            color: #999;
+            grid-column:1/-1;
+            text-align:center;
+            padding:35px;
+            color:#888;
           ">
 
             Nenhum canal encontrado.
@@ -2387,7 +2787,6 @@
 
         `;
 
-
         return;
 
       }
@@ -2395,7 +2794,6 @@
 
       lista.forEach(
         canal => {
-
 
           const div =
             document.createElement(
@@ -2407,42 +2805,31 @@
             "canal";
 
 
-          let logoHTML =
-            "";
+          let logoHTML;
 
-
-          /*
-          LOGO
-          */
 
           if (
             canal.logo
           ) {
 
-
             logoHTML = `
 
               <img
-
                 class="logo"
-
                 src="${escapar(
                   canal.logo
                 )}"
-
                 alt=""
-
+                loading="lazy"
                 onerror="
                   this.style.display='none';
                   this.nextElementSibling.style.display='flex';
                 "
-
               >
-
 
               <div
                 class="sem-logo"
-                style="display:none"
+                style="display:none;"
               >
                 📺
               </div>
@@ -2451,15 +2838,11 @@
 
           }
 
-
           else {
-
 
             logoHTML = `
 
-              <div
-                class="sem-logo"
-              >
+              <div class="sem-logo">
                 📺
               </div>
 
@@ -2473,19 +2856,22 @@
             ${logoHTML}
 
             <div class="nome">
-
               ${escapar(
                 canal.nome
               )}
-
             </div>
 
+            <div class="grupo">
+              ${escapar(
+                canal.grupo || "TV"
+              )}
+            </div>
 
-            <div class="canal-indicador">
+            <div class="ao-vivo">
 
-              <span class="canal-ponto"></span>
+              <span class="bolinha"></span>
 
-              CANAL
+              AO VIVO
 
             </div>
 
@@ -2511,46 +2897,64 @@
         }
       );
 
+
+      statusDiv.innerText =
+        `${lista.length} canais encontrados`;
+
     }
 
 
     /* =====================================================
-       PESQUISA
+       FILTROS
        ===================================================== */
 
-    pesquisa.addEventListener(
-      "input",
-      function() {
+    function aplicarFiltros() {
+
+      const termo =
+        pesquisa.value
+          .toLowerCase()
+          .trim();
 
 
-        const termo =
-          pesquisa.value
-            .toLowerCase()
-            .trim();
+      const lista =
+        canais.filter(
+          canal => {
 
-
-        const filtrados =
-          listaCanais.filter(
-            canal =>
-
+            const nomeOK =
               canal.nome
                 .toLowerCase()
                 .includes(
                   termo
-                )
-
-          );
+                );
 
 
-        mostrarCanais(
-          filtrados
+            const categoriaOK =
+              categoriaAtual ===
+                "TODOS" ||
+
+              canal.grupo ===
+                categoriaAtual;
+
+
+            return (
+              nomeOK &&
+              categoriaOK
+            );
+
+          }
         );
 
 
-        statusDiv.innerText =
-          `${filtrados.length} canais encontrados`;
+      mostrarCanais(
+        lista
+      );
 
-      }
+    }
+
+
+    pesquisa.addEventListener(
+      "input",
+      aplicarFiltros
     );
 
 
@@ -2562,28 +2966,19 @@
       canal
     ) {
 
-
       canalAtual =
         canal;
 
 
-      /*
-      Tenta fullscreen do Telegram
-      em resposta à ação do usuário.
-      */
-
-      if (tg) {
+      if (
+        tg &&
+        typeof tg.requestFullscreen ===
+        "function"
+      ) {
 
         try {
 
-          if (
-            typeof tg.requestFullscreen ===
-            "function"
-          ) {
-
-            tg.requestFullscreen();
-
-          }
+          tg.requestFullscreen();
 
         }
 
@@ -2599,28 +2994,7 @@
       }
 
 
-      if (hls) {
-
-        hls.destroy();
-
-        hls = null;
-
-      }
-
-
-      video.pause();
-
-
-      video.removeAttribute(
-        "src"
-      );
-
-
-      video.load();
-
-
-      erro.style.display =
-        "none";
+      pararPlayer();
 
 
       listaContainer.style.display =
@@ -2631,27 +3005,16 @@
         "block";
 
 
-      titulo.innerText =
+      tituloPlayer.innerText =
         "📺 " +
         canal.nome;
 
 
-      informacao.innerHTML = `
-
-        <b>Endereço do stream:</b><br>
-
-        ${escapar(
-          canal.url
-        )}
-
-      `;
+      erro.style.display =
+        "none";
 
 
-      /*
-      Botão reproduzir
-      */
-
-      btnTelegram.onclick =
+      btnReproduzir.onclick =
         function() {
 
           reproduzir(
@@ -2660,10 +3023,6 @@
 
         };
 
-
-      /*
-      VLC
-      */
 
       btnVlc.onclick =
         function() {
@@ -2675,10 +3034,6 @@
         };
 
 
-      /*
-      Copiar
-      */
-
       btnCopiar.onclick =
         function() {
 
@@ -2689,28 +3044,35 @@
         };
 
 
-      /*
-      Começar reprodução
-      */
-
       reproduzir(
         canal
       );
 
+    }
 
-      /*
-      Topo
-      */
 
-      window.scrollTo({
+    /* =====================================================
+       PARAR PLAYER
+       ===================================================== */
 
-        top:
-          0,
+    function pararPlayer() {
 
-        behavior:
-          "smooth"
+      if (hls) {
 
-      });
+        hls.destroy();
+
+        hls = null;
+
+      }
+
+
+      video.pause();
+
+      video.removeAttribute(
+        "src"
+      );
+
+      video.load();
 
     }
 
@@ -2723,32 +3085,12 @@
       canal
     ) {
 
-
       if (!canal) {
-
         return;
-
       }
 
 
-      if (hls) {
-
-        hls.destroy();
-
-        hls = null;
-
-      }
-
-
-      video.pause();
-
-
-      video.removeAttribute(
-        "src"
-      );
-
-
-      video.load();
+      pararPlayer();
 
 
       erro.style.display =
@@ -2756,7 +3098,8 @@
 
 
       /*
-      HTTP em página HTTPS
+      Streams HTTP podem ser bloqueados
+      dentro de uma página HTTPS.
       */
 
       if (
@@ -2770,7 +3113,6 @@
 
       ) {
 
-
         erro.innerHTML = `
 
           ⚠️ <b>Este canal usa HTTP.</b>
@@ -2778,12 +3120,17 @@
           <br><br>
 
           O navegador pode bloquear
-          a reprodução por segurança.
+          esta transmissão porque o Mini App
+          está usando HTTPS.
 
           <br><br>
 
           Tente:
-          <b>📺 Abrir no VLC</b>.
+          <b>📺 Abrir no VLC</b>
+
+          ou:
+
+          <b>🔗 Copiar link</b>
 
         `;
 
@@ -2798,9 +3145,7 @@
 
 
       /*
-      =====================================================
-      HLS.JS
-      =====================================================
+      HLS.js
       */
 
       if (
@@ -2843,7 +3188,6 @@
 
           function() {
 
-
             erro.style.display =
               "none";
 
@@ -2868,78 +3212,34 @@
             data
           ) {
 
-
             console.error(
-              "Erro HLS:",
+              "HLS:",
               data
             );
 
 
             if (
-
               data &&
-
               data.fatal
-
             ) {
 
-
-              let mensagem = `
+              erro.innerHTML = `
 
                 ❌ <b>Não foi possível
-                reproduzir este canal.</b>
+                reproduzir este canal
+                no navegador.</b>
+
+                <br><br>
+
+                Tente:
+
+                <b>📺 Abrir no VLC</b>
+
+                ou
+
+                <b>🔗 Copiar link</b>
 
               `;
-
-
-              if (
-
-                data.type ===
-                Hls.ErrorTypes.NETWORK_ERROR
-
-              ) {
-
-
-                mensagem += `
-
-                  <br><br>
-
-                  O servidor pode estar
-                  bloqueando o acesso pelo
-                  navegador.
-
-                  <br><br>
-
-                  Tente:
-                  <b>📺 Abrir no VLC</b>.
-
-                `;
-
-              }
-
-
-              else if (
-
-                data.type ===
-                Hls.ErrorTypes.MEDIA_ERROR
-
-              ) {
-
-
-                mensagem += `
-
-                  <br><br>
-
-                  O navegador não conseguiu
-                  decodificar este vídeo.
-
-                `;
-
-              }
-
-
-              erro.innerHTML =
-                mensagem;
 
 
               erro.style.display =
@@ -2955,9 +3255,7 @@
 
 
       /*
-      =====================================================
-      HLS NATIVO
-      =====================================================
+      HLS nativo
       */
 
       else if (
@@ -2981,11 +3279,6 @@
 
           function() {
 
-
-            erro.style.display =
-              "none";
-
-
             video
               .play()
               .catch(
@@ -3001,49 +3294,20 @@
 
         );
 
-
-        video.addEventListener(
-
-          "error",
-
-          function() {
-
-
-            erro.innerHTML = `
-
-              ❌ <b>Não foi possível
-              reproduzir este canal.</b>
-
-              <br><br>
-
-              Tente:
-              <b>📺 Abrir no VLC</b>.
-
-            `;
-
-
-            erro.style.display =
-              "block";
-
-          },
-
-          {
-            once:
-              true
-          }
-
-        );
-
       }
 
 
       else {
 
-
         erro.innerHTML = `
 
-          ❌ Seu navegador não suporta
+          ❌ O navegador não suporta
           reprodução HLS.
+
+          <br><br>
+
+          Tente:
+          <b>📺 Abrir no VLC</b>
 
         `;
 
@@ -3054,6 +3318,130 @@
       }
 
     }
+
+
+    /* =====================================================
+       TELA CHEIA
+       ===================================================== */
+
+    btnFullscreen.addEventListener(
+      "click",
+      function() {
+
+
+        /*
+        Telegram
+        */
+
+        if (
+          tg &&
+          typeof tg.requestFullscreen ===
+          "function"
+        ) {
+
+          try {
+
+            tg.requestFullscreen();
+
+          }
+
+          catch (e) {}
+
+        }
+
+
+        /*
+        Browser
+        */
+
+        const alvo =
+          document.getElementById(
+            "video-wrapper"
+          );
+
+
+        if (
+          alvo.requestFullscreen
+        ) {
+
+          alvo
+            .requestFullscreen()
+            .catch(
+              function() {}
+            );
+
+          return;
+
+        }
+
+
+        if (
+          video.webkitEnterFullscreen
+        ) {
+
+          video.webkitEnterFullscreen();
+
+          return;
+
+        }
+
+      }
+    );
+
+
+    /* =====================================================
+       VOLTAR
+       ===================================================== */
+
+    btnVoltar.addEventListener(
+      "click",
+      function() {
+
+
+        pararPlayer();
+
+
+        playerContainer.style.display =
+          "none";
+
+
+        listaContainer.style.display =
+          "block";
+
+
+        erro.style.display =
+          "none";
+
+
+        window.scrollTo({
+
+          top:
+            0,
+
+          behavior:
+            "smooth"
+
+        });
+
+
+        if (
+          tg &&
+          typeof tg.exitFullscreen ===
+          "function"
+        ) {
+
+          try {
+
+            tg.exitFullscreen();
+
+          }
+
+          catch (e) {}
+
+        }
+
+      }
+    );
 
 
     /* =====================================================
@@ -3093,7 +3481,6 @@
 
           }
 
-
           catch (e) {
 
             console.error(
@@ -3104,16 +3491,13 @@
 
 
           setTimeout(
-
             function() {
 
               avisoVlc.style.display =
                 "block";
 
             },
-
             2000
-
           );
 
         };
@@ -3132,7 +3516,7 @@
 
 
     /* =====================================================
-       FECHAR MODAL VLC
+       FECHAR VLC
        ===================================================== */
 
     fecharModal.onclick =
@@ -3163,102 +3547,12 @@
 
 
     /* =====================================================
-       VOLTAR
-       ===================================================== */
-
-    btnVoltar.onclick =
-      function() {
-
-
-        video.pause();
-
-
-        video.removeAttribute(
-          "src"
-        );
-
-
-        video.load();
-
-
-        if (hls) {
-
-          hls.destroy();
-
-          hls = null;
-
-        }
-
-
-        playerContainer.style.display =
-          "none";
-
-
-        listaContainer.style.display =
-          "block";
-
-
-        erro.style.display =
-          "none";
-
-
-        informacao.innerHTML =
-          "";
-
-
-        /*
-        Tenta sair do fullscreen
-        do Telegram ao voltar.
-        */
-
-        if (tg) {
-
-          try {
-
-            if (
-              typeof tg.exitFullscreen ===
-              "function"
-            ) {
-
-              tg.exitFullscreen();
-
-            }
-
-          }
-
-          catch (e) {
-
-            console.log(
-              "Exit fullscreen:",
-              e
-            );
-
-          }
-
-        }
-
-
-        window.scrollTo({
-
-          top:
-            0,
-
-          behavior:
-            "smooth"
-
-        });
-
-      };
-
-
-    /* =====================================================
-       COPIAR LINK
+       COPIAR
        ===================================================== */
 
     async function copiarTexto(
       texto
     ) {
-
 
       try {
 
@@ -3273,9 +3567,7 @@
 
       }
 
-
       catch (e) {
-
 
         const area =
           document.createElement(
@@ -3316,8 +3608,9 @@
 
         }
 
-
-        catch (erroCopia) {
+        catch (
+          erroCopia
+        ) {
 
           alert(
             "Não foi possível copiar automaticamente."
@@ -3336,13 +3629,12 @@
 
 
     /* =====================================================
-       ESCAPAR HTML
+       ESCAPAR
        ===================================================== */
 
     function escapar(
       texto
     ) {
-
 
       return String(
         texto
@@ -3380,10 +3672,13 @@
        INICIAR
        ===================================================== */
 
-    carregarM3U();
+    criarCategorias();
+
+    mostrarCanais(
+      canais
+    );
 
   </script>
-
 
 </body>
 
