@@ -4,10 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#111">
+  <meta name="theme-color" content="#111111">
 
   <title>TV Ao Vivo</title>
 
+  <!-- Player HLS -->
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
   <style>
@@ -18,21 +19,21 @@
     body {
       margin: 0;
       background: #0b0b0b;
-      color: #fff;
-      font-family: Arial, sans-serif;
+      color: #ffffff;
+      font-family: Arial, Helvetica, sans-serif;
     }
 
     header {
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 100;
       background: #151515;
+      border-bottom: 1px solid #2a2a2a;
       padding: 15px;
       text-align: center;
-      border-bottom: 1px solid #292929;
     }
 
-    h1 {
+    header h1 {
       margin: 0 0 12px;
       font-size: 22px;
     }
@@ -41,39 +42,40 @@
       width: 100%;
       max-width: 700px;
       padding: 12px 15px;
-      border: 1px solid #333;
+      border: 1px solid #333333;
       border-radius: 10px;
-      background: #222;
-      color: #fff;
+      background: #222222;
+      color: white;
       font-size: 15px;
       outline: none;
     }
 
     #pesquisa::placeholder {
-      color: #999;
+      color: #999999;
     }
 
     #status {
       padding: 15px;
       text-align: center;
-      color: #aaa;
+      color: #aaaaaa;
+      font-size: 14px;
     }
 
     #canais {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
       gap: 12px;
       padding: 15px;
     }
 
     .canal {
       background: #181818;
-      border: 1px solid #2e2e2e;
+      border: 1px solid #2d2d2d;
       border-radius: 12px;
-      padding: 14px;
+      padding: 14px 10px;
       cursor: pointer;
       text-align: center;
-      transition: .15s;
+      transition: .15s ease;
     }
 
     .canal:hover {
@@ -81,25 +83,26 @@
       transform: translateY(-2px);
     }
 
-    .logo {
-      width: 75px;
-      height: 75px;
-      margin: 0 auto 12px;
-      object-fit: contain;
-      border-radius: 10px;
-      background: #101010;
-    }
-
+    .logo,
     .sem-logo {
       width: 75px;
       height: 75px;
       margin: 0 auto 12px;
+      border-radius: 10px;
+    }
+
+    .logo {
+      object-fit: contain;
+      display: block;
+      background: #101010;
+    }
+
+    .sem-logo {
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 30px;
       background: #101010;
-      border-radius: 10px;
+      font-size: 30px;
     }
 
     .nome {
@@ -107,6 +110,12 @@
       font-weight: bold;
       line-height: 1.35;
     }
+
+    /*
+    ========================================================
+    PLAYER
+    ========================================================
+    */
 
     #player-container {
       display: none;
@@ -116,13 +125,18 @@
     }
 
     #voltar {
-      border: 1px solid #333;
+      border: 1px solid #333333;
       background: #202020;
-      color: #fff;
+      color: white;
       padding: 10px 15px;
       border-radius: 8px;
       cursor: pointer;
       margin-bottom: 12px;
+      font-size: 14px;
+    }
+
+    #voltar:hover {
+      background: #2a2a2a;
     }
 
     #titulo {
@@ -134,22 +148,113 @@
     video {
       display: block;
       width: 100%;
-      max-height: 75vh;
-      background: #000;
+      max-height: 70vh;
+      background: #000000;
       border-radius: 10px;
+    }
+
+    /*
+    ========================================================
+    OPÇÕES
+    ========================================================
+    */
+
+    #opcoes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 15px 0;
+    }
+
+    .btn {
+      border: 1px solid #3a3a3a;
+      background: #1d1d1d;
+      color: white;
+      padding: 11px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn:hover {
+      background: #292929;
     }
 
     #erro {
       display: none;
-      margin-top: 10px;
-      padding: 12px;
+      margin-top: 12px;
+      padding: 14px;
       background: #1b1b1b;
       border-radius: 8px;
-      color: #ffaaa0;
+      color: #ffb1aa;
+      line-height: 1.5;
+    }
+
+    #informacao {
+      margin-top: 10px;
+      padding: 12px;
+      background: #151515;
+      border: 1px solid #292929;
+      border-radius: 8px;
+      color: #aaaaaa;
+      font-size: 13px;
+      line-height: 1.5;
+      word-break: break-word;
+    }
+
+    /*
+    ========================================================
+    MODAL
+    ========================================================
+    */
+
+    #modalVlc {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.75);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-box {
+      width: 100%;
+      max-width: 500px;
+      background: #181818;
+      border: 1px solid #333333;
+      border-radius: 12px;
+      padding: 20px;
       text-align: center;
     }
 
+    .modal-box h2 {
+      margin-top: 0;
+      font-size: 20px;
+    }
+
+    .modal-box p {
+      color: #bbbbbb;
+      line-height: 1.5;
+    }
+
+    .modal-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .fechar {
+      cursor: pointer;
+    }
+
     @media (max-width: 600px) {
+
       #canais {
         grid-template-columns: repeat(2, 1fr);
         gap: 8px;
@@ -169,6 +274,15 @@
       .nome {
         font-size: 12px;
       }
+
+      #opcoes {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
     }
   </style>
 </head>
@@ -176,6 +290,7 @@
 <body>
 
 <header>
+
   <h1>📺 TV AO VIVO</h1>
 
   <input
@@ -183,13 +298,21 @@
     type="text"
     placeholder="🔎 Pesquisar canal..."
   >
+
 </header>
+
 
 <div id="status">
   Carregando canais...
 </div>
 
+
 <div id="canais"></div>
+
+
+<!-- =====================================================
+     PLAYER
+     ===================================================== -->
 
 <div id="player-container">
 
@@ -199,32 +322,122 @@
 
   <div id="titulo"></div>
 
+  <div id="opcoes">
+
+    <button
+      id="btnTelegram"
+      class="btn"
+    >
+      ▶️ Assistir no Telegram
+    </button>
+
+    <button
+      id="btnVlc"
+      class="btn"
+    >
+      📺 Abrir no VLC
+    </button>
+
+    <button
+      id="btnCopiar"
+      class="btn"
+    >
+      🔗 Copiar link
+    </button>
+
+  </div>
+
   <video
     id="video"
     controls
     playsinline
   ></video>
 
-  <div id="erro">
-    ❌ Não foi possível reproduzir este canal.
+  <div id="erro"></div>
+
+  <div id="informacao"></div>
+
+</div>
+
+
+<!-- =====================================================
+     MODAL VLC
+     ===================================================== -->
+
+<div id="modalVlc">
+
+  <div class="modal-box">
+
+    <h2>📺 Abrir no VLC</h2>
+
+    <p>
+      O botão tentará abrir o VLC no seu dispositivo.
+      Em alguns aparelhos o Telegram ou o navegador
+      pode não permitir o protocolo VLC.
+    </p>
+
+    <div class="modal-actions">
+
+      <a
+        id="linkVlc"
+        class="btn"
+        href="#"
+      >
+        📺 Tentar abrir VLC
+      </a>
+
+      <button
+        id="copiarVlc"
+        class="btn"
+      >
+        🔗 Copiar endereço
+      </button>
+
+      <button
+        id="fecharModal"
+        class="btn fechar"
+      >
+        Fechar
+      </button>
+
+    </div>
+
   </div>
 
 </div>
 
+
 <script>
 
   /*
-  =========================================================
-  ARQUIVO M3U
-  =========================================================
+  ============================================================
+  CONFIGURAÇÃO
+  ============================================================
+  */
+
+  /*
+  O arquivo precisa estar no mesmo local do index.html.
   */
 
   const M3U_URL = "./br.m3u";
 
 
+  /*
+  ============================================================
+  VARIÁVEIS
+  ============================================================
+  */
+
   let listaCanais = [];
+  let canalAtual = null;
   let hls = null;
 
+
+  /*
+  ============================================================
+  ELEMENTOS
+  ============================================================
+  */
 
   const canaisDiv =
     document.getElementById("canais");
@@ -241,35 +454,67 @@
   const titulo =
     document.getElementById("titulo");
 
+  const pesquisa =
+    document.getElementById("pesquisa");
+
   const erro =
     document.getElementById("erro");
 
-  const pesquisa =
-    document.getElementById("pesquisa");
+  const informacao =
+    document.getElementById("informacao");
 
   const voltar =
     document.getElementById("voltar");
 
+  const btnTelegram =
+    document.getElementById("btnTelegram");
+
+  const btnVlc =
+    document.getElementById("btnVlc");
+
+  const btnCopiar =
+    document.getElementById("btnCopiar");
+
+  const modalVlc =
+    document.getElementById("modalVlc");
+
+  const linkVlc =
+    document.getElementById("linkVlc");
+
+  const copiarVlc =
+    document.getElementById("copiarVlc");
+
+  const fecharModal =
+    document.getElementById("fecharModal");
+
 
   /*
-  =========================================================
+  ============================================================
   CARREGAR M3U
-  =========================================================
+  ============================================================
   */
 
   async function carregarM3U() {
 
     try {
 
+      statusDiv.innerText =
+        "Carregando lista de canais...";
+
       const resposta =
-        await fetch(M3U_URL, {
-          cache: "no-store"
-        });
+        await fetch(
+          M3U_URL,
+          {
+            cache: "no-store"
+          }
+        );
 
       if (!resposta.ok) {
+
         throw new Error(
           "HTTP " + resposta.status
         );
+
       }
 
       const texto =
@@ -278,36 +523,53 @@
       listaCanais =
         interpretarM3U(texto);
 
+
       if (!listaCanais.length) {
 
         throw new Error(
-          "Nenhum canal encontrado."
+          "Nenhum canal encontrado na playlist."
         );
 
       }
+
 
       mostrarCanais(listaCanais);
 
       statusDiv.innerText =
         `${listaCanais.length} canais encontrados`;
 
-    } catch (e) {
+    }
 
-      console.error(e);
+    catch (e) {
+
+      console.error(
+        "Erro ao carregar M3U:",
+        e
+      );
 
       statusDiv.innerText =
         "❌ Erro ao carregar br.m3u";
 
       canaisDiv.innerHTML = `
+
         <div style="
           grid-column:1/-1;
           text-align:center;
           padding:30px;
           color:#aaa;
         ">
-          Verifique se <b>br.m3u</b>
-          está no mesmo local que o index.html.
+
+          Não foi possível carregar
+          <b>br.m3u</b>.
+
+          <br><br>
+
+          Confirme se o arquivo está
+          no mesmo local que o
+          <b>index.html</b>.
+
         </div>
+
       `;
 
     }
@@ -316,9 +578,9 @@
 
 
   /*
-  =========================================================
+  ============================================================
   INTERPRETAR M3U
-  =========================================================
+  ============================================================
   */
 
   function interpretarM3U(texto) {
@@ -330,10 +592,16 @@
 
     let info = null;
 
-    for (let i = 0; i < linhas.length; i++) {
+
+    for (
+      let i = 0;
+      i < linhas.length;
+      i++
+    ) {
 
       const linha =
         linhas[i].trim();
+
 
       if (!linha) {
         continue;
@@ -341,29 +609,37 @@
 
 
       /*
+      --------------------------------------------------------
       EXTINF
+      --------------------------------------------------------
       */
 
       if (
-        linha.startsWith("#EXTINF")
+        linha
+          .toUpperCase()
+          .startsWith("#EXTINF")
       ) {
 
+        const virgula =
+          linha.lastIndexOf(",");
+
         const nome =
-          linha.includes(",")
-            ? linha.substring(
-                linha.lastIndexOf(",") + 1
-              ).trim()
+          virgula >= 0
+            ? linha
+                .substring(virgula + 1)
+                .trim()
             : "Canal";
 
 
         const logoMatch =
           linha.match(
-            /tvg-logo="([^"]*)"/i
+            /tvg-logo=["']([^"']*)["']/i
           );
+
 
         const grupoMatch =
           linha.match(
-            /group-title="([^"]*)"/i
+            /group-title=["']([^"']*)["']/i
           );
 
 
@@ -374,12 +650,12 @@
 
           logo:
             logoMatch
-              ? logoMatch[1]
+              ? logoMatch[1].trim()
               : "",
 
           grupo:
             grupoMatch
-              ? grupoMatch[1]
+              ? grupoMatch[1].trim()
               : ""
 
         };
@@ -388,7 +664,9 @@
 
 
       /*
-      URL DO STREAM
+      --------------------------------------------------------
+      URL
+      --------------------------------------------------------
       */
 
       else if (
@@ -396,17 +674,53 @@
         !linha.startsWith("#")
       ) {
 
+        let url =
+          linha.trim();
+
+
+        /*
+        Corrigir URL relativa
+        quando necessário.
+        */
+
+        if (
+          !url.startsWith("http://") &&
+          !url.startsWith("https://") &&
+          !url.startsWith("rtmp://") &&
+          !url.startsWith("rtsp://")
+        ) {
+
+          try {
+
+            url =
+              new URL(
+                url,
+                M3U_URL
+              ).href;
+
+          }
+
+          catch (e) {}
+
+        }
+
+
         canais.push({
 
-          nome: info.nome,
+          nome:
+            info.nome,
 
-          logo: info.logo,
+          logo:
+            info.logo,
 
-          grupo: info.grupo,
+          grupo:
+            info.grupo,
 
-          url: linha
+          url:
+            url
 
         });
+
 
         info = null;
 
@@ -414,89 +728,129 @@
 
     }
 
+
     return canais;
 
   }
 
 
   /*
-  =========================================================
+  ============================================================
   MOSTRAR CANAIS
-  =========================================================
+  ============================================================
   */
 
   function mostrarCanais(lista) {
 
     canaisDiv.innerHTML = "";
 
-    lista.forEach((canal) => {
 
-      const div =
-        document.createElement("div");
+    if (!lista.length) {
 
-      div.className = "canal";
+      canaisDiv.innerHTML = `
 
+        <div style="
+          grid-column:1/-1;
+          text-align:center;
+          padding:30px;
+          color:#999;
+        ">
 
-      let logoHTML;
+          Nenhum canal encontrado.
 
-      if (canal.logo) {
-
-        logoHTML = `
-          <img
-            class="logo"
-            src="${escapar(canal.logo)}"
-            alt=""
-            onerror="
-              this.style.display='none';
-              this.nextElementSibling.style.display='flex';
-            "
-          >
-
-          <div
-            class="sem-logo"
-            style="display:none"
-          >
-            📺
-          </div>
-        `;
-
-      } else {
-
-        logoHTML = `
-          <div class="sem-logo">
-            📺
-          </div>
-        `;
-
-      }
-
-
-      div.innerHTML = `
-
-        ${logoHTML}
-
-        <div class="nome">
-          ${escapar(canal.nome)}
         </div>
 
       `;
 
+      return;
 
-      div.onclick =
-        () => reproduzir(canal);
+    }
 
 
-      canaisDiv.appendChild(div);
+    lista.forEach(
+      (canal) => {
 
-    });
+        const div =
+          document.createElement("div");
+
+        div.className =
+          "canal";
+
+
+        let logoHTML = "";
+
+
+        if (canal.logo) {
+
+          logoHTML = `
+
+            <img
+              class="logo"
+              src="${escapar(canal.logo)}"
+              alt=""
+              onerror="
+                this.style.display='none';
+                this.nextElementSibling.style.display='flex';
+              "
+            >
+
+            <div
+              class="sem-logo"
+              style="display:none"
+            >
+              📺
+            </div>
+
+          `;
+
+        }
+
+        else {
+
+          logoHTML = `
+
+            <div class="sem-logo">
+              📺
+            </div>
+
+          `;
+
+        }
+
+
+        div.innerHTML = `
+
+          ${logoHTML}
+
+          <div class="nome">
+            ${escapar(canal.nome)}
+          </div>
+
+        `;
+
+
+        div.addEventListener(
+          "click",
+          function() {
+
+            abrirCanal(canal);
+
+          }
+        );
+
+
+        canaisDiv.appendChild(div);
+
+      }
+    );
 
   }
 
 
   /*
-  =========================================================
+  ============================================================
   PESQUISA
-  =========================================================
+  ============================================================
   */
 
   pesquisa.addEventListener(
@@ -508,16 +862,22 @@
           .toLowerCase()
           .trim();
 
-      const filtrados =
-        listaCanais.filter(canal =>
 
-          canal.nome
-            .toLowerCase()
-            .includes(termo)
+      const filtrados =
+        listaCanais.filter(
+          canal =>
+
+            canal.nome
+              .toLowerCase()
+              .includes(termo)
 
         );
 
-      mostrarCanais(filtrados);
+
+      mostrarCanais(
+        filtrados
+      );
+
 
       statusDiv.innerText =
         `${filtrados.length} canais encontrados`;
@@ -527,12 +887,16 @@
 
 
   /*
-  =========================================================
-  REPRODUZIR
-  =========================================================
+  ============================================================
+  ABRIR CANAL
+  ============================================================
   */
 
-  function reproduzir(canal) {
+  function abrirCanal(canal) {
+
+    canalAtual =
+      canal;
+
 
     if (hls) {
 
@@ -567,17 +931,167 @@
       "📺 " + canal.nome;
 
 
+    informacao.innerHTML = `
+
+      <b>Endereço do stream:</b><br>
+
+      ${escapar(canal.url)}
+
+    `;
+
+
+    /*
+    ----------------------------------------------------------
+    BOTÃO TELEGRAM
+    ----------------------------------------------------------
+    */
+
+    btnTelegram.onclick =
+      function() {
+
+        reproduzirNoPlayer(
+          canal
+        );
+
+      };
+
+
+    /*
+    ----------------------------------------------------------
+    BOTÃO VLC
+    ----------------------------------------------------------
+    */
+
+    btnVlc.onclick =
+      function() {
+
+        abrirVlc(
+          canal.url
+        );
+
+      };
+
+
+    /*
+    ----------------------------------------------------------
+    COPIAR LINK
+    ----------------------------------------------------------
+    */
+
+    btnCopiar.onclick =
+      function() {
+
+        copiarTexto(
+          canal.url
+        );
+
+      };
+
+
+    /*
+    Tenta iniciar automaticamente
+    no player do Mini App.
+    */
+
+    reproduzirNoPlayer(
+      canal
+    );
+
+  }
+
+
+  /*
+  ============================================================
+  REPRODUZIR NO TELEGRAM / NAVEGADOR
+  ============================================================
+  */
+
+  function reproduzirNoPlayer(canal) {
+
+    if (!canal) {
+      return;
+    }
+
+
+    if (hls) {
+
+      hls.destroy();
+      hls = null;
+
+    }
+
+
+    video.pause();
+
+    video.removeAttribute("src");
+
+    video.load();
+
+
+    erro.style.display =
+      "none";
+
+
+    /*
+    HTTP EM PÁGINA HTTPS
+    */
+
+    if (
+      location.protocol === "https:" &&
+      canal.url.startsWith("http://")
+    ) {
+
+      erro.innerHTML = `
+
+        ⚠️ <b>Este canal usa HTTP.</b>
+
+        <br><br>
+
+        O navegador pode bloquear
+        a reprodução porque o Mini App
+        está em HTTPS.
+
+        <br><br>
+
+        Use o botão
+        <b>📺 Abrir no VLC</b>
+        para tentar reproduzir este endereço.
+
+      `;
+
+      erro.style.display =
+        "block";
+
+      return;
+
+    }
+
+
+    /*
+    ========================================================
+    HLS.JS
+    ========================================================
+    */
+
     if (
       window.Hls &&
       Hls.isSupported()
     ) {
 
       hls =
-        new Hls();
+        new Hls({
+
+          enableWorker: true,
+
+          lowLatencyMode: true
+
+        });
+
 
       hls.loadSource(
         canal.url
       );
+
 
       hls.attachMedia(
         video
@@ -588,9 +1102,15 @@
         Hls.Events.MANIFEST_PARSED,
         function() {
 
+          erro.style.display =
+            "none";
+
+
           video
             .play()
-            .catch(() => {});
+            .catch(
+              function() {}
+            );
 
         }
       );
@@ -604,14 +1124,67 @@
         ) {
 
           console.error(
-            "HLS:",
+            "Erro HLS:",
             data
           );
+
 
           if (
             data &&
             data.fatal
           ) {
+
+            let mensagem = `
+
+              ❌ <b>Não foi possível
+              reproduzir este canal
+              no navegador.</b>
+
+            `;
+
+
+            if (
+              data.type ===
+              Hls.ErrorTypes.NETWORK_ERROR
+            ) {
+
+              mensagem += `
+
+                <br><br>
+
+                O servidor pode estar
+                bloqueando o acesso
+                pelo navegador.
+
+                <br><br>
+
+                Tente
+                <b>📺 Abrir no VLC</b>.
+
+              `;
+
+            }
+
+            else if (
+              data.type ===
+              Hls.ErrorTypes.MEDIA_ERROR
+            ) {
+
+              mensagem += `
+
+                <br><br>
+
+                O formato da mídia
+                não pôde ser decodificado
+                pelo navegador.
+
+              `;
+
+            }
+
+
+            erro.innerHTML =
+              mensagem;
 
             erro.style.display =
               "block";
@@ -622,6 +1195,13 @@
       );
 
     }
+
+
+    /*
+    ========================================================
+    HLS NATIVO
+    ========================================================
+    */
 
     else if (
       video.canPlayType(
@@ -639,7 +1219,35 @@
 
           video
             .play()
-            .catch(() => {});
+            .catch(
+              function() {}
+            );
+
+        },
+        {
+          once: true
+        }
+      );
+
+
+      video.addEventListener(
+        "error",
+        function() {
+
+          erro.innerHTML = `
+
+            ❌ <b>Não foi possível
+            reproduzir este canal.</b>
+
+            <br><br>
+
+            Tente o botão
+            <b>📺 Abrir no VLC</b>.
+
+          `;
+
+          erro.style.display =
+            "block";
 
         },
         {
@@ -649,7 +1257,15 @@
 
     }
 
+
     else {
+
+      erro.innerHTML = `
+
+        ❌ Seu navegador
+        não suporta reprodução HLS.
+
+      `;
 
       erro.style.display =
         "block";
@@ -660,9 +1276,98 @@
 
 
   /*
-  =========================================================
+  ============================================================
+  VLC
+  ============================================================
+  */
+
+  function abrirVlc(url) {
+
+    /*
+    O protocolo vlc:// pode funcionar
+    quando o sistema tem associação
+    com o VLC.
+    */
+
+    const vlcUrl =
+      "vlc://" + url;
+
+
+    linkVlc.href =
+      vlcUrl;
+
+
+    copiarVlc.onclick =
+      function() {
+
+        copiarTexto(
+          url
+        );
+
+      };
+
+
+    modalVlc.style.display =
+      "flex";
+
+
+    /*
+    Tentativa automática.
+    */
+
+    try {
+
+      window.location.href =
+        vlcUrl;
+
+    }
+
+    catch (e) {
+
+      console.error(e);
+
+    }
+
+  }
+
+
+  /*
+  ============================================================
+  FECHAR MODAL
+  ============================================================
+  */
+
+  fecharModal.onclick =
+    function() {
+
+      modalVlc.style.display =
+        "none";
+
+    };
+
+
+  modalVlc.addEventListener(
+    "click",
+    function(event) {
+
+      if (
+        event.target ===
+        modalVlc
+      ) {
+
+        modalVlc.style.display =
+          "none";
+
+      }
+
+    }
+  );
+
+
+  /*
+  ============================================================
   VOLTAR
-  =========================================================
+  ============================================================
   */
 
   voltar.onclick =
@@ -670,7 +1375,9 @@
 
       video.pause();
 
-      video.removeAttribute("src");
+      video.removeAttribute(
+        "src"
+      );
 
       video.load();
 
@@ -692,13 +1399,97 @@
       statusDiv.style.display =
         "block";
 
+
+      erro.style.display =
+        "none";
+
+
+      informacao.innerHTML =
+        "";
+
     };
 
 
   /*
-  =========================================================
+  ============================================================
+  COPIAR
+  ============================================================
+  */
+
+  async function copiarTexto(texto) {
+
+    try {
+
+      await navigator.clipboard.writeText(
+        texto
+      );
+
+      alert(
+        "✅ Link copiado!"
+      );
+
+    }
+
+    catch (e) {
+
+      /*
+      Fallback para navegadores
+      que não permitem Clipboard API.
+      */
+
+      const area =
+        document.createElement(
+          "textarea"
+        );
+
+      area.value =
+        texto;
+
+      area.style.position =
+        "fixed";
+
+      area.style.opacity =
+        "0";
+
+      document.body.appendChild(
+        area
+      );
+
+      area.select();
+
+      try {
+
+        document.execCommand(
+          "copy"
+        );
+
+        alert(
+          "✅ Link copiado!"
+        );
+
+      }
+
+      catch (erroCopia) {
+
+        alert(
+          "Não foi possível copiar automaticamente."
+        );
+
+      }
+
+      document.body.removeChild(
+        area
+      );
+
+    }
+
+  }
+
+
+  /*
+  ============================================================
   ESCAPAR HTML
-  =========================================================
+  ============================================================
   */
 
   function escapar(texto) {
@@ -734,9 +1525,9 @@
 
 
   /*
-  =========================================================
+  ============================================================
   INICIAR
-  =========================================================
+  ============================================================
   */
 
   carregarM3U();
