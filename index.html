@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#111111">
+  <meta name="theme-color" content="#111">
 
   <title>TV Ao Vivo</title>
 
@@ -29,10 +29,10 @@
       background: #151515;
       padding: 15px;
       text-align: center;
-      border-bottom: 1px solid #2a2a2a;
+      border-bottom: 1px solid #292929;
     }
 
-    header h1 {
+    h1 {
       margin: 0 0 12px;
       font-size: 22px;
     }
@@ -68,42 +68,51 @@
 
     .canal {
       background: #181818;
-      border: 1px solid #2d2d2d;
+      border: 1px solid #2e2e2e;
       border-radius: 12px;
-      padding: 18px 12px;
+      padding: 14px;
       cursor: pointer;
       text-align: center;
-      transition: transform 0.15s, background 0.15s;
+      transition: .15s;
     }
 
     .canal:hover {
-      background: #232323;
+      background: #242424;
       transform: translateY(-2px);
     }
 
-    .canal-logo {
-      width: 72px;
-      height: 72px;
+    .logo {
+      width: 75px;
+      height: 75px;
       margin: 0 auto 12px;
-      border-radius: 12px;
+      object-fit: contain;
+      border-radius: 10px;
       background: #101010;
+    }
+
+    .sem-logo {
+      width: 75px;
+      height: 75px;
+      margin: 0 auto 12px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 30px;
+      background: #101010;
+      border-radius: 10px;
     }
 
-    .canal-nome {
-      font-size: 15px;
+    .nome {
+      font-size: 14px;
       font-weight: bold;
-      line-height: 1.3;
+      line-height: 1.35;
     }
 
     #player-container {
       display: none;
-      padding: 15px;
       max-width: 1200px;
-      margin: 0 auto;
+      margin: auto;
+      padding: 15px;
     }
 
     #voltar {
@@ -116,10 +125,6 @@
       margin-bottom: 12px;
     }
 
-    #voltar:hover {
-      background: #2a2a2a;
-    }
-
     #titulo {
       font-size: 20px;
       font-weight: bold;
@@ -127,20 +132,21 @@
     }
 
     video {
+      display: block;
       width: 100%;
       max-height: 75vh;
       background: #000;
       border-radius: 10px;
-      display: block;
     }
 
-    #erro-player {
-      padding: 15px;
-      margin-top: 10px;
-      background: #1a1a1a;
-      border-radius: 8px;
-      color: #ffb0b0;
+    #erro {
       display: none;
+      margin-top: 10px;
+      padding: 12px;
+      background: #1b1b1b;
+      border-radius: 8px;
+      color: #ffaaa0;
+      text-align: center;
     }
 
     @media (max-width: 600px) {
@@ -151,17 +157,17 @@
       }
 
       .canal {
-        padding: 14px 8px;
+        padding: 10px 6px;
       }
 
-      .canal-logo {
-        width: 58px;
-        height: 58px;
-        font-size: 24px;
+      .logo,
+      .sem-logo {
+        width: 60px;
+        height: 60px;
       }
 
-      .canal-nome {
-        font-size: 13px;
+      .nome {
+        font-size: 12px;
       }
     }
   </style>
@@ -171,30 +177,36 @@
 
 <header>
   <h1>📺 TV AO VIVO</h1>
+
   <input
-    type="text"
     id="pesquisa"
+    type="text"
     placeholder="🔎 Pesquisar canal..."
-    oninput="filtrarCanais()"
   >
 </header>
 
-<div id="status">Carregando canais...</div>
+<div id="status">
+  Carregando canais...
+</div>
 
 <div id="canais"></div>
 
 <div id="player-container">
 
-  <button id="voltar" onclick="voltarCanais()">
+  <button id="voltar">
     ← Voltar para os canais
   </button>
 
   <div id="titulo"></div>
 
-  <video id="video" controls playsinline></video>
+  <video
+    id="video"
+    controls
+    playsinline
+  ></video>
 
-  <div id="erro-player">
-    Não foi possível reproduzir este canal neste navegador.
+  <div id="erro">
+    ❌ Não foi possível reproduzir este canal.
   </div>
 
 </div>
@@ -202,448 +214,325 @@
 <script>
 
   /*
-  ============================================================
-  LISTA DE CANAIS
-  ============================================================
+  =========================================================
+  ARQUIVO M3U
+  =========================================================
   */
 
-  const canais = [
+  const M3U_URL = "./br.m3u";
 
-    {
-      nome: "LVW 8155",
-      url: "https://cdn.jmvstream.com/w/LVW-8155/ngrp:LVW8155_41E1ciuCvO_all/playlist.m3u8"
-    },
 
-    {
-      nome: "Novelas",
-      url: "https://novelas.maissbt.com/v1/master/215c0da80606fed29372070168106400a6ca7e1a/Novelas_cmaf/index.m3u8"
-    },
-
-    {
-      nome: "AE HD",
-      url: "http://45.190.28.50/AE_HD/index.m3u8"
-    },
-
-    {
-      nome: "LVW 9715",
-      url: "https://cdn.jmvstream.com/w/LVW-9715/LVW9715_12B26T62tm/playlist.m3u8"
-    },
-
-    {
-      nome: "Pluto TV 1",
-      url: "https://jmp2.uk/plu-61b790b985706b00072cb797.m3u8"
-    },
-
-    {
-      nome: "TruTV HD",
-      url: "http://45.190.28.50/TRUTV_HD/index.m3u8"
-    },
-
-    {
-      nome: "Agro Canal",
-      url: "http://45.162.64.114/AGRO_CANAL/index.m3u8"
-    },
-
-    {
-      nome: "AgroMais",
-      url: "http://45.162.64.114/AGROMAIS/index.m3u8"
-    },
-
-    {
-      nome: "TV Alpha",
-      url: "https://5b01a3d32b65c.streamlock.net:1936/tvalpha/tvalpha/playlist.m3u8"
-    },
-
-    {
-      nome: "Amazon Sat",
-      url: "https://amazonsat.brasilstream.com.br/hls/amazonsat/index.m3u8"
-    },
-
-    {
-      nome: "AMC HD",
-      url: "http://170.83.49.66:8083/AMCHD/index.m3u8"
-    },
-
-    {
-      nome: "Angel Portuguese",
-      url: "https://janya-digimix.akamaized.net/vglive-sk-382409/portuese/ngrp:angelportuguese_all/playlist.m3u8"
-    },
-
-    {
-      nome: "Araruna TV",
-      url: "https://video05.logicahost.com.br/ararunatv/ararunatv/playlist.m3u8"
-    },
-
-    {
-      nome: "LVW 9359",
-      url: "https://cdn.live.br1.jmvstream.com/w/LVW-9359/LVW9359_XSyReL0QVf/playlist.m3u8"
-    },
-
-    {
-      nome: "Arte 1",
-      url: "http://45.162.64.114/ARTE1/index.m3u8"
-    },
-
-    {
-      nome: "Auge TV",
-      url: "https://cdn-tiva-video01-logicahost-com-br.smartbit.co/canalaugetv/canalaugetv/playlist.m3u8"
-    },
-
-    {
-      nome: "Pluto TV 2",
-      url: "https://jmp2.uk/plu-6759eeb1bd523200083b4f29.m3u8"
-    },
-
-    {
-      nome: "AWTV",
-      url: "https://awtv.nuvemplay.live/hls/stream.m3u8"
-    },
-
-    {
-      nome: "AXN HD",
-      url: "http://45.190.28.50/AXN_HD/index.m3u8"
-    },
-
-    {
-      nome: "Pluto TV 3",
-      url: "https://jmp2.uk/plu-5f4fb4cf605ddf000748e16f.m3u8"
-    },
-
-    {
-      nome: "Band HD",
-      url: "http://45.190.28.50/BAND_HD/index.m3u8"
-    },
-
-    {
-      nome: "BandSports",
-      url: "https://cdn-5.nxplay.com.br/BAND_SPORTS/index.m3u8"
-    },
-
-    {
-      nome: "BandNews",
-      url: "https://cdn-5.nxplay.com.br/BAND_NEWS/index.m3u8"
-    },
-
-    {
-      nome: "Bem Melhor",
-      url: "https://cdn-tiva-video01-logicahost-com-br.smartbit.co/bemmelhor/bemmelhor/playlist.m3u8"
-    },
-
-    {
-      nome: "Pluto TV 4",
-      url: "https://jmp2.uk/plu-5ff768b6a4c8b80008498610.m3u8"
-    },
-
-    {
-      nome: "Pluto TV 5",
-      url: "https://jmp2.uk/plu-666c9c60a7efd40008f552f0.m3u8"
-    },
-
-    {
-      nome: "LVW 9375",
-      url: "https://cdn.jmvstream.com/w/LVW-9375/LVW9375_6i0wPBCHYc/playlist.m3u8"
-    },
-
-    {
-      nome: "Pluto TV 6",
-      url: "https://jmp2.uk/plu-62545c0b002f4b0007688b61.m3u8"
-    },
-
-    {
-      nome: "Box Kids HD",
-      url: "http://45.190.28.50/BOX_KIDS_HD/index.m3u8"
-    },
-
-    {
-      nome: "LVW 11668",
-      url: "https://cdn.live.br1.jmvstream.com/w/LVW-11668/ngrp:LVW11668_wiJpjbMrks_all/playlist.m3u8"
-    },
-
-    {
-      nome: "Araru TV",
-      url: "https://59f2354c05961.streamlock.net:1443/ararutv/_definst_/ararutv/playlist.m3u8"
-    },
-
-    {
-      nome: "Canal 25",
-      url: "https://cdn-tiva-stream01-msolutionbrasil-com-br.smartbit.co/hls/canal25/live.m3u8"
-    },
-
-    {
-      nome: "LVW 8503",
-      url: "https://cdn.jmvstream.com/w/LVW-8503/LVW8503_d0V5oduFlK/playlist.m3u8"
-    },
-
-    {
-      nome: "Canal do Boi",
-      url: "http://45.162.64.114/CANAL_DO_BOI/index.m3u8"
-    },
-
-    {
-      nome: "Canal do Criador",
-      url: "https://607d2a1a47b1f.streamlock.net/crur/smil:canaldocriador.smil/playlist.m3u8"
-    },
-
-    {
-      nome: "Soul TV Internacional",
-      url: "https://video01.soultv.com.br/internacional/internacional/playlist.m3u8"
-    },
-
-    {
-      nome: "Canal Educação",
-      url: "http://45.162.64.114/CANAL_EDUCACAO/index.m3u8"
-    },
-
-    {
-      nome: "Wisestream",
-      url: "https://v-us-01.wisestream.io/memfs/e4ade538-7924-4359-81ef-b9d4dd229e91.m3u8"
-    },
-
-    {
-      nome: "TV Futura",
-      url: "http://45.162.64.114/FUTURA/index.m3u8"
-    },
-
-    {
-      nome: "TV Brasil 2",
-      url: "http://45.177.114.115/TV_BRASIL_2/index.m3u8"
-    },
-
-    {
-      nome: "Canal Libras",
-      url: "https://canallibras-stream.ebc.com.br/mux_video_ts/index-1.m3u8"
-    },
-
-    {
-      nome: "Claudio TV",
-      url: "https://stmv5.samcast.com.br/claudio8701/claudio8701/playlist.m3u8"
-    },
-
-    {
-      nome: "OFF",
-      url: "http://170.82.202.31/OFF/index.m3u8"
-    },
-
-    {
-      nome: "RICOSTV",
-      url: "https://5d82644094cc0.streamlock.net/ricostv/ricostv/playlist.m3u8"
-    },
-
-    {
-      nome: "Canal Rural",
-      url: "https://607d2a1a47b1f.streamlock.net/crur/smil:canalrural.smil/playlist.m3u8"
-    },
-
-    {
-      nome: "FioCruz",
-      url: "https://arkyvbre1g.zoeweb.tv/fiocruz/fiocruz.stream/playlist.m3u8"
-    },
-
-    {
-      nome: "Canal 7",
-      url: "http://play.canalsete.com.br:1935/canalsete/xpl-c7_source/playlist.m3u8"
-    },
-
-    {
-      nome: "Canal Start",
-      url: "https://cdn-tiva-srv5-zcast-com-br.smartbit.co/canalstart/canalstart/playlist.m3u8"
-    },
-
-    {
-      nome: "UOL 6146",
-      url: "https://video24.mais.uol.com.br/live/6146.m3u8"
-    },
-
-    {
-      nome: "CATVE 2",
-      url: "https://5b33b873179a2.streamlock.net:1443/catve2/catve2/playlist.m3u8"
-    },
-
-    {
-      nome: "Rádio Câmera",
-      url: "https://5b33b873179a2.streamlock.net:1443/radiocamera/livestream/playlist.m3u8"
-    },
-
-    {
-      nome: "Master TV",
-      url: "https://5b33b873179a2.streamlock.net:1443/mastertv/livestream/playlist.m3u8"
-    },
-
-    {
-      nome: "Caze TV",
-      url: "https://dfr80qz435crc.cloudfront.net/MNOP/Amagi/Caze/Caze_TV_BR/Caze_TV.m3u8"
-    },
-
-    {
-      nome: "Chef TV",
-      url: "http://45.190.28.50/CHEF_TV/index.m3u8"
-    },
-
-    {
-      nome: "Canal 8054",
-      url: "https://5c483b9d1019c.streamlock.net/8054/8054/playlist.m3u8"
-    },
-
-    {
-      nome: "TV Escola",
-      url: "http://45.190.28.50/TV_ESCOLA/index.m3u8"
-    },
-
-    {
-      nome: "Evangelizar",
-      url: "http://45.162.64.114/EVANGELIZAR/index.m3u8"
-    },
-
-    {
-      nome: "TV Fronteira",
-      url: "https://tvfronteira.brasilstream.com.br/hls/tvfronteira/index.m3u8"
-    },
-
-    {
-      nome: "TV Futuro",
-      url: "https://tv02.zas.media:1936/tvfuturo/tvfuturo/playlist.m3u8"
-    },
-
-    {
-      nome: "Gazeta",
-      url: "http://45.162.64.114/GAZETA/index.m3u8"
-    },
-
-    {
-      nome: "TV Gazin",
-      url: "https://cdn-tiva-video09-logicahost-com-br.smartbit.co/tvgazin/tvgazin/playlist.m3u8"
-    },
-
-    {
-      nome: "Gideões",
-      url: "https://streaming01.zas.media/gideoes/programacao/playlist.m3u8"
-    },
-
-    {
-      nome: "Globo HD",
-      url: "http://45.190.28.50/GLOBO_HD/index.m3u8"
-    },
-
-    {
-      nome: "Globo HD 2",
-      url: "http://170.84.165.204/Globo_HD/index.m3u8"
-    },
-
-    {
-      nome: "TV Grande Natal HD",
-      url: "http://tvgrandenatalhd.duckdns.org:8080/hls/live.m3u8"
-    },
-
-    {
-      nome: "Moises TV",
-      url: "https://video01.kshost.com.br:4443/moises3834/moises3834/playlist.m3u8"
-    }
-
-  ];
-
-
-  /*
-  ============================================================
-  ELEMENTOS
-  ============================================================
-  */
-
-  const canaisDiv = document.getElementById("canais");
-  const statusDiv = document.getElementById("status");
-  const playerContainer = document.getElementById("player-container");
-  const video = document.getElementById("video");
-  const titulo = document.getElementById("titulo");
-  const erroPlayer = document.getElementById("erro-player");
-  const pesquisa = document.getElementById("pesquisa");
-
+  let listaCanais = [];
   let hls = null;
 
 
+  const canaisDiv =
+    document.getElementById("canais");
+
+  const statusDiv =
+    document.getElementById("status");
+
+  const playerContainer =
+    document.getElementById("player-container");
+
+  const video =
+    document.getElementById("video");
+
+  const titulo =
+    document.getElementById("titulo");
+
+  const erro =
+    document.getElementById("erro");
+
+  const pesquisa =
+    document.getElementById("pesquisa");
+
+  const voltar =
+    document.getElementById("voltar");
+
+
   /*
-  ============================================================
-  MOSTRAR CANAIS
-  ============================================================
+  =========================================================
+  CARREGAR M3U
+  =========================================================
   */
 
-  function mostrarCanais(lista) {
+  async function carregarM3U() {
 
-    canaisDiv.innerHTML = "";
+    try {
 
-    if (lista.length === 0) {
+      const resposta =
+        await fetch(M3U_URL, {
+          cache: "no-store"
+        });
+
+      if (!resposta.ok) {
+        throw new Error(
+          "HTTP " + resposta.status
+        );
+      }
+
+      const texto =
+        await resposta.text();
+
+      listaCanais =
+        interpretarM3U(texto);
+
+      if (!listaCanais.length) {
+
+        throw new Error(
+          "Nenhum canal encontrado."
+        );
+
+      }
+
+      mostrarCanais(listaCanais);
+
+      statusDiv.innerText =
+        `${listaCanais.length} canais encontrados`;
+
+    } catch (e) {
+
+      console.error(e);
+
+      statusDiv.innerText =
+        "❌ Erro ao carregar br.m3u";
 
       canaisDiv.innerHTML = `
         <div style="
           grid-column:1/-1;
           text-align:center;
           padding:30px;
-          color:#999;
+          color:#aaa;
         ">
-          Nenhum canal encontrado.
+          Verifique se <b>br.m3u</b>
+          está no mesmo local que o index.html.
         </div>
       `;
 
-      return;
     }
 
-    lista.forEach((canal, index) => {
+  }
 
-      const div = document.createElement("div");
+
+  /*
+  =========================================================
+  INTERPRETAR M3U
+  =========================================================
+  */
+
+  function interpretarM3U(texto) {
+
+    const linhas =
+      texto.split(/\r?\n/);
+
+    const canais = [];
+
+    let info = null;
+
+    for (let i = 0; i < linhas.length; i++) {
+
+      const linha =
+        linhas[i].trim();
+
+      if (!linha) {
+        continue;
+      }
+
+
+      /*
+      EXTINF
+      */
+
+      if (
+        linha.startsWith("#EXTINF")
+      ) {
+
+        const nome =
+          linha.includes(",")
+            ? linha.substring(
+                linha.lastIndexOf(",") + 1
+              ).trim()
+            : "Canal";
+
+
+        const logoMatch =
+          linha.match(
+            /tvg-logo="([^"]*)"/i
+          );
+
+        const grupoMatch =
+          linha.match(
+            /group-title="([^"]*)"/i
+          );
+
+
+        info = {
+
+          nome:
+            nome || "Canal",
+
+          logo:
+            logoMatch
+              ? logoMatch[1]
+              : "",
+
+          grupo:
+            grupoMatch
+              ? grupoMatch[1]
+              : ""
+
+        };
+
+      }
+
+
+      /*
+      URL DO STREAM
+      */
+
+      else if (
+        info &&
+        !linha.startsWith("#")
+      ) {
+
+        canais.push({
+
+          nome: info.nome,
+
+          logo: info.logo,
+
+          grupo: info.grupo,
+
+          url: linha
+
+        });
+
+        info = null;
+
+      }
+
+    }
+
+    return canais;
+
+  }
+
+
+  /*
+  =========================================================
+  MOSTRAR CANAIS
+  =========================================================
+  */
+
+  function mostrarCanais(lista) {
+
+    canaisDiv.innerHTML = "";
+
+    lista.forEach((canal) => {
+
+      const div =
+        document.createElement("div");
 
       div.className = "canal";
 
+
+      let logoHTML;
+
+      if (canal.logo) {
+
+        logoHTML = `
+          <img
+            class="logo"
+            src="${escapar(canal.logo)}"
+            alt=""
+            onerror="
+              this.style.display='none';
+              this.nextElementSibling.style.display='flex';
+            "
+          >
+
+          <div
+            class="sem-logo"
+            style="display:none"
+          >
+            📺
+          </div>
+        `;
+
+      } else {
+
+        logoHTML = `
+          <div class="sem-logo">
+            📺
+          </div>
+        `;
+
+      }
+
+
       div.innerHTML = `
-        <div class="canal-logo">📺</div>
-        <div class="canal-nome">
-          ${escaparHTML(canal.nome)}
+
+        ${logoHTML}
+
+        <div class="nome">
+          ${escapar(canal.nome)}
         </div>
+
       `;
 
-      div.addEventListener("click", function() {
-        reproduzirCanal(canal);
-      });
+
+      div.onclick =
+        () => reproduzir(canal);
+
 
       canaisDiv.appendChild(div);
 
     });
 
-    statusDiv.innerText =
-      `${lista.length} canal(is) disponível(is)`;
-
   }
 
 
   /*
-  ============================================================
+  =========================================================
   PESQUISA
-  ============================================================
+  =========================================================
   */
 
-  function filtrarCanais() {
+  pesquisa.addEventListener(
+    "input",
+    function() {
 
-    const termo =
-      pesquisa.value
-        .toLowerCase()
-        .trim();
-
-    const filtrados =
-      canais.filter(canal =>
-        canal.nome
+      const termo =
+        pesquisa.value
           .toLowerCase()
-          .includes(termo)
-      );
+          .trim();
 
-    mostrarCanais(filtrados);
+      const filtrados =
+        listaCanais.filter(canal =>
 
-  }
+          canal.nome
+            .toLowerCase()
+            .includes(termo)
+
+        );
+
+      mostrarCanais(filtrados);
+
+      statusDiv.innerText =
+        `${filtrados.length} canais encontrados`;
+
+    }
+  );
 
 
   /*
-  ============================================================
-  PLAYER
-  ============================================================
+  =========================================================
+  REPRODUZIR
+  =========================================================
   */
 
-  function reproduzirCanal(canal) {
+  function reproduzir(canal) {
 
     if (hls) {
 
@@ -652,64 +541,79 @@
 
     }
 
+
     video.pause();
+
     video.removeAttribute("src");
+
     video.load();
 
-    erroPlayer.style.display = "none";
 
-    canaisDiv.style.display = "none";
-    statusDiv.style.display = "none";
-    playerContainer.style.display = "block";
+    erro.style.display =
+      "none";
+
+
+    canaisDiv.style.display =
+      "none";
+
+    statusDiv.style.display =
+      "none";
+
+    playerContainer.style.display =
+      "block";
+
 
     titulo.innerText =
       "📺 " + canal.nome;
 
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-
-
-    /*
-    HLS.JS
-    */
 
     if (
       window.Hls &&
       Hls.isSupported()
     ) {
 
-      hls = new Hls({
-        enableWorker: true,
-        lowLatencyMode: true
-      });
+      hls =
+        new Hls();
 
-      hls.loadSource(canal.url);
+      hls.loadSource(
+        canal.url
+      );
 
-      hls.attachMedia(video);
+      hls.attachMedia(
+        video
+      );
+
 
       hls.on(
         Hls.Events.MANIFEST_PARSED,
         function() {
 
-          video.play().catch(function() {});
+          video
+            .play()
+            .catch(() => {});
 
         }
       );
 
+
       hls.on(
         Hls.Events.ERROR,
-        function(event, data) {
+        function(
+          event,
+          data
+        ) {
 
           console.error(
-            "Erro HLS:",
+            "HLS:",
             data
           );
 
-          if (data && data.fatal) {
+          if (
+            data &&
+            data.fatal
+          ) {
 
-            erroPlayer.style.display =
+            erro.style.display =
               "block";
 
           }
@@ -719,23 +623,23 @@
 
     }
 
-    /*
-    HLS NATIVO
-    */
-
     else if (
       video.canPlayType(
         "application/vnd.apple.mpegurl"
       )
     ) {
 
-      video.src = canal.url;
+      video.src =
+        canal.url;
+
 
       video.addEventListener(
         "loadedmetadata",
         function() {
 
-          video.play().catch(function() {});
+          video
+            .play()
+            .catch(() => {});
 
         },
         {
@@ -747,7 +651,7 @@
 
     else {
 
-      erroPlayer.style.display =
+      erro.style.display =
         "block";
 
     }
@@ -756,75 +660,86 @@
 
 
   /*
-  ============================================================
+  =========================================================
   VOLTAR
-  ============================================================
+  =========================================================
   */
 
-  function voltarCanais() {
+  voltar.onclick =
+    function() {
 
-    video.pause();
+      video.pause();
 
-    video.removeAttribute("src");
+      video.removeAttribute("src");
 
-    video.load();
+      video.load();
 
-    if (hls) {
 
-      hls.destroy();
-      hls = null;
+      if (hls) {
 
-    }
+        hls.destroy();
+        hls = null;
 
-    playerContainer.style.display = "none";
+      }
 
-    canaisDiv.style.display = "grid";
-    statusDiv.style.display = "block";
 
-    mostrarCanais(
-      canais.filter(canal => {
+      playerContainer.style.display =
+        "none";
 
-        const termo =
-          pesquisa.value
-            .toLowerCase()
-            .trim();
+      canaisDiv.style.display =
+        "grid";
 
-        return canal.nome
-          .toLowerCase()
-          .includes(termo);
+      statusDiv.style.display =
+        "block";
 
-      })
-    );
-
-  }
+    };
 
 
   /*
-  ============================================================
+  =========================================================
   ESCAPAR HTML
-  ============================================================
+  =========================================================
   */
 
-  function escaparHTML(texto) {
+  function escapar(texto) {
 
     return String(texto)
 
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
+      .replace(
+        /&/g,
+        "&amp;"
+      )
+
+      .replace(
+        /</g,
+        "&lt;"
+      )
+
+      .replace(
+        />/g,
+        "&gt;"
+      )
+
+      .replace(
+        /"/g,
+        "&quot;"
+      )
+
+      .replace(
+        /'/g,
+        "&#039;"
+      );
 
   }
 
 
   /*
-  ============================================================
+  =========================================================
   INICIAR
-  ============================================================
+  =========================================================
   */
 
-  mostrarCanais(canais);
+  carregarM3U();
 
 </script>
 
