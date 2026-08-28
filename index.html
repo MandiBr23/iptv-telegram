@@ -1,1 +1,513 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TV ao Vivo</title>
 
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #0b0b0b;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      background: #151515;
+      padding: 15px;
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    #canais {
+      padding: 10px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 10px;
+    }
+
+    .canal {
+      background: #1c1c1c;
+      border: 1px solid #333;
+      border-radius: 10px;
+      padding: 15px;
+      cursor: pointer;
+      text-align: center;
+      transition: 0.2s;
+    }
+
+    .canal:hover {
+      background: #292929;
+      transform: scale(1.02);
+    }
+
+    .canal strong {
+      display: block;
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+
+    .grupo {
+      color: #aaa;
+      font-size: 12px;
+    }
+
+    #player-container {
+      display: none;
+      padding: 10px;
+      background: #000;
+    }
+
+    video {
+      width: 100%;
+      max-height: 70vh;
+      background: black;
+      border-radius: 8px;
+    }
+
+    #titulo {
+      padding: 10px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    #voltar {
+      background: #222;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+
+    #voltar:hover {
+      background: #333;
+    }
+
+    #status {
+      text-align: center;
+      padding: 20px;
+      color: #aaa;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  📺 TV AO VIVO
+</header>
+
+<div id="player-container">
+
+  <button id="voltar" onclick="voltarCanais()">
+    ← Voltar para os canais
+  </button>
+
+  <div id="titulo"></div>
+
+  <video id="video" controls autoplay playsinline></video>
+
+</div>
+
+<div id="status">
+  Carregando canais...
+</div>
+
+<div id="canais"></div>
+
+<script>
+
+  /*
+  =====================================================
+  CONFIGURAÇÃO
+  =====================================================
+  */
+
+  /*
+  COLOQUE AQUI A URL DA SUA LISTA M3U8
+  */
+
+  const M3U_URL = "COLE_AQUI_A_URL_DA_SUA_LISTA_M3U8";
+
+
+  /*
+  =====================================================
+  VARIÁVEIS
+  =====================================================
+  */
+
+  const canaisDiv = document.getElementById("canais");
+  const statusDiv = document.getElementById("status");
+  const playerContainer = document.getElementById("player-container");
+  const video = document.getElementById("video");
+  const titulo = document.getElementById("titulo");
+
+  let hls = null;
+
+
+  /*
+  =====================================================
+  CARREGAR LISTA M3U
+  =====================================================
+  */
+
+  async function carregarCanais() {
+
+    try {
+
+      statusDiv.innerText = "Carregando canais...";
+
+      const resposta = await fetch(M3U_URL);
+
+      if (!resposta.ok) {
+        throw new Error("Não foi possível carregar a lista M3U.");
+      }
+
+      const texto = await resposta.text();
+
+      const canais = interpretarM3U(texto);
+
+      if (canais.length === 0) {
+        throw new Error("Nenhum canal encontrado.");
+      }
+
+      mostrarCanais(canais);
+
+    } catch (erro) {
+
+      console.error(erro);
+
+      statusDiv.innerText =
+        "❌ Erro ao carregar a lista de canais.";
+
+    }
+
+  }
+
+
+  /*
+  =====================================================
+  INTERPRETAR M3U
+  =====================================================
+  */
+
+  function interpretarM3U(texto) {
+
+    const linhas = texto.split(/\r?\n/);
+
+    const canais = [];
+
+    let informacao = null;
+
+    for (let i = 0; i < linhas.length; i++) {
+
+      const linha = linhas[i].trim();
+
+      if (!linha) {
+        continue;
+      }
+
+      if (linha.startsWith("#EXTINF")) {
+
+        const nome = linha.substring(
+          linha.lastIndexOf(",") + 1
+        ).trim();
+
+        const grupoMatch =
+          linha.match(/group-title="([^"]*)"/i);
+
+        const logoMatch =
+          linha.match(/tvg-logo="([^"]*)"/i);
+
+        informacao = {
+
+          nome: nome || "Canal",
+
+          grupo:
+            grupoMatch
+              ? grupoMatch[1]
+              : "",
+
+          logo:
+            logoMatch
+              ? logoMatch[1]
+              : ""
+
+        };
+
+      }
+
+      else if (
+        informacao &&
+        !linha.startsWith("#")
+      ) {
+
+        canais.push({
+
+          nome: informacao.nome,
+
+          grupo: informacao.grupo,
+
+          logo: informacao.logo,
+
+          url: linha
+
+        });
+
+        informacao = null;
+
+      }
+
+    }
+
+    return canais;
+
+  }
+
+
+  /*
+  =====================================================
+  MOSTRAR CANAIS
+  =====================================================
+  */
+
+  function mostrarCanais(canais) {
+
+    statusDiv.style.display = "none";
+
+    canaisDiv.innerHTML = "";
+
+    canais.forEach((canal) => {
+
+      const div = document.createElement("div");
+
+      div.className = "canal";
+
+      div.innerHTML = `
+
+        ${
+          canal.logo
+          ? `<img
+               src="${canal.logo}"
+               style="
+                 width:70px;
+                 height:70px;
+                 object-fit:contain;
+                 margin-bottom:8px;
+               "
+             >`
+          : ""
+        }
+
+        <strong>${escaparHTML(canal.nome)}</strong>
+
+        ${
+          canal.grupo
+          ? `<div class="grupo">
+               ${escaparHTML(canal.grupo)}
+             </div>`
+          : ""
+        }
+
+      `;
+
+      div.onclick = function () {
+
+        reproduzirCanal(canal);
+
+      };
+
+      canaisDiv.appendChild(div);
+
+    });
+
+  }
+
+
+  /*
+  =====================================================
+  REPRODUZIR CANAL
+  =====================================================
+  */
+
+  function reproduzirCanal(canal) {
+
+    canaisDiv.style.display = "none";
+
+    playerContainer.style.display = "block";
+
+    titulo.innerText = "📺 " + canal.nome;
+
+    if (hls) {
+
+      hls.destroy();
+
+      hls = null;
+
+    }
+
+    /*
+    HLS.JS
+    */
+
+    if (
+      window.Hls &&
+      Hls.isSupported()
+    ) {
+
+      hls = new Hls();
+
+      hls.loadSource(canal.url);
+
+      hls.attachMedia(video);
+
+      hls.on(
+        Hls.Events.MANIFEST_PARSED,
+        function () {
+
+          video.play().catch(() => {});
+
+        }
+      );
+
+      hls.on(
+        Hls.Events.ERROR,
+        function (
+          event,
+          data
+        ) {
+
+          console.error(
+            "Erro HLS:",
+            data
+          );
+
+        }
+      );
+
+    }
+
+    /*
+    Safari / navegadores com HLS nativo
+    */
+
+    else if (
+      video.canPlayType(
+        "application/vnd.apple.mpegurl"
+      )
+    ) {
+
+      video.src = canal.url;
+
+      video.addEventListener(
+        "loadedmetadata",
+        function () {
+
+          video.play().catch(() => {});
+
+        },
+        {
+          once: true
+        }
+      );
+
+    }
+
+    else {
+
+      alert(
+        "Seu navegador não suporta reprodução HLS."
+      );
+
+    }
+
+  }
+
+
+  /*
+  =====================================================
+  VOLTAR
+  =====================================================
+  */
+
+  function voltarCanais() {
+
+    video.pause();
+
+    video.removeAttribute("src");
+
+    if (hls) {
+
+      hls.destroy();
+
+      hls = null;
+
+    }
+
+    playerContainer.style.display = "none";
+
+    canaisDiv.style.display = "grid";
+
+  }
+
+
+  /*
+  =====================================================
+  SEGURANÇA
+  =====================================================
+  */
+
+  function escaparHTML(texto) {
+
+    return String(texto)
+
+      .replace(
+        /&/g,
+        "&amp;"
+      )
+
+      .replace(
+        /</g,
+        "&lt;"
+      )
+
+      .replace(
+        />/g,
+        "&gt;"
+      )
+
+      .replace(
+        /"/g,
+        "&quot;"
+      )
+
+      .replace(
+        /'/g,
+        "&#039;"
+      );
+
+  }
+
+
+  /*
+  =====================================================
+  INICIAR
+  =====================================================
+  */
+
+  carregarCanais();
+
+</script>
+
+</body>
+</html>
